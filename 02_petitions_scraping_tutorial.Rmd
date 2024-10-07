@@ -17,11 +17,11 @@ Step 1 above typically involves that we want to automatically visit a number of 
 
 First, we need to collect some tools, starting with some R packages. Start a new R script, copy and paste the following code, and run it: 
 
-```{r, message=FALSE, warning=FALSE}
+```{r eval=FALSE, message=FALSE, warning=FALSE}
 install.packages(
   c(
     "rvest", # the main package for scraping
-    "stringr", # some useful fucntions for working with strings
+    "stringr", # some useful functions for working with strings
     "tidyverse"), # for general data handling
   repos = "http://cran.us.r-project.org"
 )
