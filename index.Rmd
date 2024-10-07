@@ -1,0 +1,24 @@
+---
+title: "Social Research in the Digital Age (Utrecht University)"
+author: "Rense Corten"
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook: default
+  #bookdown::pdf_book: default
+---
+
+# About {.unnumbered}
+
+This page contains tutorials for the Utrecht University course "Social Research in the Digital Age".
+
+## Usage {.unnumbered}
+
+To use these tutorials, we suggest that you:
+
+-   Open a new R script;
+-   Copy-paste the code from the tutorials into your R script as you read along;
+-   Run the code from your script while reading along, to verify that your results are the same;
+-   Afterwards, save your R script under an informative name so that you can refer to it and reuse it later. A big part of effective data analysis is realizing that you've solved particular problems before and being able to find and recycle your earlier code!
+
+<!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
