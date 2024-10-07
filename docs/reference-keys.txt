@@ -1,0 +1,13 @@
+a-very-short-introduction-to-r
+introduction-to-web-scraping-in-r
+some-preliminaries-about-websites-scraping-and-crawling
+getting-our-tools-ready
+getting-to-know-the-target-website
+making-a-plan
+locating-the-correct-information
+building-the-scraper
+first-steps
+automating-the-process-getting-multiple-pages
+answering-the-research-question
+collecting-the-data
+analyzing-the-data

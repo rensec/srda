@@ -5,3 +5,6 @@ language:
     chapter_name: ""
 rmd_files:
   - index.rmd
+  - 01_introduction_to_R.rmd
+  - 02_petitions_scraping_tutorial.rmd
+
