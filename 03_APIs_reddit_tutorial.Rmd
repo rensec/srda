@@ -1,0 +1,197 @@
+# Collecting data through APIs: the case of Reddit
+
+```{r global_options, include=FALSE}
+# This is a way to set options for all code chunks at once
+# Note that you can also dynamically control options by setting them to a value
+# DPI setting increased for Word output, cairo is anti aliasing
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+## Introduction
+
+In this tutorial, we will look at collecting data about human behavior using *API access*. As an example, we will collect some data from Reddit, the popular online discussion platform.
+
+API stands for "application programming interface", and in general, it is a way in which software applications communicate with each other (instead of with a human user). In the context of websites, *web APIs* provide means for software applications to access data on web servers. Consider, for example, a smartphone app that allows you to read and post messages on your profile on a social media website such as Facebook. To be able to do so, such an app must be able to communicate with the Facebook server, access information on the server, and send information to the server. For this purpose, Facebook provides an API so that third-party apps can interact with their data. Similarly, a news website that displays the latest "X" (formerly Twitter) trends obtains that information via the X API. In a way, an API is an official "back door" to an application or website designed for other applications or websites; you may compare it with a restaurant that has a front door for guests (in the case of a website: for users) and back door specifically for delivery and employees.
+
+In many cases, APIs may also be used for research as they allow researchers to access data stored on web server of interest, such as the web servers of social media services. *Web scraping* may also be used to access similar data, but there are a number of important differences:
+
+-   As opposed to web scraping, API usage is strictly **regulated** by the application or website that offers it. That is, the provider of the API determines who can access the API, for what purposes, and under what conditions. Often (but not always), an API requires API users to authenticate in one way or another and to agree to terms and conditions. Sometimes this prevents researchers from using data freely, even if the data are in principle accessible through the API.
+
+-   Nevertheless, as long as you stick to these terms and conditions, getting data from an API implies that you are using the data with **permission** of the provider, which is not always the case with scraped data. This, however, does not mean that there are never ethical concerns with the use of API data! After all, the individuals who's data you collect (e.g., social media users) may not agree with your use of the data. This is not different from scraped data.
+
+-   As opposed to scraped data, API-provided data are much more **structured**, precisely because they are meant to be used. More on that later.
+
+-   A web scraper is typically custom-build by a researcher to collect data from a specific website. In contrast, the technical procedures required to collect API data are much more determined by the provider of the data, allowing for **less control** by the researcher.
+
+## Loading the tools
+
+As before, we're using a few specific packages for this task. Start a new R-script and copy-paste the below lines to load these packages. In this case, we haven't included the `install.packages()` command; since you may already have installed some of these packages before, it's not efficient to re-install them every time. Thus, if you get a warning like:
+
+```         
+There is no package called ...
+```
+
+you need to install that package first using `install.packages()` like before (we don't include that code here). Then, we load the packages:
+
+```{r}
+rm(list=ls()) # Start with a clean workspace
+library(RedditExtractoR)
+library(tidyverse)
+library(igraph)
+```
+
+## Case study: Reddit
+
+Many websites have APIs, and some of them have been extensively used for research, in particular the Twitter API. However, since spring 2023, Twitter (X) no longer provides free access to their API. One of the platforms that still provides access is [Reddit](https://www.reddit.com/), although Reddit also implemented some [controversial changes](https://en.wikipedia.org/wiki/2023_Reddit_API_controversy) recently . If you're not familiar with Reddit, please visit the website and browse around a bit (try to find your favorite topics) to make yourself familiar with how it works. In particular, pay attention to:
+
+-   What is a "subreddit"?
+
+-   What is the main purpose (or purposes) of the platform?
+
+-   What are the main properties of "posts"?
+
+-   What are the different ways in which users can interact with the platform (i.e., what are the actions available to users)?
+
+## Accessing data via the API
+
+To get data from the API, we can use specific URLs that provide us with the data we want. Instead of a readable webpages, these URLs provide data based on what we specify. For example, to download a list of threads, we could specify the following:
+
+```         
+https://www.reddit.com/r/{subreddit}/{listing}.json?limit={count}&t={timeframe}
+```
+
+Where:
+
+{subreddit}
+
+:   The name of the subreddit we want to access;
+
+{listing}
+
+:   Determines the order of the list: "controversial", "best", "hot", "new", "random", "rising", or "top";
+
+{limit}
+
+:   The number of desired results;
+
+{timeframe}
+
+:   The time frame to which {listing} applies: "hour", "day", "week", "month", "year", "all" (i.e., the top posts of the past month).
+
+In other words, the URL above says "please give me {limit} {listing} threads from the past {timeframe} from subreddit {subreddit}.
+
+**Question:** consider <https://www.reddit.com/r/climate/new.json?limit=1&t=all>. What are we requesting here (i.e., what are {subreddit}, {listing}, {limit} and {timeframe}?
+
+**Question:** Now go to <https://www.reddit.com/r/climate>. Which information here corresponds with what we requested in the previous question?
+
+Now click on <https://www.reddit.com/r/climate/new.json?limit=1&t=all>. What you see here is indeed not a nicely formatted website, but a whole lot of data. The data are structured using the [JSON](https://en.wikipedia.org/wiki/JSON) format, which is a common format for exchanging data online. This is a key difference between using an API and typical web scraping: in the latter case, the data are somwhere on a website that is designed to be human-readable, and we have to somehow filter out the relevant information; via the API data are already provided in a nicely structured way, and are *intended to be used*.
+
+**Question:** Identify the the following information in the JSON file you see in your browser: the title of the post, the name of its author, the current number of comments, and the date/time of posting.
+
+We could easily download the JSON data into R using a simple command like this (copy and paste into your R script and run it; ignore the warning):
+
+```{r}
+x <- readLines("https://www.reddit.com/r/climate/new.json?limit=1&t=all")
+```
+
+Subsequently we can run
+
+```{r}
+x
+```
+
+to view the data (try it), but the result is still quite messy. We could parse the data using R's built-in JSON tools, but fortunately there is also an R-package specifically for Reddit that makes getting data from the Reddit API into R much more user-friendly. It's called RedditExtractoR and we've already loaded it above.
+
+## Getting the data with RedditExtractoR
+
+### Getting threads
+
+As a first step, we download all the threads in the Subreddit. All? Not all. It seems actually unclear how many one can download. Choosing "new" and "all" seems to give a relatively large (and sensible) result.
+
+```{r}
+
+threads <- find_thread_urls(subreddit="climate", sort_by="new", period = "all")
+
+```
+
+Take a look at the resulting data frame (click on "threads" in the environment tab in the top right corner.
+
+**Question:** How many threads have we downloaded? Which variables are available about each thread? Which thread is the thread that received most comments in these data?
+
+**Question:** Make a histogram of the number of comments. (Hint: look up the code for the histogram that we made in the previous tutorial.)
+
+### Getting contents of threads
+
+In the next step, we download the contents of these threads. Let's take only a randomly chosen 50 for simplicity. Note that it is normal that the below code takes a bit of time to run.
+
+```{r}
+thread_contents <- threads$url  # start with the urls from the threads data frame
+thread_contents <-  sample(thread_contents, 50) # randomly sample 50
+thread_contents <-  get_thread_content(thread_contents)
+
+```
+
+The resulting object contains two data frames: "threads" and "comments". The first contains data on the thread as a whole (such as the url, who started it and when, the number of comments, the content of the original post, etc. ). The second contains data of all the comments. Some important variables in "comments" are:
+
+url
+
+:   the url of the thread that the comment belongs to. This matches the urls in the "threads" data frame in "thread_contents".
+
+author
+
+:   The author of the comment
+
+comment_id
+
+:   The position of the comment in the "tree" of the thread. "1" is the first comment to the original post, "2" is the second, etc. "1_1" is then the first comment to the first comment to the original post, etc.
+
+We can take the data frame with comments from the `threads_contents` object and turn it into its own data frame as follows:
+
+```{r}
+comments <- thread_contents$comments
+```
+
+**Question:** How many comments are there in total?
+
+**Question:** Which comment is the most "upvoted" comment?
+
+**Question:** The paper by [Treen et al. (2022)](https://www.tandfonline.com/doi/full/10.1080/17524032.2022.2050776) used text analysis techniques such as *topic modeling* in their analysis of polarization on Reddit. Of the data that we have now collected, what do you think they used?
+
+### Creating a network
+
+The paper by [Treen et al. (2022)](https://www.tandfonline.com/doi/full/10.1080/17524032.2022.2050776) aims to assess polarization by, among other things, studying the "reply network" in Subreddits.
+
+**Question:** how do they construct this network, that is, what are the links? And how do they assess the level of polarization?
+
+We can partly reproduce their analysis (for "our" Subreddit) using the code below. While this is relatively complicated, see of you can get the gist of what happens. Then, copy-paste and run the code.
+
+```{r}
+authors <- thread_contents$threads %>% # Get the "threads" part of the threat_contents object 
+  select(author, url) # keep only the author and url for each thread
+
+responders <- thread_contents$comments %>% # Get the "comments" part of the threat_contents object 
+  select(author, url) %>% # keep only the author and url for each thread
+  rename("responder" = author) # rename "author" to "responder"
+
+# now match these two together, using the url as the matching variable
+reply_net  <- merge(authors, responders, by = "url") %>% 
+  select(author, responder) %>% # keep only the author and responder vars
+  graph_from_data_frame() # turn this into a "network object": something the igraph package for network analysis can work with
+
+# plot the network
+plot(reply_net,
+     vertex.label=NA,
+     vertex.color = "blue",
+     vertex.size = 5,
+     edge.arrow.size = 0.2,
+     edge.color = "black",
+     graph.frame = TRUE,
+     main = "The reply network of 50 random threads on r/climate"
+     )
+```
+
+Note that Treen et al.'s network analysis is somewhat more elaborate; for instance, they use a technique called [community detection](https://people.duke.edu/~jmoody77/snh/2021/CommunitiesSNH2021.nb.html) to highlight different subgroups in the network, which we don't do here for simplicity. Nevertheless, we can still try to assess the polarization of the network loosely by looking at the structure.
+
+**Question:** what would you conclude about polarization in this Subreddit?
+
+**Question:** Now pick another Subreddit on a topic that you find interesting, and try to make a network graph for this Subreddit as well. (Hint: you can reuse most of the code we've used above.)

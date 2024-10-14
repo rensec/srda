@@ -11,3 +11,12 @@ automating-the-process-getting-multiple-pages
 answering-the-research-question
 collecting-the-data
 analyzing-the-data
+collecting-data-through-apis-the-case-of-reddit
+introduction
+loading-the-tools
+case-study-reddit
+accessing-data-via-the-api
+getting-the-data-with-redditextractor
+getting-threads
+getting-contents-of-threads
+creating-a-network
