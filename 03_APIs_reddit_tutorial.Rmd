@@ -1,6 +1,6 @@
 # Collecting data through APIs: the case of Reddit
 
-```{r global_options, include=FALSE}
+```{r global_options_api, include=FALSE}
 # This is a way to set options for all code chunks at once
 # Note that you can also dynamically control options by setting them to a value
 # DPI setting increased for Word output, cairo is anti aliasing
