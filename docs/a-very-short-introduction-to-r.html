@@ -181,14 +181,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.11.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#summarising-the-data"><i class="fa fa-check"></i><b>1.11.1</b> Summarising the data</a></li>
 </ul></li>
 <li class="chapter" data-level="1.12" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#saving-data"><i class="fa fa-check"></i><b>1.12</b> Saving data</a></li>
-<li class="chapter" data-level="1.13" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#functions"><i class="fa fa-check"></i><b>1.13</b> Functions</a></li>
-<li class="chapter" data-level="1.14" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#using-functions"><i class="fa fa-check"></i><b>1.14</b> Using functions</a>
+<li class="chapter" data-level="1.13" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#functions"><i class="fa fa-check"></i><b>1.13</b> Functions</a>
 <ul>
-<li class="chapter" data-level="1.14.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#practice-problem-8"><i class="fa fa-check"></i><b>1.14.1</b> PRACTICE PROBLEM 8</a></li>
+<li class="chapter" data-level="1.13.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#using-functions"><i class="fa fa-check"></i><b>1.13.1</b> Using functions</a></li>
+<li class="chapter" data-level="1.13.2" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#practice-problem-8"><i class="fa fa-check"></i><b>1.13.2</b> PRACTICE PROBLEM 8</a></li>
 </ul></li>
-<li class="chapter" data-level="1.15" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#getting-help-viewing-and-interpreting-function-documentation"><i class="fa fa-check"></i><b>1.15</b> Getting help: viewing and interpreting function documentation</a>
+<li class="chapter" data-level="1.14" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#getting-help-viewing-and-interpreting-function-documentation"><i class="fa fa-check"></i><b>1.14</b> Getting help: viewing and interpreting function documentation</a>
 <ul>
-<li class="chapter" data-level="1.15.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#practice-problem-9"><i class="fa fa-check"></i><b>1.15.1</b> PRACTICE PROBLEM 9</a></li>
+<li class="chapter" data-level="1.14.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#practice-problem-9"><i class="fa fa-check"></i><b>1.14.1</b> PRACTICE PROBLEM 9</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to web scraping in R</a>
@@ -571,7 +571,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="getting-data-into-r" class="section level2 hasAnchor" number="1.11">
 <h2><span class="header-section-number">1.11</span> Getting data into R<a href="a-very-short-introduction-to-r.html#getting-data-into-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are a number of ways to read data into R. One option is to use the <code>readr</code> package that comes with the <code>tidyverse</code> distribution, <code>read_csv()</code> reads comma delimited files.</p>
-<p>Download the file “flightdata.csv” from the course page and store it in your project folder (same folder that you set as your working directory at the beg. of the practical). This file contains a sample from the “flights” dataset from the <code>nycflights13</code> package. This contains airline data for all flight departing from NYC in 2013.</p>
+<p>Download the file “flightdata.csv” from <a href="https://raw.githubusercontent.com/rensec/srda/main/flightdata.csv">here</a> and store it in your project folder (same folder that you set as your working directory at the beg. of the practical). Most likely, the csv file will open in your browser; just choose “Save as…” (or equivalent) from your browser’s “File” menu so save the file to disk. This file contains a sample from the “flights” dataset from the <code>nycflights13</code> package. This contains airline data for all flight departing from NYC in 2013.</p>
 <p>Read the <code>flightdata.csv</code> file into R with the <code>readr</code> package` using the code below</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="a-very-short-introduction-to-r.html#cb40-1" tabindex="-1"></a><span class="co"># install.packages(&quot;readr&quot;)</span></span>
 <span id="cb40-2"><a href="a-very-short-introduction-to-r.html#cb40-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
@@ -630,22 +630,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this example, the function name is <code>sqrt</code>. The input is the single argument <code>5</code>. If you run this code, it produces the output <code>2.236068</code>. Currently, R will simply print this output in your Console, but as you learned before, we can assign this output to a name.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="a-very-short-introduction-to-r.html#cb44-1" tabindex="-1"></a>square_root <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">5</span>)</span></code></pre></div>
 <p>This simple process of input -&gt; function -&gt; output is essentially how you work with R most of the times. You have data in some form. You provide this data as input to a function, and R generates output. You can assign the output to a name to use it in the next steps, or the output is a table with results or a visualization that you want to interpret.</p>
-</div>
-<div id="using-functions" class="section level2 hasAnchor" number="1.14">
-<h2><span class="header-section-number">1.14</span> Using functions<a href="a-very-short-introduction-to-r.html#using-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="using-functions" class="section level3 hasAnchor" number="1.13.1">
+<h3><span class="header-section-number">1.13.1</span> Using functions<a href="a-very-short-introduction-to-r.html#using-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Above you saw the simple function <code>sqrt()</code>, that given a single number as input returned a single number as output. Functions can also have multiple arguments as input. Consider this function here:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="a-very-short-introduction-to-r.html#cb45-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>This function, with the name <code>mean</code>, is given several arguments here: <code>x</code> and <code>na.rm</code>. Given this input, many operations are performed behind the scenes to create the arithmetic mean of the vector.</p>
 <p>By now we hope you have realized just how broad the use of functions is. The <em>R syntax</em> for performing basic mathematical operations such as <code>sqrt()</code> is essentially the same as the syntax for creating a mean, performing advances statistical analysis or creating powerful visualizations. Accordingly, if you understand this syntax, you can do almost anything in R.</p>
-<div id="practice-problem-8" class="section level3 hasAnchor" number="1.14.1">
-<h3><span class="header-section-number">1.14.1</span> PRACTICE PROBLEM 8<a href="a-very-short-introduction-to-r.html#practice-problem-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="practice-problem-8" class="section level3 hasAnchor" number="1.13.2">
+<h3><span class="header-section-number">1.13.2</span> PRACTICE PROBLEM 8<a href="a-very-short-introduction-to-r.html#practice-problem-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Perform the following operations: 1. Create a sequence of numbers from 12 to 24. HINT: look up ?s eq 2. Sum the numbers from 20 to 60. 3. Find the mean of the numbers from 25 to 80.</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="a-very-short-introduction-to-r.html#cb46-1" tabindex="-1"></a><span class="co"># SOLUTION</span></span></code></pre></div>
 <p>The many R packages that you can install are mostly just collections of functions. We realize that it is a lot and might be a bit overwhelming. So we will now show you how to use the R help option which allows you to view and interpret any function documentation page and learn how to use it.</p>
 </div>
 </div>
-<div id="getting-help-viewing-and-interpreting-function-documentation" class="section level2 hasAnchor" number="1.15">
-<h2><span class="header-section-number">1.15</span> Getting help: viewing and interpreting function documentation<a href="a-very-short-introduction-to-r.html#getting-help-viewing-and-interpreting-function-documentation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="getting-help-viewing-and-interpreting-function-documentation" class="section level2 hasAnchor" number="1.14">
+<h2><span class="header-section-number">1.14</span> Getting help: viewing and interpreting function documentation<a href="a-very-short-introduction-to-r.html#getting-help-viewing-and-interpreting-function-documentation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You can access the documentation of a function by typing a question mark in front of the function name, and running the line of code. Let’s do this to view the documentation of the <code>sqrt()</code> function</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="a-very-short-introduction-to-r.html#cb47-1" tabindex="-1"></a>?sqrt</span></code></pre></div>
 <p>Alternatively, you can also use the ‘help’ function</p>
@@ -671,8 +671,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb51-4"><a href="a-very-short-introduction-to-r.html#cb51-4" tabindex="-1"></a><span class="fu">help</span>(quickpred, <span class="at">package =</span> <span class="st">&quot;mice&quot;</span>)</span></code></pre></div>
 <p><em>Note III</em> You can also open an interactive web-based help page</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="a-very-short-introduction-to-r.html#cb52-1" tabindex="-1"></a><span class="fu">help.start</span>()</span></code></pre></div>
-<div id="practice-problem-9" class="section level3 hasAnchor" number="1.15.1">
-<h3><span class="header-section-number">1.15.1</span> PRACTICE PROBLEM 9<a href="a-very-short-introduction-to-r.html#practice-problem-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="practice-problem-9" class="section level3 hasAnchor" number="1.14.1">
+<h3><span class="header-section-number">1.14.1</span> PRACTICE PROBLEM 9<a href="a-very-short-introduction-to-r.html#practice-problem-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: lower-alpha">
 <li>Access the help file for the vector() function.</li>
 <li>How many arguments does the vector() function take?</li>
