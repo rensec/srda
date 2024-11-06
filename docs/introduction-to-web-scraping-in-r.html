@@ -364,10 +364,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Question:</strong> how many titles do we have now? And is this the number you would expect?</p>
 <p>We can now do the same for our next variable, the url. Using our scrapemate tool again (we can either reset our earlier picker by clicking the circle button next to it, or use one of the other pickers in the sidebar), we can determine that the CSS tag in this case is <code>.petition-overview-image-container</code>.</p>
 <p>The code to get all the URLs then looks like this:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introduction-to-web-scraping-in-r.html#cb59-1" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> webpage <span class="sc">%&gt;%</span></span>
-<span id="cb59-2"><a href="introduction-to-web-scraping-in-r.html#cb59-2" tabindex="-1"></a>    <span class="fu">html_elements</span>(<span class="st">&quot;.petition-overview-image-container&quot;</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb59-3"><a href="introduction-to-web-scraping-in-r.html#cb59-3" tabindex="-1"></a>    <span class="fu">html_attr</span>(<span class="st">&quot;href&quot;</span>) </span></code></pre></div>
-<p>Note that now we use the “pipe operator” <code>%&gt;%</code> to simplify the code somewhat (but we could also have done it without as above).</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introduction-to-web-scraping-in-r.html#cb59-1" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;.petition-overview-image-container&quot;</span>)</span>
+<span id="cb59-2"><a href="introduction-to-web-scraping-in-r.html#cb59-2" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(link_url, <span class="st">&quot;href&quot;</span>)</span></code></pre></div>
 <p><strong>Exercise:</strong> now write the code to get the number of signatures per petition.</p>
 </div>
 <div id="automating-the-process-getting-multiple-pages" class="section level3 hasAnchor" number="2.6.2">
@@ -380,23 +378,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="introduction-to-web-scraping-in-r.html#cb60-1" tabindex="-1"></a>get_petitions_list <span class="ot">&lt;-</span> <span class="cf">function</span>(page_url){</span>
 <span id="cb60-2"><a href="introduction-to-web-scraping-in-r.html#cb60-2" tabindex="-1"></a>  webpage <span class="ot">&lt;-</span> <span class="fu">read_html</span>(page_url) </span>
 <span id="cb60-3"><a href="introduction-to-web-scraping-in-r.html#cb60-3" tabindex="-1"></a>  </span>
-<span id="cb60-4"><a href="introduction-to-web-scraping-in-r.html#cb60-4" tabindex="-1"></a>  title <span class="ot">&lt;-</span> webpage <span class="sc">%&gt;%</span></span>
-<span id="cb60-5"><a href="introduction-to-web-scraping-in-r.html#cb60-5" tabindex="-1"></a>    <span class="fu">html_nodes</span>(<span class="st">&quot;.petition-overview-info-title&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb60-6"><a href="introduction-to-web-scraping-in-r.html#cb60-6" tabindex="-1"></a>    <span class="fu">html_text</span>() </span>
+<span id="cb60-4"><a href="introduction-to-web-scraping-in-r.html#cb60-4" tabindex="-1"></a>  title <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(webpage, <span class="st">&quot;.petition-overview-info-title&quot;</span>)</span>
+<span id="cb60-5"><a href="introduction-to-web-scraping-in-r.html#cb60-5" tabindex="-1"></a>  title <span class="ot">&lt;-</span> <span class="fu">html_text</span>(title)</span>
+<span id="cb60-6"><a href="introduction-to-web-scraping-in-r.html#cb60-6" tabindex="-1"></a></span>
 <span id="cb60-7"><a href="introduction-to-web-scraping-in-r.html#cb60-7" tabindex="-1"></a>  </span>
-<span id="cb60-8"><a href="introduction-to-web-scraping-in-r.html#cb60-8" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> webpage <span class="sc">%&gt;%</span></span>
-<span id="cb60-9"><a href="introduction-to-web-scraping-in-r.html#cb60-9" tabindex="-1"></a>    <span class="fu">html_elements</span>(<span class="st">&quot;.petition-overview-image-container&quot;</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb60-10"><a href="introduction-to-web-scraping-in-r.html#cb60-10" tabindex="-1"></a>    <span class="fu">html_attr</span>(<span class="st">&quot;href&quot;</span>) </span>
+<span id="cb60-8"><a href="introduction-to-web-scraping-in-r.html#cb60-8" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;.petition-overview-image-container&quot;</span>)</span>
+<span id="cb60-9"><a href="introduction-to-web-scraping-in-r.html#cb60-9" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(link_url, <span class="st">&quot;href&quot;</span>)</span>
+<span id="cb60-10"><a href="introduction-to-web-scraping-in-r.html#cb60-10" tabindex="-1"></a>  </span>
 <span id="cb60-11"><a href="introduction-to-web-scraping-in-r.html#cb60-11" tabindex="-1"></a>  </span>
-<span id="cb60-12"><a href="introduction-to-web-scraping-in-r.html#cb60-12" tabindex="-1"></a>  </span>
-<span id="cb60-13"><a href="introduction-to-web-scraping-in-r.html#cb60-13" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> webpage <span class="sc">%&gt;%</span> </span>
-<span id="cb60-14"><a href="introduction-to-web-scraping-in-r.html#cb60-14" tabindex="-1"></a>    <span class="fu">html_elements</span>(<span class="st">&quot;.petitions-counter&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb60-15"><a href="introduction-to-web-scraping-in-r.html#cb60-15" tabindex="-1"></a>    <span class="fu">html_text</span>() </span>
-<span id="cb60-16"><a href="introduction-to-web-scraping-in-r.html#cb60-16" tabindex="-1"></a>  </span>
-<span id="cb60-17"><a href="introduction-to-web-scraping-in-r.html#cb60-17" tabindex="-1"></a>  </span>
-<span id="cb60-18"><a href="introduction-to-web-scraping-in-r.html#cb60-18" tabindex="-1"></a>  petitions_list <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(title, link_url, sig_count)</span>
-<span id="cb60-19"><a href="introduction-to-web-scraping-in-r.html#cb60-19" tabindex="-1"></a>  <span class="fu">return</span>(petitions_list)</span>
-<span id="cb60-20"><a href="introduction-to-web-scraping-in-r.html#cb60-20" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb60-12"><a href="introduction-to-web-scraping-in-r.html#cb60-12" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;.petitions-counter&quot;</span>)</span>
+<span id="cb60-13"><a href="introduction-to-web-scraping-in-r.html#cb60-13" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">html_text</span>(sig_count) </span>
+<span id="cb60-14"><a href="introduction-to-web-scraping-in-r.html#cb60-14" tabindex="-1"></a>  </span>
+<span id="cb60-15"><a href="introduction-to-web-scraping-in-r.html#cb60-15" tabindex="-1"></a>  </span>
+<span id="cb60-16"><a href="introduction-to-web-scraping-in-r.html#cb60-16" tabindex="-1"></a>  petitions_list <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(title, link_url, sig_count)</span>
+<span id="cb60-17"><a href="introduction-to-web-scraping-in-r.html#cb60-17" tabindex="-1"></a>  <span class="fu">return</span>(petitions_list)</span>
+<span id="cb60-18"><a href="introduction-to-web-scraping-in-r.html#cb60-18" tabindex="-1"></a>}</span></code></pre></div>
 <p>If we run this code, nothing really happens yet: all it does is <em>define</em> the function. That is, we can now refer to this set of scraping instructions using the function <code>get_petitions_list()</code>, filling in the URL of the page that we want to scrape as “page_url”. All the code inside the function will then be applied to this page. Specifically, it does the following:</p>
 <ol style="list-style-type: decimal">
 <li><p>Download the source code of the page</p></li>
@@ -426,30 +422,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="introduction-to-web-scraping-in-r.html#cb63-1" tabindex="-1"></a>get_petitions_list <span class="ot">&lt;-</span> <span class="cf">function</span>(page_url){</span>
 <span id="cb63-2"><a href="introduction-to-web-scraping-in-r.html#cb63-2" tabindex="-1"></a>  webpage <span class="ot">&lt;-</span> <span class="fu">read_html</span>(page_url) </span>
 <span id="cb63-3"><a href="introduction-to-web-scraping-in-r.html#cb63-3" tabindex="-1"></a>  </span>
-<span id="cb63-4"><a href="introduction-to-web-scraping-in-r.html#cb63-4" tabindex="-1"></a>  title <span class="ot">&lt;-</span> webpage <span class="sc">%&gt;%</span></span>
-<span id="cb63-5"><a href="introduction-to-web-scraping-in-r.html#cb63-5" tabindex="-1"></a>    <span class="fu">html_nodes</span>(<span class="st">&quot;.petition-overview-info-title&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb63-6"><a href="introduction-to-web-scraping-in-r.html#cb63-6" tabindex="-1"></a>    <span class="fu">html_text</span>() </span>
+<span id="cb63-4"><a href="introduction-to-web-scraping-in-r.html#cb63-4" tabindex="-1"></a>  title <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(webpage, <span class="st">&quot;.petition-overview-info-title&quot;</span>)</span>
+<span id="cb63-5"><a href="introduction-to-web-scraping-in-r.html#cb63-5" tabindex="-1"></a>  title <span class="ot">&lt;-</span> <span class="fu">html_text</span>(title)</span>
+<span id="cb63-6"><a href="introduction-to-web-scraping-in-r.html#cb63-6" tabindex="-1"></a></span>
 <span id="cb63-7"><a href="introduction-to-web-scraping-in-r.html#cb63-7" tabindex="-1"></a>  </span>
-<span id="cb63-8"><a href="introduction-to-web-scraping-in-r.html#cb63-8" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> webpage <span class="sc">%&gt;%</span></span>
-<span id="cb63-9"><a href="introduction-to-web-scraping-in-r.html#cb63-9" tabindex="-1"></a>    <span class="fu">html_elements</span>(<span class="st">&quot;.petition-overview-image-container&quot;</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb63-10"><a href="introduction-to-web-scraping-in-r.html#cb63-10" tabindex="-1"></a>    <span class="fu">html_attr</span>(<span class="st">&quot;href&quot;</span>) </span>
+<span id="cb63-8"><a href="introduction-to-web-scraping-in-r.html#cb63-8" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;.petition-overview-image-container&quot;</span>)</span>
+<span id="cb63-9"><a href="introduction-to-web-scraping-in-r.html#cb63-9" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(link_url, <span class="st">&quot;href&quot;</span>)</span>
+<span id="cb63-10"><a href="introduction-to-web-scraping-in-r.html#cb63-10" tabindex="-1"></a>  </span>
 <span id="cb63-11"><a href="introduction-to-web-scraping-in-r.html#cb63-11" tabindex="-1"></a>  </span>
-<span id="cb63-12"><a href="introduction-to-web-scraping-in-r.html#cb63-12" tabindex="-1"></a>  </span>
-<span id="cb63-13"><a href="introduction-to-web-scraping-in-r.html#cb63-13" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> webpage <span class="sc">%&gt;%</span> </span>
-<span id="cb63-14"><a href="introduction-to-web-scraping-in-r.html#cb63-14" tabindex="-1"></a>    <span class="fu">html_elements</span>(<span class="st">&quot;.petitions-counter&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb63-15"><a href="introduction-to-web-scraping-in-r.html#cb63-15" tabindex="-1"></a>    <span class="fu">html_text</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb63-16"><a href="introduction-to-web-scraping-in-r.html#cb63-16" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>,<span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># NEW: remove Dutch 1000 separator</span></span>
-<span id="cb63-17"><a href="introduction-to-web-scraping-in-r.html#cb63-17" tabindex="-1"></a>    <span class="fu">as.numeric</span>() <span class="co"># NEW: change the type from string to numeric</span></span>
-<span id="cb63-18"><a href="introduction-to-web-scraping-in-r.html#cb63-18" tabindex="-1"></a>  </span>
-<span id="cb63-19"><a href="introduction-to-web-scraping-in-r.html#cb63-19" tabindex="-1"></a>  </span>
-<span id="cb63-20"><a href="introduction-to-web-scraping-in-r.html#cb63-20" tabindex="-1"></a>  petitions_list <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(title, link_url, sig_count)</span>
-<span id="cb63-21"><a href="introduction-to-web-scraping-in-r.html#cb63-21" tabindex="-1"></a>  <span class="fu">return</span>(petitions_list)</span>
-<span id="cb63-22"><a href="introduction-to-web-scraping-in-r.html#cb63-22" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb63-12"><a href="introduction-to-web-scraping-in-r.html#cb63-12" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;.petitions-counter&quot;</span>)</span>
+<span id="cb63-13"><a href="introduction-to-web-scraping-in-r.html#cb63-13" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">html_text</span>(sig_count)</span>
+<span id="cb63-14"><a href="introduction-to-web-scraping-in-r.html#cb63-14" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(sig_count, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>,<span class="st">&quot;&quot;</span>) <span class="co"># NEW: remove Dutch 1000 separator</span></span>
+<span id="cb63-15"><a href="introduction-to-web-scraping-in-r.html#cb63-15" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(sig_count) <span class="co"># NEW: change the type from string to numeric</span></span>
+<span id="cb63-16"><a href="introduction-to-web-scraping-in-r.html#cb63-16" tabindex="-1"></a>  </span>
+<span id="cb63-17"><a href="introduction-to-web-scraping-in-r.html#cb63-17" tabindex="-1"></a>  petitions_list <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(title, link_url, sig_count)</span>
+<span id="cb63-18"><a href="introduction-to-web-scraping-in-r.html#cb63-18" tabindex="-1"></a>  <span class="fu">return</span>(petitions_list)</span>
+<span id="cb63-19"><a href="introduction-to-web-scraping-in-r.html#cb63-19" tabindex="-1"></a>}</span></code></pre></div>
 <p>Second, you may have noticed that scraping five pages (probably) already took a noticeable amount of time. If we’d want to scrape many more pages, we may want to be able to keep track of the progress. For that purpose, we let R print some text to the console to report what going on, in our loop:</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="introduction-to-web-scraping-in-r.html#cb64-1" tabindex="-1"></a>petitions <span class="ot">&lt;-</span> <span class="fu">get_petitions_list</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=1&quot;</span>) <span class="co"># We start with the first page</span></span>
 <span id="cb64-2"><a href="introduction-to-web-scraping-in-r.html#cb64-2" tabindex="-1"></a></span>
 <span id="cb64-3"><a href="introduction-to-web-scraping-in-r.html#cb64-3" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>){ <span class="co"># Loop throup all values from 2 to 5. The current value is &quot;i&quot; </span></span>
-<span id="cb64-4"><a href="introduction-to-web-scraping-in-r.html#cb64-4" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;scraping page&quot;</span>,i,<span class="at">sep=</span>)) <span class="co">#NEW: print what&#39;s happening to the console</span></span>
+<span id="cb64-4"><a href="introduction-to-web-scraping-in-r.html#cb64-4" tabindex="-1"></a>    <span class="fu">message</span>(<span class="fu">paste</span>(<span class="st">&quot;scraping page&quot;</span>,i,<span class="at">sep=</span>)) <span class="co">#NEW: print what&#39;s happening to the console</span></span>
 <span id="cb64-5"><a href="introduction-to-web-scraping-in-r.html#cb64-5" tabindex="-1"></a></span>
 <span id="cb64-6"><a href="introduction-to-web-scraping-in-r.html#cb64-6" tabindex="-1"></a>  target_page <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=&quot;</span>,i,<span class="at">sep =</span> <span class="st">&quot;&quot;</span>) <span class="co"># Create a string in with we add the current value i to the &quot;stub&quot; of the page url</span></span>
 <span id="cb64-7"><a href="introduction-to-web-scraping-in-r.html#cb64-7" tabindex="-1"></a>  p <span class="ot">&lt;-</span><span class="fu">get_petitions_list</span>(target_page) <span class="co"># scrape page i</span></span>
@@ -464,35 +457,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="collecting-the-data" class="section level3 hasAnchor" number="2.7.1">
 <h3><span class="header-section-number">2.7.1</span> Collecting the data<a href="introduction-to-web-scraping-in-r.html#collecting-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now that we have our scraper ready, we can start to use it to answer our descriptive research question (see above).First we need to collect a larger amount of data. In a real research project, you would probably want to collect the data of <em>all</em> the petitions on the website. However, since this is an educational project, we don’t want to put too much unnecessary strain on the server, and we have many students accessing the server at the same time, let’s limit our data collection to 25 pages.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="introduction-to-web-scraping-in-r.html#cb65-1" tabindex="-1"></a>petitions <span class="ot">&lt;-</span> <span class="fu">get_petitions_list</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=1&quot;</span>) <span class="co"># We start with the first page</span></span>
-<span id="cb65-2"><a href="introduction-to-web-scraping-in-r.html#cb65-2" tabindex="-1"></a></span>
-<span id="cb65-3"><a href="introduction-to-web-scraping-in-r.html#cb65-3" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">25</span>){ <span class="co"># Loop throup all values from 2 to 5. The current value is &quot;i&quot; </span></span>
-<span id="cb65-4"><a href="introduction-to-web-scraping-in-r.html#cb65-4" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;scraping page&quot;</span>,i,<span class="at">sep=</span>)) <span class="co">#NEW: print what&#39;s happening to the console</span></span>
-<span id="cb65-5"><a href="introduction-to-web-scraping-in-r.html#cb65-5" tabindex="-1"></a></span>
-<span id="cb65-6"><a href="introduction-to-web-scraping-in-r.html#cb65-6" tabindex="-1"></a>  target_page <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=&quot;</span>,i,<span class="at">sep =</span> <span class="st">&quot;&quot;</span>) <span class="co"># Create a string in with we add the current value i to the &quot;stub&quot; of the page url</span></span>
-<span id="cb65-7"><a href="introduction-to-web-scraping-in-r.html#cb65-7" tabindex="-1"></a>  p <span class="ot">&lt;-</span><span class="fu">get_petitions_list</span>(target_page) <span class="co"># scrape page i</span></span>
-<span id="cb65-8"><a href="introduction-to-web-scraping-in-r.html#cb65-8" tabindex="-1"></a>  petitions <span class="ot">&lt;-</span> <span class="fu">rbind</span>(petitions, p) <span class="co"># add the petitions of page i to what we already had </span></span>
-<span id="cb65-9"><a href="introduction-to-web-scraping-in-r.html#cb65-9" tabindex="-1"></a>}</span></code></pre></div>
 <p><strong>Question:</strong> Of how many petitions have you now collected data?</p>
 </div>
 <div id="analyzing-the-data" class="section level3 hasAnchor" number="2.7.2">
 <h3><span class="header-section-number">2.7.2</span> Analyzing the data<a href="introduction-to-web-scraping-in-r.html#analyzing-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Next, let’s analyze these data a bit. First, let’s get rid of these annoying “NA” values and replace them by 0. The “coalesce()” function helps with that:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="introduction-to-web-scraping-in-r.html#cb66-1" tabindex="-1"></a>petitions<span class="sc">$</span>sig_count <span class="ot">&lt;-</span> <span class="fu">coalesce</span>(petitions<span class="sc">$</span>sig_count, <span class="dv">0</span>) <span class="co"># replace missings by 0</span></span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="introduction-to-web-scraping-in-r.html#cb65-1" tabindex="-1"></a>petitions<span class="sc">$</span>sig_count <span class="ot">&lt;-</span> <span class="fu">coalesce</span>(petitions<span class="sc">$</span>sig_count, <span class="dv">0</span>) <span class="co"># replace missings by 0</span></span></code></pre></div>
 <p>For a first look at the data, we can draw a simple histogram:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="introduction-to-web-scraping-in-r.html#cb67-1" tabindex="-1"></a><span class="fu">hist</span>(petitions<span class="sc">$</span>sig_count)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="introduction-to-web-scraping-in-r.html#cb66-1" tabindex="-1"></a><span class="fu">hist</span>(petitions<span class="sc">$</span>sig_count)</span></code></pre></div>
 <p><strong>Question:</strong> What is your first conclusion about the distribution of success?</p>
 <p>In their analysis of the data, Margetts et al. visualize the data somewhat differently, in a way that helps to assess the skewness of the distribution a bit better. In particular, they plot the number of signatures against the <em>rank</em> of each petition in terms of signatures, and furthermore, they use logarithmic axes. To recreate their plot, we can do the following:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="introduction-to-web-scraping-in-r.html#cb68-1" tabindex="-1"></a><span class="co"># First we create a rank variable (more signatures = higher rank)</span></span>
-<span id="cb68-2"><a href="introduction-to-web-scraping-in-r.html#cb68-2" tabindex="-1"></a>petitions <span class="ot">&lt;-</span>  <span class="fu">mutate</span>(petitions, <span class="at">rank =</span> <span class="fu">dense_rank</span>(<span class="fu">desc</span>(sig_count)))</span>
-<span id="cb68-3"><a href="introduction-to-web-scraping-in-r.html#cb68-3" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="introduction-to-web-scraping-in-r.html#cb68-4" tabindex="-1"></a><span class="co"># To avoid that petitions with zero signatures are left out of the plot (because the logarithm of zero is not defined) we add 1 to all values:</span></span>
-<span id="cb68-5"><a href="introduction-to-web-scraping-in-r.html#cb68-5" tabindex="-1"></a></span>
-<span id="cb68-6"><a href="introduction-to-web-scraping-in-r.html#cb68-6" tabindex="-1"></a>petitions<span class="sc">$</span>sig_count <span class="ot">&lt;-</span> petitions<span class="sc">$</span>sig_count <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb68-7"><a href="introduction-to-web-scraping-in-r.html#cb68-7" tabindex="-1"></a></span>
-<span id="cb68-8"><a href="introduction-to-web-scraping-in-r.html#cb68-8" tabindex="-1"></a></span>
-<span id="cb68-9"><a href="introduction-to-web-scraping-in-r.html#cb68-9" tabindex="-1"></a><span class="co"># Finally, we plot the data:</span></span>
-<span id="cb68-10"><a href="introduction-to-web-scraping-in-r.html#cb68-10" tabindex="-1"></a><span class="fu">plot</span>(petitions<span class="sc">$</span>rank, petitions<span class="sc">$</span>sig_count, <span class="at">log =</span> <span class="st">&quot;xy&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="introduction-to-web-scraping-in-r.html#cb67-1" tabindex="-1"></a><span class="co"># First we create a rank variable (more signatures = higher rank)</span></span>
+<span id="cb67-2"><a href="introduction-to-web-scraping-in-r.html#cb67-2" tabindex="-1"></a>petitions <span class="ot">&lt;-</span>  <span class="fu">mutate</span>(petitions, <span class="at">rank =</span> <span class="fu">dense_rank</span>(<span class="fu">desc</span>(sig_count)))</span>
+<span id="cb67-3"><a href="introduction-to-web-scraping-in-r.html#cb67-3" tabindex="-1"></a></span>
+<span id="cb67-4"><a href="introduction-to-web-scraping-in-r.html#cb67-4" tabindex="-1"></a><span class="co"># To avoid that petitions with zero signatures are left out of the plot (because the logarithm of zero is not defined) we add 1 to all values:</span></span>
+<span id="cb67-5"><a href="introduction-to-web-scraping-in-r.html#cb67-5" tabindex="-1"></a></span>
+<span id="cb67-6"><a href="introduction-to-web-scraping-in-r.html#cb67-6" tabindex="-1"></a>petitions<span class="sc">$</span>sig_count <span class="ot">&lt;-</span> petitions<span class="sc">$</span>sig_count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb67-7"><a href="introduction-to-web-scraping-in-r.html#cb67-7" tabindex="-1"></a></span>
+<span id="cb67-8"><a href="introduction-to-web-scraping-in-r.html#cb67-8" tabindex="-1"></a></span>
+<span id="cb67-9"><a href="introduction-to-web-scraping-in-r.html#cb67-9" tabindex="-1"></a><span class="co"># Finally, we plot the data:</span></span>
+<span id="cb67-10"><a href="introduction-to-web-scraping-in-r.html#cb67-10" tabindex="-1"></a><span class="fu">plot</span>(petitions<span class="sc">$</span>rank, petitions<span class="sc">$</span>sig_count, <span class="at">log =</span> <span class="st">&quot;xy&quot;</span>)</span></code></pre></div>
 <p><strong>Question:</strong>: Compare your figure to Figure 3.4 in the Chapter by Margetts et al. Does the distribution of success in the Netherlands look more like the one in the UK or the one in the US?</p>
 
 </div>

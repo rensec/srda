@@ -135,13 +135,11 @@ We can now do the same for our next variable, the url. Using our scrapemate tool
 The code to get all the URLs then looks like this:
 
 ```{r}
-link_url <- webpage %>%
-    html_elements(".petition-overview-image-container")%>% 
-    html_attr("href") 
+link_url <- html_elements(webpage, ".petition-overview-image-container")
+link_url <- html_attr(link_url, "href")
   
 ```
 
-Note that now we use the "pipe operator" `%>%` to simplify the code somewhat (but we could also have done it without as above).
 
 **Exercise:** now write the code to get the number of signatures per petition.
 
@@ -162,18 +160,16 @@ However, this would be very tedious and take a long time. Rather, we'd like to *
 get_petitions_list <- function(page_url){
   webpage <- read_html(page_url) 
   
-  title <- webpage %>%
-    html_nodes(".petition-overview-info-title") %>% 
-    html_text() 
+  title <- html_nodes(webpage, ".petition-overview-info-title")
+  title <- html_text(title)
+
   
-  link_url <- webpage %>%
-    html_elements(".petition-overview-image-container")%>% 
-    html_attr("href") 
+  link_url <- html_elements(webpage, ".petition-overview-image-container")
+  link_url <- html_attr(link_url, "href")
   
   
-  sig_count <- webpage %>% 
-    html_elements(".petitions-counter") %>% 
-    html_text() 
+  sig_count <- html_elements(webpage, ".petitions-counter")
+  sig_count <- html_text(sig_count) 
   
   
   petitions_list <- data.frame(title, link_url, sig_count)
@@ -235,21 +231,18 @@ First, you might have notices that the number of signatures is included in the d
 get_petitions_list <- function(page_url){
   webpage <- read_html(page_url) 
   
-  title <- webpage %>%
-    html_nodes(".petition-overview-info-title") %>% 
-    html_text() 
+  title <- html_nodes(webpage, ".petition-overview-info-title")
+  title <- html_text(title)
+
   
-  link_url <- webpage %>%
-    html_elements(".petition-overview-image-container")%>% 
-    html_attr("href") 
+  link_url <- html_elements(webpage, ".petition-overview-image-container")
+  link_url <- html_attr(link_url, "href")
   
   
-  sig_count <- webpage %>% 
-    html_elements(".petitions-counter") %>% 
-    html_text() %>% 
-    str_replace_all("\\.","") %>% # NEW: remove Dutch 1000 separator
-    as.numeric() # NEW: change the type from string to numeric
-  
+  sig_count <- html_elements(webpage, ".petitions-counter")
+  sig_count <- html_text(sig_count)
+  sig_count <- str_replace_all(sig_count, "\\.","") # NEW: remove Dutch 1000 separator
+  sig_count <- as.numeric(sig_count) # NEW: change the type from string to numeric
   
   petitions_list <- data.frame(title, link_url, sig_count)
   return(petitions_list)
@@ -263,7 +256,7 @@ Second, you may have noticed that scraping five pages (probably) already took a 
 petitions <- get_petitions_list("https://petities.nl/petitions/all?locale=en&page=1") # We start with the first page
 
 for(i in 2:5){ # Loop throup all values from 2 to 5. The current value is "i" 
-    print(paste("scraping page",i,sep=)) #NEW: print what's happening to the console
+    message(paste("scraping page",i,sep=)) #NEW: print what's happening to the console
 
   target_page <- paste("https://petities.nl/petitions/all?locale=en&page=",i,sep = "") # Create a string in with we add the current value i to the "stub" of the page url
   p <-get_petitions_list(target_page) # scrape page i
@@ -282,11 +275,11 @@ You may find that you every now and then get a warning "NAs introduced by coerci
 Now that we have our scraper ready, we can start to use it to answer our descriptive research question (see above).First we need to collect a larger amount of data. In a real research project, you would probably want to collect the data of *all* the petitions on the website. However, since this is an educational project, we don't want to put too much unnecessary strain on the server, and we have many students accessing the server at the same time, let's limit our data collection to 25 pages. 
 
 
-```{r}
+```{r include=FALSE, message=FALSE, warning=FALSE}
 petitions <- get_petitions_list("https://petities.nl/petitions/all?locale=en&page=1") # We start with the first page
 
 for(i in 2:25){ # Loop throup all values from 2 to 5. The current value is "i" 
-    print(paste("scraping page",i,sep=)) #NEW: print what's happening to the console
+    message(paste("scraping page",i,sep=)) #NEW: print what's happening to the console
 
   target_page <- paste("https://petities.nl/petitions/all?locale=en&page=",i,sep = "") # Create a string in with we add the current value i to the "stub" of the page url
   p <-get_petitions_list(target_page) # scrape page i
