@@ -477,7 +477,7 @@ With the selection techniques you already learned how to create a subset of the 
 
 There are a number of ways to read data into R. One option is to use the `readr` package that comes with the `tidyverse` distribution, `read_csv()` reads comma delimited files.
 
-Download the file "flightdata.csv" from [here](https://raw.githubusercontent.com/rensec/srda/main/flightdata.csv) and store it in your project folder (same folder that you set as your working directory at the beg. of the practical). Most likely, the csv file will open in your browser; just choose "Save as..." (or equivalent) from your browser's "File" menu so save the file to disk. This file contains a sample from the "flights" dataset from the `nycflights13` package. This contains airline data for all flight departing from NYC in 2013.
+Download the file "flightdata.csv" from `r xfun::embed_file("./flightdata.csv")` and store it in your project folder (same folder that you set as your working directory at the beg. of the practical). Most likely, the csv file will open in your browser; just choose "Save as..." (or equivalent) from your browser's "File" menu so save the file to disk. This file contains a sample from the "flights" dataset from the `nycflights13` package. This contains airline data for all flight departing from NYC in 2013.
 
 Read the `flightdata.csv` file into R with the `readr` package\` using the code below
 
