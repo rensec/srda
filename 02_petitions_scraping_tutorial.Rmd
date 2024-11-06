@@ -275,7 +275,7 @@ You may find that you every now and then get a warning "NAs introduced by coerci
 Now that we have our scraper ready, we can start to use it to answer our descriptive research question (see above).First we need to collect a larger amount of data. In a real research project, you would probably want to collect the data of *all* the petitions on the website. However, since this is an educational project, we don't want to put too much unnecessary strain on the server, and we have many students accessing the server at the same time, let's limit our data collection to 25 pages. 
 
 
-```{r include=FALSE, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 petitions <- get_petitions_list("https://petities.nl/petitions/all?locale=en&page=1") # We start with the first page
 
 for(i in 2:25){ # Loop throup all values from 2 to 5. The current value is "i" 
