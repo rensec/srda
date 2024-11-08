@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Extra: Data manipulation and analysis with R | Social Research in the Digital Age (Utrecht University)</title>
+  <meta name="description" content="4 Extra: Data manipulation and analysis with R | Social Research in the Digital Age (Utrecht University)" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Extra: Data manipulation and analysis with R | Social Research in the Digital Age (Utrecht University)" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Extra: Data manipulation and analysis with R | Social Research in the Digital Age (Utrecht University)" />
+  
+  
+  
+
+<meta name="author" content="Rense Corten" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="collecting-data-through-apis-the-case-of-reddit.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i>Usage</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> A Very Short Introduction to R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#what-is-r-and-why-should-you-learn-it"><i class="fa fa-check"></i><b>1.1.1</b> What is R and why should you learn it?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#using-rstudio"><i class="fa fa-check"></i><b>1.2</b> Using RStudio</a></li>
+<li class="chapter" data-level="1.3" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#running-code-from-the-r-script"><i class="fa fa-check"></i><b>1.3</b> Running code from the R script</a></li>
+<li class="chapter" data-level="1.4" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#using-objects-assigning-values-to-names"><i class="fa fa-check"></i><b>1.4</b> Using objects: Assigning values to names</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#practice-problem-1"><i class="fa fa-check"></i><b>1.4.1</b> PRACTICE PROBLEM 1</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#comments"><i class="fa fa-check"></i><b>1.5</b> Comments</a></li>
+<li class="chapter" data-level="1.6" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#installing-packages"><i class="fa fa-check"></i><b>1.6</b> Installing Packages</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#practice-problem-2"><i class="fa fa-check"></i><b>1.6.1</b> PRACTICE PROBLEM 2</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#the-working-directory"><i class="fa fa-check"></i><b>1.7</b> The working directory</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#practice-problem-3"><i class="fa fa-check"></i><b>1.7.1</b> PRACTICE PROBLEM 3</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#interacting-with-the-environment"><i class="fa fa-check"></i><b>1.8</b> Interacting with the Environment</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#practice-problem-4"><i class="fa fa-check"></i><b>1.8.1</b> PRACTICE PROBLEM 4</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#back-to-writing-code"><i class="fa fa-check"></i><b>1.9</b> Back to writing code</a>
+<ul>
+<li class="chapter" data-level="1.9.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#mathematical-operators"><i class="fa fa-check"></i><b>1.9.1</b> Mathematical Operators</a></li>
+<li class="chapter" data-level="1.9.2" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#logical-comparisons"><i class="fa fa-check"></i><b>1.9.2</b> Logical Comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#data-structures"><i class="fa fa-check"></i><b>1.10</b> Data structures</a>
+<ul>
+<li class="chapter" data-level="1.10.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#vectors"><i class="fa fa-check"></i><b>1.10.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.10.2" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#data-frames"><i class="fa fa-check"></i><b>1.10.2</b> Data frames</a></li>
+<li class="chapter" data-level="1.10.3" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#selecting-rows-columns-and-elements-in-data-frames"><i class="fa fa-check"></i><b>1.10.3</b> Selecting rows, columns and elements in data frames</a></li>
+<li class="chapter" data-level="1.10.4" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#practice-problem-7"><i class="fa fa-check"></i><b>1.10.4</b> PRACTICE PROBLEM 7</a></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#getting-data-into-r"><i class="fa fa-check"></i><b>1.11</b> Getting data into R</a>
+<ul>
+<li class="chapter" data-level="1.11.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#summarising-the-data"><i class="fa fa-check"></i><b>1.11.1</b> Summarising the data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.12" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#saving-data"><i class="fa fa-check"></i><b>1.12</b> Saving data</a></li>
+<li class="chapter" data-level="1.13" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#functions"><i class="fa fa-check"></i><b>1.13</b> Functions</a>
+<ul>
+<li class="chapter" data-level="1.13.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#using-functions"><i class="fa fa-check"></i><b>1.13.1</b> Using functions</a></li>
+<li class="chapter" data-level="1.13.2" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#practice-problem-8"><i class="fa fa-check"></i><b>1.13.2</b> PRACTICE PROBLEM 8</a></li>
+</ul></li>
+<li class="chapter" data-level="1.14" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#getting-help-viewing-and-interpreting-function-documentation"><i class="fa fa-check"></i><b>1.14</b> Getting help: viewing and interpreting function documentation</a>
+<ul>
+<li class="chapter" data-level="1.14.1" data-path="a-very-short-introduction-to-r.html"><a href="a-very-short-introduction-to-r.html#practice-problem-9"><i class="fa fa-check"></i><b>1.14.1</b> PRACTICE PROBLEM 9</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to web scraping in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#some-preliminaries-about-websites-scraping-and-crawling"><i class="fa fa-check"></i><b>2.1</b> Some preliminaries: about websites, scraping, and crawling</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#getting-our-tools-ready"><i class="fa fa-check"></i><b>2.2</b> Getting our tools ready</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#getting-to-know-the-target-website"><i class="fa fa-check"></i><b>2.3</b> Getting to know the target website</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#making-a-plan"><i class="fa fa-check"></i><b>2.4</b> Making a plan</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#locating-the-correct-information"><i class="fa fa-check"></i><b>2.5</b> Locating the correct information</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#building-the-scraper"><i class="fa fa-check"></i><b>2.6</b> Building the scraper</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#first-steps"><i class="fa fa-check"></i><b>2.6.1</b> First steps</a></li>
+<li class="chapter" data-level="2.6.2" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#automating-the-process-getting-multiple-pages"><i class="fa fa-check"></i><b>2.6.2</b> Automating the process: getting multiple pages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#answering-the-research-question"><i class="fa fa-check"></i><b>2.7</b> Answering the research question</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#collecting-the-data"><i class="fa fa-check"></i><b>2.7.1</b> Collecting the data</a></li>
+<li class="chapter" data-level="2.7.2" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#analyzing-the-data"><i class="fa fa-check"></i><b>2.7.2</b> Analyzing the data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html"><i class="fa fa-check"></i><b>3</b> Collecting data through APIs: the case of Reddit</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#introduction-1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#loading-the-tools"><i class="fa fa-check"></i><b>3.2</b> Loading the tools</a></li>
+<li class="chapter" data-level="3.3" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#case-study-reddit"><i class="fa fa-check"></i><b>3.3</b> Case study: Reddit</a></li>
+<li class="chapter" data-level="3.4" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#accessing-data-via-the-api"><i class="fa fa-check"></i><b>3.4</b> Accessing data via the API</a></li>
+<li class="chapter" data-level="3.5" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#getting-the-data-with-redditextractor"><i class="fa fa-check"></i><b>3.5</b> Getting the data with RedditExtractoR</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#getting-threads"><i class="fa fa-check"></i><b>3.5.1</b> Getting threads</a></li>
+<li class="chapter" data-level="3.5.2" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#getting-contents-of-threads"><i class="fa fa-check"></i><b>3.5.2</b> Getting contents of threads</a></li>
+<li class="chapter" data-level="3.5.3" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#creating-a-network"><i class="fa fa-check"></i><b>3.5.3</b> Creating a network</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html"><i class="fa fa-check"></i><b>4</b> Extra: Data manipulation and analysis with R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#preparation"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#data-preparation-with-base-r"><i class="fa fa-check"></i><b>4.3</b> Data preparation with base R</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#subsetting"><i class="fa fa-check"></i><b>4.3.1</b> Subsetting</a></li>
+<li class="chapter" data-level="4.3.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#sorting"><i class="fa fa-check"></i><b>4.3.2</b> Sorting</a></li>
+<li class="chapter" data-level="4.3.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#transformation"><i class="fa fa-check"></i><b>4.3.3</b> Transformation</a></li>
+<li class="chapter" data-level="4.3.4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#creating-new-variables"><i class="fa fa-check"></i><b>4.3.4</b> Creating new variables</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#data-manipulation-using-tidyverse"><i class="fa fa-check"></i><b>4.4</b> Data manipulation using Tidyverse</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#installing-tidyverse"><i class="fa fa-check"></i><b>4.4.1</b> Installing tidyverse</a></li>
+<li class="chapter" data-level="4.4.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#tidyverse-basics"><i class="fa fa-check"></i><b>4.4.2</b> Tidyverse basics</a></li>
+<li class="chapter" data-level="4.4.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-4-1"><i class="fa fa-check"></i><b>4.4.3</b> PRACTICE PROBLEM 4</a></li>
+<li class="chapter" data-level="4.4.4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#reading-data"><i class="fa fa-check"></i><b>4.4.4</b> Reading data</a></li>
+<li class="chapter" data-level="4.4.5" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#subsetting-with-filter"><i class="fa fa-check"></i><b>4.4.5</b> Subsetting with filter()</a></li>
+<li class="chapter" data-level="4.4.6" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#selecting-certain-columns"><i class="fa fa-check"></i><b>4.4.6</b> Selecting certain columns</a></li>
+<li class="chapter" data-level="4.4.7" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#sorting-with-arrange"><i class="fa fa-check"></i><b>4.4.7</b> Sorting with arrange()</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#adding-or-transforming-variables-with-mutate"><i class="fa fa-check"></i><b>4.5</b> Adding or transforming variables with mutate()</a></li>
+<li class="chapter" data-level="4.6" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#working-with-pipes"><i class="fa fa-check"></i><b>4.6</b> Working with Pipes</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#data-summarization"><i class="fa fa-check"></i><b>4.6.1</b> Data Summarization</a></li>
+<li class="chapter" data-level="4.6.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#ungrouping"><i class="fa fa-check"></i><b>4.6.2</b> Ungrouping</a></li>
+<li class="chapter" data-level="4.6.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-6-1"><i class="fa fa-check"></i><b>4.6.3</b> PRACTICE PROBLEM 6</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Social Research in the Digital Age (Utrecht University)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="extra-data-manipulation-and-analysis-with-r" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Extra: Data manipulation and analysis with R<a href="extra-data-manipulation-and-analysis-with-r.html#extra-data-manipulation-and-analysis-with-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-2" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Introduction<a href="extra-data-manipulation-and-analysis-with-r.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Welcome to the second week of Part I - Introduction to R!</p>
+<p>The aim of this practical is for you to further learn how to (i) <strong>manipulate data (particularly using <em>Tidyverse</em>)</strong> and (ii) perform basic data analysis in R. You will also be introduced to the <code>lavaan</code> package which we will extensively use during Parts II and III of the course.</p>
+<p>The contents of this practical are based on materials developed by Kyle Lang (<a href="https://github.com/kylelang/Introduction-to-R" class="uri">https://github.com/kylelang/Introduction-to-R</a>) as well as Kasper Welbers, Wouter van Atteveldt, and Philipp Masur (<a href="https://github.com/ccs-amsterdam/r-course-material" class="uri">https://github.com/ccs-amsterdam/r-course-material</a>).</p>
+</div>
+<div id="preparation" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Preparation<a href="extra-data-manipulation-and-analysis-with-r.html#preparation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Load necessary packages</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb78-1" tabindex="-1"></a><span class="fu">library</span>(psychTools)    <span class="co"># for the example dataset</span></span></code></pre></div>
+<p>Load the ‘bfi’ data from the ‘psychTools’ package</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb79-1" tabindex="-1"></a><span class="fu">data</span>(bfi, <span class="at">package =</span> <span class="st">&quot;psychTools&quot;</span>)</span></code></pre></div>
+<p>Save the original variable names for later use</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb80-1" tabindex="-1"></a>varNames0 <span class="ot">&lt;-</span> <span class="fu">colnames</span>(bfi)</span></code></pre></div>
+</div>
+<div id="data-preparation-with-base-r" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Data preparation with base R<a href="extra-data-manipulation-and-analysis-with-r.html#data-preparation-with-base-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="subsetting" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Subsetting<a href="extra-data-manipulation-and-analysis-with-r.html#subsetting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We’ve already seen several flavors of subsetting using the ‘[]’, ‘[[]]’, and ‘$’ operators. Since this is very important and is virtually always required before performing any statistical analyses, let’s practice this again.</p>
+<p>Select the ‘age’ column</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb81-1" tabindex="-1"></a>bfi<span class="sc">$</span>age</span>
+<span id="cb81-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb81-2" tabindex="-1"></a>bfi[[<span class="st">&quot;age&quot;</span>]]</span>
+<span id="cb81-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb81-3" tabindex="-1"></a>bfi[ , <span class="st">&quot;age&quot;</span>]</span>
+<span id="cb81-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb81-4" tabindex="-1"></a>bfi[<span class="st">&quot;age&quot;</span>]</span></code></pre></div>
+<p>Select the first 10 rows</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb82-1" tabindex="-1"></a>bfi[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span></code></pre></div>
+<p>Select columns 1, 3, and 5</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb83-1" tabindex="-1"></a>bfi[ , <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]</span></code></pre></div>
+<p>Select the ‘age’ and ‘gender’ columns</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb84-1" tabindex="-1"></a>bfi[ , <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;gender&quot;</span>)]</span>
+<span id="cb84-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb84-2" tabindex="-1"></a>bfi[<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;gender&quot;</span>)]</span></code></pre></div>
+<div id="other-subsetting-methods" class="section level4 hasAnchor" number="4.3.1.1">
+<h4><span class="header-section-number">4.3.1.1</span> Other subsetting methods<a href="extra-data-manipulation-and-analysis-with-r.html#other-subsetting-methods" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Now we’ll look into some other methods of subsetting rows and columns of a data frame.</p>
+<p>Select the first 20 rows of all columns with names beginning in “A”</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb85-1" tabindex="-1"></a>bfi[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">grep</span>(<span class="st">&quot;^A&quot;</span>, <span class="fu">colnames</span>(bfi))]</span></code></pre></div>
+<p>Select the first 10 rows</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb86-1" tabindex="-1"></a><span class="fu">head</span>(bfi, <span class="dv">10</span>)</span></code></pre></div>
+<p>Select the final 15 rows</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb87-1" tabindex="-1"></a><span class="fu">tail</span>(bfi, <span class="dv">15</span>)</span></code></pre></div>
+<p>Select the first 5 rows and exclude columns 2 through 4</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb88-1" tabindex="-1"></a>bfi[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="sc">-</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)]</span></code></pre></div>
+<p>Select rows 42, 45, and 56 and exclude the ‘age’ and ‘education’ columns</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb89-1" tabindex="-1"></a>bfi[<span class="fu">c</span>(<span class="dv">42</span>, <span class="dv">45</span>, <span class="dv">56</span>), <span class="fu">setdiff</span>(<span class="fu">colnames</span>(bfi), <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;education&quot;</span>))]</span></code></pre></div>
+<p>We can also subset using logical vectors.</p>
+<p>Create a logical vector flagging any participant older than 30</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb90-1" tabindex="-1"></a>over30 <span class="ot">&lt;-</span> bfi<span class="sc">$</span>age <span class="sc">&gt;</span> <span class="dv">30</span></span>
+<span id="cb90-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb90-2" tabindex="-1"></a></span>
+<span id="cb90-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb90-3" tabindex="-1"></a><span class="fu">sum</span>(over30) <span class="co"># Checking how many people that is </span></span>
+<span id="cb90-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb90-4" tabindex="-1"></a></span>
+<span id="cb90-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb90-5" tabindex="-1"></a><span class="fu">mean</span>(over30) <span class="co"># Checking what proportion of the total sample that is</span></span></code></pre></div>
+<p>We can use this logical vector as a filter by using it to index rows</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb91-1" tabindex="-1"></a>bfi30 <span class="ot">&lt;-</span> bfi[over30, ]</span>
+<span id="cb91-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb91-2" tabindex="-1"></a></span>
+<span id="cb91-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb91-3" tabindex="-1"></a><span class="fu">dim</span>(bfi30) <span class="co"># checking the dimensions of the data frame (number of rows by columns)</span></span>
+<span id="cb91-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb91-4" tabindex="-1"></a></span>
+<span id="cb91-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb91-5" tabindex="-1"></a><span class="fu">min</span>(bfi30<span class="sc">$</span>age) <span class="co"># checking the minimum value of the age variable</span></span></code></pre></div>
+<p>We can define our logical filter vector using arbitrarily complex conditions. For example, select males who are younger than 50 and have at least a bachelor degree.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb92-1" tabindex="-1"></a>filter <span class="ot">&lt;-</span> <span class="fu">with</span>(bfi, age <span class="sc">&lt;</span> <span class="dv">50</span> <span class="sc">&amp;</span> gender <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(education) <span class="sc">&amp;</span> education <span class="sc">&gt;=</span> <span class="dv">4</span>)</span>
+<span id="cb92-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb92-2" tabindex="-1"></a></span>
+<span id="cb92-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb92-3" tabindex="-1"></a><span class="fu">sum</span>(filter) <span class="co"># check how many observations we got </span></span>
+<span id="cb92-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb92-4" tabindex="-1"></a></span>
+<span id="cb92-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb92-5" tabindex="-1"></a>bfi2 <span class="ot">&lt;-</span> bfi[filter, ] <span class="co"># do the actual selection</span></span>
+<span id="cb92-6"><a href="extra-data-manipulation-and-analysis-with-r.html#cb92-6" tabindex="-1"></a></span>
+<span id="cb92-7"><a href="extra-data-manipulation-and-analysis-with-r.html#cb92-7" tabindex="-1"></a><span class="co"># Check the results; check whether the filter worked correctly </span></span>
+<span id="cb92-8"><a href="extra-data-manipulation-and-analysis-with-r.html#cb92-8" tabindex="-1"></a><span class="fu">nrow</span>(bfi2)</span>
+<span id="cb92-9"><a href="extra-data-manipulation-and-analysis-with-r.html#cb92-9" tabindex="-1"></a><span class="fu">unique</span>(bfi2<span class="sc">$</span>gender)</span>
+<span id="cb92-10"><a href="extra-data-manipulation-and-analysis-with-r.html#cb92-10" tabindex="-1"></a><span class="fu">max</span>(bfi2<span class="sc">$</span>age)</span>
+<span id="cb92-11"><a href="extra-data-manipulation-and-analysis-with-r.html#cb92-11" tabindex="-1"></a><span class="fu">min</span>(bfi2<span class="sc">$</span>education)</span></code></pre></div>
+</div>
+<div id="practice-problem-1-1" class="section level4 hasAnchor" number="4.3.1.2">
+<h4><span class="header-section-number">4.3.1.2</span> PRACTICE PROBLEM 1<a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Use base R subsetting procedures to select the five neuroticism items for female minors out of the ‘bfi’ data.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb93-1" tabindex="-1"></a><span class="co"># SOLUTION</span></span></code></pre></div>
+</div>
+</div>
+<div id="sorting" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Sorting<a href="extra-data-manipulation-and-analysis-with-r.html#sorting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can use the sort() function to order the elements of a vector</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb94-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">6</span>) <span class="co"># creating the vector (6 random draws from a uniform distribution)</span></span>
+<span id="cb94-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb94-2" tabindex="-1"></a><span class="fu">sort</span>(x) <span class="co"># sorting in increasing order</span></span>
+<span id="cb94-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb94-3" tabindex="-1"></a><span class="fu">sort</span>(x, <span class="at">decreasing =</span> <span class="cn">TRUE</span>) <span class="co"># sorting in decreasing order </span></span></code></pre></div>
+<p>Note that, since the draws are random, the values that you got may be different from those above.
+In order to get the same values each time you run this function (or any other function with a random component), you can use a seed which can be any combination of numbers.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb95-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb95-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb95-2" tabindex="-1"></a>x_2<span class="ot">&lt;-</span><span class="fu">runif</span>(<span class="dv">6</span>)</span></code></pre></div>
+<p>To sort the rows of a matrix or data frame using base R functions, we can use the <code>order()</code> function</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb96-1" tabindex="-1"></a>x</span>
+<span id="cb96-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb96-2" tabindex="-1"></a><span class="fu">order</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb97-1" tabindex="-1"></a><span class="co"># Creating a data frame</span></span>
+<span id="cb97-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb97-2" tabindex="-1"></a>(y <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> x,</span>
+<span id="cb97-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb97-3" tabindex="-1"></a>                 <span class="at">x2 =</span> <span class="fu">rnorm</span>(<span class="dv">6</span>), <span class="co"># (6 random draws from a normal distribution)</span></span>
+<span id="cb97-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb97-4" tabindex="-1"></a>                 <span class="at">x3 =</span> <span class="fu">rep</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="dv">3</span>)</span>
+<span id="cb97-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb97-5" tabindex="-1"></a>                 )</span>
+<span id="cb97-6"><a href="extra-data-manipulation-and-analysis-with-r.html#cb97-6" tabindex="-1"></a>)</span>
+<span id="cb97-7"><a href="extra-data-manipulation-and-analysis-with-r.html#cb97-7" tabindex="-1"></a></span>
+<span id="cb97-8"><a href="extra-data-manipulation-and-analysis-with-r.html#cb97-8" tabindex="-1"></a>y[<span class="fu">order</span>(y<span class="sc">$</span>x1), ]</span>
+<span id="cb97-9"><a href="extra-data-manipulation-and-analysis-with-r.html#cb97-9" tabindex="-1"></a>y[<span class="fu">order</span>(y<span class="sc">$</span>x1, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span></code></pre></div>
+<div id="practice-problem-2-1" class="section level4 hasAnchor" number="4.3.2.1">
+<h4><span class="header-section-number">4.3.2.1</span> PRACTICE PROBLEM 2<a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-2-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Use base R functions to sort the ‘bfi’ data on ascending order of ‘age’</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb98-1" tabindex="-1"></a><span class="co"># SOLUTION</span></span></code></pre></div>
+</div>
+</div>
+<div id="transformation" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Transformation<a href="extra-data-manipulation-and-analysis-with-r.html#transformation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One common type of data transformation is converting numeric or character variables into factors.</p>
+<p>A quick-and-dirty solution uses the as.factor() function to cast the variable to a factor with default labels.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb99-1" tabindex="-1"></a>(animals <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cat&quot;</span>, <span class="st">&quot;mongoose&quot;</span>), <span class="dv">25</span>, <span class="cn">TRUE</span>)) <span class="co"># creating the variable</span></span>
+<span id="cb99-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb99-2" tabindex="-1"></a></span>
+<span id="cb99-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb99-3" tabindex="-1"></a>(animalsF <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(animals)) <span class="co"># converting to a factor</span></span>
+<span id="cb99-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb99-4" tabindex="-1"></a></span>
+<span id="cb99-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb99-5" tabindex="-1"></a><span class="fu">levels</span>(animalsF) <span class="co"># checking values of the variable</span></span>
+<span id="cb99-6"><a href="extra-data-manipulation-and-analysis-with-r.html#cb99-6" tabindex="-1"></a><span class="fu">table</span>(<span class="at">character =</span> animals, <span class="at">factor =</span> animalsF) <span class="co"># checking if it worked properly</span></span></code></pre></div>
+<p>While the quick-and-dirty solution works fine for converting character vectors with meaningful values, it isn’t so nice for numeric variables.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb100-1" tabindex="-1"></a>genderF <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(bfi<span class="sc">$</span>gender)</span>
+<span id="cb100-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb100-2" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb100-3" tabindex="-1"></a><span class="fu">levels</span>(genderF)</span>
+<span id="cb100-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb100-4" tabindex="-1"></a><span class="fu">table</span>(<span class="at">numeric =</span> bfi<span class="sc">$</span>gender, <span class="at">factor =</span> genderF)</span></code></pre></div>
+<p>We can use the factor() function to build exactly the factor we want</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb101-1" tabindex="-1"></a>bfi0 <span class="ot">&lt;-</span> bfi</span>
+<span id="cb101-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb101-2" tabindex="-1"></a>bfi<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">factor</span>(bfi<span class="sc">$</span>gender, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>))</span>
+<span id="cb101-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb101-3" tabindex="-1"></a></span>
+<span id="cb101-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb101-4" tabindex="-1"></a><span class="fu">levels</span>(bfi<span class="sc">$</span>gender)</span>
+<span id="cb101-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb101-5" tabindex="-1"></a><span class="fu">table</span>(<span class="at">numeric =</span> bfi0<span class="sc">$</span>gender, <span class="at">factor =</span> bfi<span class="sc">$</span>gender)</span></code></pre></div>
+<div id="practice-problem-3-1" class="section level4 hasAnchor" number="4.3.3.1">
+<h4><span class="header-section-number">4.3.3.1</span> PRACTICE PROBLEM 3<a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-3-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Convert the ‘education’ variable into a factor and assign it the following levels 1 - ‘no education’, 2 - ‘primary’, 3 - ‘secondary’, 4 - ‘bachelor’, 5 - ‘master and above’.
+HINT: it is better to create a new education variable (e.g., education2) so then the values of the new variable can be verified with those of the original one.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb102-1" tabindex="-1"></a><span class="co"># SOLUTION </span></span></code></pre></div>
+</div>
+</div>
+<div id="creating-new-variables" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Creating new variables<a href="extra-data-manipulation-and-analysis-with-r.html#creating-new-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A lot of what we’ve learned so far can also be used to create new variables.</p>
+<p>To create a new variable we need to assign a new column to our data frame (and give it any name we want).</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-1" tabindex="-1"></a>bfi<span class="sc">$</span>agree<span class="ot">&lt;-</span> bfi<span class="sc">$</span>A1 <span class="sc">+</span> bfi<span class="sc">$</span>A2 <span class="sc">+</span> bfi<span class="sc">$</span>A3 <span class="sc">+</span> bfi<span class="sc">$</span>A4 <span class="sc">+</span> bfi<span class="sc">$</span>A5</span>
+<span id="cb103-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-2" tabindex="-1"></a>bfi<span class="sc">$</span>agree2<span class="ot">&lt;-</span> <span class="fu">rowSums</span>(bfi[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">na.rm =</span> F) <span class="co"># sum of all agree personality trait components</span></span>
+<span id="cb103-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-3" tabindex="-1"></a></span>
+<span id="cb103-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-4" tabindex="-1"></a><span class="fu">head</span>(bfi<span class="sc">$</span>agree)</span>
+<span id="cb103-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-5" tabindex="-1"></a><span class="fu">head</span>(bfi<span class="sc">$</span>agree2)</span>
+<span id="cb103-6"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-6" tabindex="-1"></a></span>
+<span id="cb103-7"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-7" tabindex="-1"></a><span class="fu">summary</span>(bfi<span class="sc">$</span>agree)</span>
+<span id="cb103-8"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-8" tabindex="-1"></a><span class="fu">summary</span>(bfi<span class="sc">$</span>agree2)</span>
+<span id="cb103-9"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-9" tabindex="-1"></a></span>
+<span id="cb103-10"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-10" tabindex="-1"></a>bfi<span class="sc">$</span>agree_mean <span class="ot">=</span> <span class="fu">rowMeans</span>(bfi[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb103-11"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-11" tabindex="-1"></a>bfi<span class="sc">$</span>agree_mean2 <span class="ot">=</span> <span class="fu">rowMeans</span>(bfi[<span class="fu">c</span>(<span class="st">&quot;A1&quot;</span>, <span class="st">&quot;A2&quot;</span>, <span class="st">&quot;A3&quot;</span>, <span class="st">&quot;A4&quot;</span>, <span class="st">&quot;A5&quot;</span>)]) <span class="co"># mean of all agree personality trait components</span></span>
+<span id="cb103-12"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-12" tabindex="-1"></a></span>
+<span id="cb103-13"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-13" tabindex="-1"></a><span class="fu">summary</span>(bfi<span class="sc">$</span>agree_mean)</span>
+<span id="cb103-14"><a href="extra-data-manipulation-and-analysis-with-r.html#cb103-14" tabindex="-1"></a><span class="fu">summary</span>(bfi<span class="sc">$</span>agree_mean2)</span></code></pre></div>
+</div>
+</div>
+<div id="data-manipulation-using-tidyverse" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Data manipulation using Tidyverse<a href="extra-data-manipulation-and-analysis-with-r.html#data-manipulation-using-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The goal of this part of the practical session is to get you acquainted with <a href="https://www.tidyverse.org/">Tidyverse</a>. Tidyverse is a collection of packages that have been designed around a singular and clearly defined set of principles about what data should look like and how we should work with it. It comes with a nice introduction in the <a href="http://r4ds.had.co.nz/">R for Data Science</a> book. This tutorial deals with most of the material in chapter 5 of that book.</p>
+<p>In this part of the tutorial, we’ll focus on working with data using the <code>tidyverse</code> package.</p>
+<p>This package includes the <code>dplyr</code> (data-pliers) package, which contains most of the tools we’re using below, but it also contains functions for reading, analysing and visualising data that will be explained later.</p>
+<div id="installing-tidyverse" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Installing tidyverse<a href="extra-data-manipulation-and-analysis-with-r.html#installing-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As before, <code>install.packages()</code> is used to download and install the package (you only need to do this once on your computer) and <code>library()</code> is used to make the functions from this package available for use (required each session that you use the package).</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb104-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;tidyverse&#39;</span>) <span class="co"># only needed once</span></span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb105-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<p><em>Note</em> don’t be scared if you see a red message after calling <code>library</code>. RStudio doesn’t see the difference between messages, warnings, and errors, so it displays all three in red. You need to read the message, and it will contain the word ‘error’ if there is an error, such as a misspelled package.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb106-1" tabindex="-1"></a><span class="fu">library</span>(tidyvers) <span class="co"># this will cause an error!</span></span></code></pre></div>
+</div>
+<div id="tidyverse-basics" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Tidyverse basics<a href="extra-data-manipulation-and-analysis-with-r.html#tidyverse-basics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As in most packages, the functionality in dplyr is offered through functions.
+In general, a function can be seen as a command or instruction to the computer to do something and (generally) return the result.</p>
+<p>In the tidverse package <code>dplyr</code>, almost all <code>functions</code> primarily operate on datasets, for example for filtering and sorting data.</p>
+<p>With a data set we mean a rectangular data frame consisting of rows (often items or respondents) and columns (often measurements of or data about these items).</p>
+<p>These datasets can be R <code>data.frames</code>, but tidyverse has its own version of data frames called <code>tibble</code>, which is functionally (almost) equivalent to a data frame but is more efficient and somewhat easier to use.</p>
+<p>As a very simply example, the following code creates a tibble containing respondents, their gender, and their height.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb107-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">resp =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), </span>
+<span id="cb107-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb107-2" tabindex="-1"></a>               <span class="at">gender =</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>,<span class="st">&quot;F&quot;</span>,<span class="st">&quot;F&quot;</span>), </span>
+<span id="cb107-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb107-3" tabindex="-1"></a>               <span class="at">height =</span> <span class="fu">c</span>(<span class="dv">176</span>, <span class="dv">165</span>, <span class="dv">172</span>))</span>
+<span id="cb107-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb107-4" tabindex="-1"></a>data</span></code></pre></div>
+</div>
+<div id="practice-problem-4-1" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> PRACTICE PROBLEM 4<a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-4-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>How would you create a subset that contains only female participants?
+HINT: no need to use tidyverse, use the R base commands you learned earlier</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb108-1" tabindex="-1"></a><span class="co"># SOLUTION</span></span></code></pre></div>
+</div>
+<div id="reading-data" class="section level3 hasAnchor" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> Reading data<a href="extra-data-manipulation-and-analysis-with-r.html#reading-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The example above manually created a data set, but in most cases you will start with data that you get from elsewhere, such as a csv file (e.g. downloaded from an online dataset or exported from excel) or an SPSS or Stata data file.</p>
+<p>Tidyverse contains a function <code>read_csv</code> that allows you to read a csv file directly into a tibble.
+You specify the location of the file, either on your local drive or directly from the Internet!</p>
+<p>The example below downloads an overview of gun polls from the <a href="https://fivethirtyeight.com/">data analytics site 538</a>, and reads it into a tibble using the read_csv function.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb109-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/poll-quiz-guns/guns-polls.csv&quot;</span></span>
+<span id="cb109-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb109-2" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url)</span>
+<span id="cb109-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb109-3" tabindex="-1"></a>d</span></code></pre></div>
+<p>(Note that you can safely ignore the (red) message, they simply tell you how each column was parsed)</p>
+<p>Calling the dataset (by simply typing in the name of it - <code>d</code>) shows the first ten rows of the dataset, and if the columns don’t fit they are not printed. The remaining rows and columns are printed at the bottom. For each column the data type is also mentioned (<em>int</em> stands for integer, which is a <em>numeric</em> value; <em>chr</em> is textual or <em>character</em> data). If you want to browse through your data, you can also click on the name of the data.frame (d) in the top-right window “Environment” tab
+or call <code>View(d)</code>.</p>
+</div>
+<div id="subsetting-with-filter" class="section level3 hasAnchor" number="4.4.5">
+<h3><span class="header-section-number">4.4.5</span> Subsetting with filter()<a href="extra-data-manipulation-and-analysis-with-r.html#subsetting-with-filter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>filter</code> function can be used to select a subset of rows.</p>
+<p>In the guns data, the <code>Question</code> column specifies which question was asked.</p>
+<p>We can select only those rows (polls) that asked whether the minimum purchase age for guns should be raised to 21.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb110-1" tabindex="-1"></a>age21 <span class="ot">&lt;-</span> <span class="fu">filter</span>(d, Question <span class="sc">==</span> <span class="st">&#39;age-21&#39;</span>)</span>
+<span id="cb110-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb110-2" tabindex="-1"></a>age21</span></code></pre></div>
+<p>This call is typical for a tidyverse function: the first argument is the data to be used (<code>d</code>),
+and the remaining argument(s) contain information on what should be done to the data.</p>
+<p><em>Reminder</em>
+Note the use of <code>==</code> for comparison: In R, <code>=</code> means assingment and <code>==</code> means equals.
+Other comparisons are e.g. <code>&gt;</code> (greather than), <code>&lt;=</code> (less than or equal) and <code>!=</code> (not equal).
+You can also combine multiple conditions with logical (boolean) operators: <code>&amp;</code> (and), <code>|</code> or, and <code>!</code> (not), and you can use parentheses like in mathematics.</p>
+<p>Using a comparison, we can find all surveys where support for raising the gun age was at least 80%.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb111-1" tabindex="-1"></a><span class="fu">filter</span>(d, Question <span class="sc">==</span> <span class="st">&#39;age-21&#39;</span> <span class="sc">&amp;</span> Support <span class="sc">&gt;=</span> <span class="dv">80</span>)</span></code></pre></div>
+<p>Note that this command did not assign the result to an object, so the result is only displayed on the screen but not remembered.</p>
+<p>This can be a great way to quickly inspect your data, but if you want to continue analysing this subset you need to assign it to an object as above.</p>
+</div>
+<div id="selecting-certain-columns" class="section level3 hasAnchor" number="4.4.6">
+<h3><span class="header-section-number">4.4.6</span> Selecting certain columns<a href="extra-data-manipulation-and-analysis-with-r.html#selecting-certain-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Where <code>filter</code> selects specific rows, <code>select</code> allows you to select specific columns.</p>
+<p>Most simply, we can name the columns that we want to retrieve in the particular order we want to retrieve them.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb112-1" tabindex="-1"></a><span class="fu">select</span>(age21, Population, Support, Pollster)</span></code></pre></div>
+<p>We can also specify a range of columns, for example all columns from Support to Democratic Support.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb113-1" tabindex="-1"></a><span class="fu">select</span>(age21, Support<span class="sc">:</span><span class="st">`</span><span class="at">Democratic Support</span><span class="st">`</span>)</span></code></pre></div>
+<p>Note the use of ‘backticks’ (reverse quotes) to specify the column name, as R does not normally allow spaces in names.</p>
+<p>You can also use some more versatile functions such as <code>contains()</code> or <code>starts_with()</code> within a <code>select()</code> command.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb114-1" tabindex="-1"></a><span class="fu">select</span>(age21, <span class="fu">contains</span>(<span class="st">&quot;Supp&quot;</span>)) <span class="co"># Selects all variables that contain the stem &quot;Supp&quot; in their name</span></span></code></pre></div>
+<p>Select can also be used to rename columns when selecting them, for example to get rid of the spaces.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb115-1" tabindex="-1"></a><span class="fu">select</span>(age21, Pollster, <span class="at">rep =</span> <span class="st">`</span><span class="at">Republican Support</span><span class="st">`</span>, <span class="at">dem =</span> <span class="st">`</span><span class="at">Democratic Support</span><span class="st">`</span>)</span></code></pre></div>
+<p>Note that <code>select</code> drops all columns not selected. If you only want to rename columns, you can use the <code>rename</code> function (by first providing the new column name and then after the equal sign the old name).</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb116-1" tabindex="-1"></a><span class="fu">rename</span>(age21, <span class="at">start_date =</span> Start, <span class="at">end_date =</span> End)</span></code></pre></div>
+<p>Finally, you can drop a variable by adding a minus sign in front of a name:</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb117-1" tabindex="-1"></a><span class="fu">select</span>(age21, <span class="sc">-</span>Question, <span class="sc">-</span>URL)</span></code></pre></div>
+</div>
+<div id="sorting-with-arrange" class="section level3 hasAnchor" number="4.4.7">
+<h3><span class="header-section-number">4.4.7</span> Sorting with arrange()<a href="extra-data-manipulation-and-analysis-with-r.html#sorting-with-arrange" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You can easily sort a data set with <code>arrange</code>: you first specify the data, and then the column(s) to sort on.</p>
+<p>To sort in descending order, put a minus in front of a variable.
+For example, the following orders by population and then by support (descending).</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb118-1" tabindex="-1"></a>age21 <span class="ot">&lt;-</span> <span class="fu">arrange</span>(age21, Population, <span class="sc">-</span>Support)</span>
+<span id="cb118-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb118-2" tabindex="-1"></a>age21</span></code></pre></div>
+<p>Note that we assigned the result of arranging to the <code>age21</code> object again, i.e. we replace the object by its sorted version.</p>
+<p>If we wouldn’t assign it to anything, it would display it on screen but not remember the sorting.
+Assigning a result to the same name means we don’t create a new object, preventing the environment from being cluttered (and saving us from the bother of thinking up yet another object name).</p>
+<p>For sorting, this should generally be fine as the sorted data should contain the same data as before.</p>
+<p>For subsetting, this means that the rows or columns are actually deleted from the dataset (in memory),
+so you will have to read the file again (or start from an earlier object) if you need those rows or columns later.</p>
+</div>
+</div>
+<div id="adding-or-transforming-variables-with-mutate" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Adding or transforming variables with mutate()<a href="extra-data-manipulation-and-analysis-with-r.html#adding-or-transforming-variables-with-mutate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>mutate</code> function makes it easy to create new variables or to modify existing ones. For those more familiar with SPSS, this is what you would do with compute and recode.</p>
+<p>If you look at the documentation page, you see that mutate works similarly to <code>filter()</code> and <code>select()</code>, in the sense that the first argument is the <em>tibble</em>, and then any number of additional arguments can be given to perform mutations. The mutations themselves are named arguments, in which you can provide any calculations using the existing columns.</p>
+<p>Here we’ll first create some variables and then look at the variables (using the <code>select</code> function to focus on the changes). Specifically, we’ll make a column for the absolute difference between the support scores for republicans and democrats, as a measure of how much they disagree.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb119-1" tabindex="-1"></a>age21 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(age21, <span class="at">party_diff =</span> <span class="fu">abs</span>(<span class="st">`</span><span class="at">Republican Support</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">Democratic Support</span><span class="st">`</span>))</span>
+<span id="cb119-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb119-2" tabindex="-1"></a><span class="fu">select</span>(age21, Question, Pollster, party_diff)</span>
+<span id="cb119-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb119-3" tabindex="-1"></a>age21 <span class="ot">&lt;-</span> <span class="fu">arrange</span>(age21, Population, <span class="sc">-</span>Support)</span></code></pre></div>
+<p>To transform (recode) a variable in the same column, you can simply use an existing name in <code>mutate()</code> to overwrite it.</p>
+</div>
+<div id="working-with-pipes" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Working with Pipes<a href="extra-data-manipulation-and-analysis-with-r.html#working-with-pipes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you look at the code above, you notice that the result of the <code>mutate</code> function is stored as an object, and that this object is used as the first argument for the next functions (<code>select</code> and <code>arrange</code>).</p>
+<p>This is a very common usage pattern, and it can be seen as a <em>pipeline</em> of functions, where the output of each function is the input for the next function.</p>
+<p>Because this is so common and usually we don’t really care about this temporary object but only about the final outcome, tidyverse offers a more convenient way of writing the code above using the pipeline operator <code>%&gt;%</code>.</p>
+<p>In short, whenever you write <code>f(a, x)</code> you can replace it by <code>a %&gt;% f(x)</code>. If you then want to use the output of <code>f(a, x)</code> for a second function, you can just add it to the pipe: <code>a %&gt;% f(x) %&gt;% f2(y)</code> is equivalent to <code>f2(f(a,x), y)</code>, or more readable, <code>b=f(a,x); f2(b, y)</code></p>
+<p>Put simply, pipes take the output of a function, and directly use that output as the input for the <code>.data</code> argument in the next function. As you have seen, all the <code>dplyr</code> functions that we discussed have in common that the first argument is a <em>tibble</em>, and all functions return a <em>tibble</em>. This is intentional, and allows us to pipe all the functions together.</p>
+<p>This might seem a bit abstract, but consider the code below, which is a collection of statements from above:</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb120-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url)</span>
+<span id="cb120-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb120-2" tabindex="-1"></a>age21 <span class="ot">&lt;-</span> <span class="fu">filter</span>(d, Question <span class="sc">==</span> <span class="st">&#39;age-21&#39;</span>)</span>
+<span id="cb120-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb120-3" tabindex="-1"></a>age21 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(age21, <span class="at">party_diff =</span> <span class="fu">abs</span>(<span class="st">`</span><span class="at">Republican Support</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">Democratic Support</span><span class="st">`</span>))</span>
+<span id="cb120-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb120-4" tabindex="-1"></a>age21 <span class="ot">&lt;-</span> <span class="fu">select</span>(age21, Question, Pollster, party_diff)</span>
+<span id="cb120-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb120-5" tabindex="-1"></a><span class="fu">arrange</span>(age21, <span class="sc">-</span>party_diff)</span></code></pre></div>
+<p>To recap, this reads the csv, filters by question, computes the difference, drops other variables, and sorts.</p>
+<p>Since the output of each function is the input of the next, we can also write this as a single pipeline.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb121-1" tabindex="-1"></a><span class="fu">read_csv</span>(url) <span class="sc">%&gt;%</span> </span>
+<span id="cb121-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb121-2" tabindex="-1"></a>  <span class="fu">filter</span>(Question <span class="sc">==</span> <span class="st">&#39;age-21&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb121-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb121-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">party_diff =</span> <span class="fu">abs</span>(<span class="st">`</span><span class="at">Republican Support</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">Democratic Support</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb121-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb121-4" tabindex="-1"></a>  <span class="fu">select</span>(Question, Pollster, party_diff) <span class="sc">%&gt;%</span> </span>
+<span id="cb121-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb121-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>party_diff)</span></code></pre></div>
+<p>The nice thing about pipes is that it makes it really clear what you are doing. Also, it doesn’t require making many intermediate objects. If applied right, piping allows you to make nicely contained pieces of code to perform specific parts of your analysis from raw input straight to results, including statistical modeling or visualization. It usually makes sense to have each “step” in the pipeline in its own line. This way, we can easily read the code line by line.</p>
+<p>Of course, you probably don’t want to replace your whole script with a single pipe, and often it is nice to store intermediate values.</p>
+<p>For example, you might want to download, clean, and subset a data set before doing multiple analyses with it.</p>
+<p>In that case, you probably want to store the result of downloading, cleaning, and subsetting as a variable, and use that in your analyses.</p>
+<div id="practice-problem-5-1" class="section level4 hasAnchor" number="4.6.0.1">
+<h4><span class="header-section-number">4.6.0.1</span> PRACTICE PROBLEM 5<a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-5-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Create a subset of the tibble <code>d</code> in which only polls with the question “arm-teacher” are included. Select only the variables <em>Pollster</em>, <em>Population</em>, and <em>Support</em> (feel free to rename them to more shorter abbreviations at the same time). Recode the variable Support so that it ranges from 0 to 1. Recode the variable <em>Population</em> so that the values reader <em>reg</em> and <em>adu</em> (tip: use the function <code>recode()</code> within a <code>mutate()</code> command. If you don’t know how the <code>recode</code> function works, use the help function <code>?</code>!)</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb122-1" tabindex="-1"></a><span class="co"># SOLUTION</span></span></code></pre></div>
+</div>
+<div id="data-summarization" class="section level3 hasAnchor" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> Data Summarization<a href="extra-data-manipulation-and-analysis-with-r.html#data-summarization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The functions used in the earlier part on data preparation worked on individual rows.
+Sometimes, you need to compute properties of groups of rows (cases).</p>
+<p>This is called aggregation (or summarization) and in tidyverse uses the <code>group_by</code> function
+followed by either <code>summarize</code> or <code>mutate</code>.</p>
+<p>Let’s again work with the gun-poll data, remove the URL and rename some variables.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb123-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> </span>
+<span id="cb123-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb123-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>URL) <span class="sc">%&gt;%</span> </span>
+<span id="cb123-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb123-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Rep =</span> <span class="st">`</span><span class="at">Republican Support</span><span class="st">`</span>, <span class="at">Dem =</span> <span class="st">`</span><span class="at">Democratic Support</span><span class="st">`</span>)</span>
+<span id="cb123-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb123-4" tabindex="-1"></a>d</span></code></pre></div>
+<div id="grouping-rows" class="section level4 hasAnchor" number="4.6.1.1">
+<h4><span class="header-section-number">4.6.1.1</span> Grouping rows<a href="extra-data-manipulation-and-analysis-with-r.html#grouping-rows" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Now, we can use the group_by function to group by, for example, question.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb124-1" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb124-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb124-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Question)</span></code></pre></div>
+<p>As you can see, the data itself didn’t actually change yet, it merely recorded (at the top) that we are now grouping by Question, and that there are 8 groups (different questions) in total.</p>
+</div>
+<div id="summarizing" class="section level4 hasAnchor" number="4.6.1.2">
+<h4><span class="header-section-number">4.6.1.2</span> Summarizing<a href="extra-data-manipulation-and-analysis-with-r.html#summarizing" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To summarize, you follow the group_by with a call to <code>summarize</code>. Summarize has a syntax that is similar to mutate: <code>summarize(column = calculation, ...)</code>.</p>
+<p>The crucial difference, however, is that you always need to use a function in the calculation, and that function needs to compute a single summary value given a vector of values.</p>
+<p>Very common summarization functions are sum, mean, and sd (standard deviation).</p>
+<p>For example, the following computes the average support per question (and sorts by descending support).</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb125-1" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb125-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb125-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Question) <span class="sc">%&gt;%</span>                    <span class="do">## group by &quot;Questions&quot;</span></span>
+<span id="cb125-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb125-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Support =</span> <span class="fu">mean</span>(Support)) <span class="sc">%&gt;%</span>    <span class="do">## average &quot;Support&quot; per group</span></span>
+<span id="cb125-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb125-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>Support)                         <span class="do">## sort based on &quot;Support&quot;</span></span></code></pre></div>
+<p>As you can see, summarize drastically changes the shape of the data. There are now rows equal to the number of groups (8), and the only columns left are the grouping variables and the summarized values.</p>
+<p>You can also compute summaries of multiple values, and even do ad hoc calculations.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb126-1" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb126-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb126-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Question) <span class="sc">%&gt;%</span> </span>
+<span id="cb126-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb126-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Dem =</span> <span class="fu">mean</span>(Dem), </span>
+<span id="cb126-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb126-4" tabindex="-1"></a>            <span class="at">Rep =</span> <span class="fu">mean</span>(Rep), </span>
+<span id="cb126-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb126-5" tabindex="-1"></a>            <span class="at">Diff =</span> <span class="fu">mean</span>(Dem<span class="sc">-</span>Rep)) <span class="sc">%&gt;%</span> </span>
+<span id="cb126-6"><a href="extra-data-manipulation-and-analysis-with-r.html#cb126-6" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>Diff)</span></code></pre></div>
+<p>So, Democrats are more in favor of all proposed gun laws except arming teachers.</p>
+<p>You can also compute multiple summaries of a single value.</p>
+<p>Another useful function is <code>n()</code> (without arguments), which simply counts the values in each group.
+For example, the following gives the count, mean, and standard deviation of the support.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb127-1" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb127-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb127-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Question) <span class="sc">%&gt;%</span> </span>
+<span id="cb127-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb127-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb127-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb127-4" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(Support), </span>
+<span id="cb127-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb127-5" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(Support))</span></code></pre></div>
+<p><em>Note</em> As you can see, one of the values has a missing value (NA) for standard deviation. Why?</p>
+</div>
+<div id="using-mutate-with-group_by" class="section level4 hasAnchor" number="4.6.1.3">
+<h4><span class="header-section-number">4.6.1.3</span> Using mutate with group_by<a href="extra-data-manipulation-and-analysis-with-r.html#using-mutate-with-group_by" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The examples above all reduce the number of cases to the number of groups. Another option is to use mutate after a group_by, which allows you to add summary values to the rows themselves.</p>
+<p>For example, suppose we wish to see whether a certain poll has a different prediction from the average polling of that question.</p>
+<p>We can group_by question and then use mutate to calculate the average support.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb128-1" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> </span>
+<span id="cb128-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb128-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Question) <span class="sc">%&gt;%</span></span>
+<span id="cb128-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb128-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_support =</span> <span class="fu">mean</span>(Support), </span>
+<span id="cb128-4"><a href="extra-data-manipulation-and-analysis-with-r.html#cb128-4" tabindex="-1"></a>         <span class="at">diff =</span> Support <span class="sc">-</span> avg_support)</span>
+<span id="cb128-5"><a href="extra-data-manipulation-and-analysis-with-r.html#cb128-5" tabindex="-1"></a>d2</span></code></pre></div>
+<p>As you can see, where summarize reduces the rows and columns to the groups and summaries,
+mutate adds a new column which is identical for all rows within a group.</p>
+</div>
+</div>
+<div id="ungrouping" class="section level3 hasAnchor" number="4.6.2">
+<h3><span class="header-section-number">4.6.2</span> Ungrouping<a href="extra-data-manipulation-and-analysis-with-r.html#ungrouping" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Finally, you can use <code>ungroup</code> to get rid of any groupings.</p>
+<p>For example, the data produced by the example above is still grouped by Question as mutate does not remove grouping information.
+So, if we want to compute the overall standard deviation of the difference we could ungroup and then summarize.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb129-1" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb129-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb129-2" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb129-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb129-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">diff =</span> <span class="fu">sd</span>(diff))</span></code></pre></div>
+<p>(of course, running <code>sd(d2$diff))</code> would yield the same result.)</p>
+<p>If you run the same command without the ungroup, what would the result be? Why?</p>
+<div id="multiple-grouping-variables" class="section level4 hasAnchor" number="4.6.2.1">
+<h4><span class="header-section-number">4.6.2.1</span> Multiple grouping variables<a href="extra-data-manipulation-and-analysis-with-r.html#multiple-grouping-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The above examples all used a single grouping variable, but you can also group by multiple columns.
+For example, we could compute average support per question and per population.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb130-1" tabindex="-1"></a>d <span class="sc">%&gt;%</span> </span>
+<span id="cb130-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb130-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Question, Population) <span class="sc">%&gt;%</span> </span>
+<span id="cb130-3"><a href="extra-data-manipulation-and-analysis-with-r.html#cb130-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Support =</span> <span class="fu">mean</span>(Support))</span></code></pre></div>
+<p>This results in a data set with one row per unique group, i.e. combination of Question and Population, and with separate columns for each grouping column and the summary values.</p>
+</div>
+</div>
+<div id="practice-problem-6-1" class="section level3 hasAnchor" number="4.6.3">
+<h3><span class="header-section-number">4.6.3</span> PRACTICE PROBLEM 6<a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-6-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following data set stems from an experiment conducted by <a href="https://doi.org/10.1371/journal.pone.0254670">Masur, DiFranzo and Bazarova (2021)</a> in which participants were exposed to social media feeds that differed with regard to how many of the (simulated) users showed themselves visually in the posts and profile pictures. The experiment a 3 (norm: 0%, 20%, 80% of the posts contained faces) x 3 (profile: 0%, 20%, 80% of the profile pictures contained faces) between-subject design. The authors were interested whether these manipulations led to different norm perceptions and different intentions to disclose oneself. The full data set can be downloaded here: <a href="https://osf.io/kfm6x/" class="uri">https://osf.io/kfm6x/</a>.</p>
+<p>This subset contains the following variables:</p>
+<ul>
+<li><strong>id</strong>: participants’ unique identifiers</li>
+<li><strong>condition</strong>: the condition they were randomly assigned.</li>
+<li><strong>norm</strong>: The first manipulated factor, i.e., number of posts that contained faces.</li>
+<li><strong>profile</strong>: The second manipulated factor, i.e., the number of profile pictures that contained faces</li>
+<li><strong>age</strong>: Age of the participants
+-<strong>gender</strong>: Gender of the participants
+-<strong>norm_perc</strong>: A scale measuring how strongly participants perceived the social norm to disclose oneself on the platform.
+-<strong>disclosure</strong>: Their intention to disclose themselves on the platform</li>
+</ul>
+<p>Using the functions of the tidyverse, try to answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li><p>On average, does age differ across the nine conditions?</p></li>
+<li><p>How did the two manipulations (<em>norm</em> and <em>profile</em>) affect subsequent <em>norm perceptions</em> and <em>disclosure intentions</em>? Think about how you can compute the difference across conditions for both factors independently as well as at the same time.</p></li>
+<li><p>Bonus question: How strongly are norm perceptions and intentions correlated (tip: try <code>?cor.test</code> to learn how to compute correlations)?</p></li>
+</ol>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="extra-data-manipulation-and-analysis-with-r.html#cb131-1" tabindex="-1"></a><span class="co"># SOLUTION </span></span>
+<span id="cb131-2"><a href="extra-data-manipulation-and-analysis-with-r.html#cb131-2" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/masurp/VU_CADC/main/tutorials/data/masur-et-al_data.csv&quot;</span>)</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="collecting-data-through-apis-the-case-of-reddit.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

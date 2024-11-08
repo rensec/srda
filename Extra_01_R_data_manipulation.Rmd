@@ -1,4 +1,4 @@
-# Data manipulation and analysis with R
+# Extra: Data manipulation and analysis with R
 
 ```{r global_options, include=FALSE}
 #knitr::opts_chunk$set(fig.pos = 'H')
