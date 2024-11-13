@@ -38,7 +38,7 @@ library(tidyverse) # for general data handling
 ```
 
 
-Second, we need to add some special tool to our browser to get a better understanding of -and grip on- the website that we are scraping. I use Firefox, for which the [add-on "ScrapeMate"](https://addons.mozilla.org/en-US/firefox/addon/scrapemate/) is available. Chrome has different extensions for the same purpose, and so may other extendable browsers. Note that results may differ between browsers and extensions from website to website, so if you can't figure out a website (you'll see what I mean by that later) using one particular browser-extension combination, it's always worth trying other combinations. Go go ahead and install the relevant extension for your browser.
+Second, we need to add some special tool to our browser to get a better understanding of -and grip on- the website that we are scraping. I use Firefox, for which the [add-on "ScrapeMate"](https://addons.mozilla.org/en-US/firefox/addon/scrapemate/) is available. Chrome has different extensions for the same purpose (such as [SelectorGadget](https://chromewebstore.google.com/detail/selectorgadget/mhjhnkcfbdhnjickkkdbjoemdmbfginb)), and so may other extendable browsers. Note that results may differ between browsers and extensions from website to website, so if you can't figure out a website (you'll see what I mean by that later) using one particular browser-extension combination, it's always worth trying other combinations. Go go ahead and install the relevant extension for your browser.
 
 ## Getting to know the target website
 
@@ -55,6 +55,15 @@ Before we start coding, it's always a good idea to get a little bit acquainted w
 -   What is your impression about the sort of petitions that are posted here? Does anything stand out?
 
 Also, once more look at the page source code (see above). Which part of the content of the page can you already identify in the source code (and which not)? You'll notice that there is a lot of code that does not seem to refer to any content; things like `class="search-container whitespace".` This is called *CSS* (for *Cascading Style Sheets*) and it determines what a website looks like, by applying certain formatting rules to things that should look familiar (not unlike, for example, the style templates of Microsoft Word or Powerpoint). We'll take advantage of this later to locate information on the page.
+
+## Are we allowed to scrape?
+There's a lot to say about the ethics and legal aspects of web scraping, which we will not cover here; we specifically chose a target website for this tutorial for which these concerns are minimal. For any real research project, a careful ethical review is part of responsible research practices. Generally speaking though, if you're not collecting personal data, you're mostly fine from a legal perspective (but don't take this as legal advice). That does not mean that every website *likes* to be scraped. For example, they may want to protect their data, or prevent excessive server traffic. Mostly, the scrapers or crawlers they would be concerned about are not in fact those used by researchers, but by search engines like Google. In order to communicate their preferences, websites may use a thing called "robots.txt", which is a machine- and human-readable file that specifies which parts of the website may be scraped, typically located in the root folder of the website. It is an unwritten rule of the internet to honor the rules specified in robots.txt files (although there may be specific cases where it is ethically justified to ignore them).  
+
+You can find the robots.txt of petities.nl at [https://petities.nl/robots.txt](https://petities.nl/robots.txt). Click to have a look.
+
+The first line, "User-agent: " specifies the types of "agents" to whom the rules that follow apply. "*" here means: everybody. The lines below specify which parts of the websites are allowed or not allowed to scrape.
+
+**Question:**: which parts of the website are disallowed for scraping on petities.nl? Why do you think that is?
 
 ## Making a plan
 
@@ -104,7 +113,6 @@ In building our scraper, we can now make use of that: we can basically tell it t
 We now turn to the `rvest` package. To begin, we simply download the entire page:
 
 ```{r}
-# Simple version without polite and without pipes
 webpage <- read_html("https://petities.nl/petitions/all?locale=en") 
 webpage
 
@@ -328,4 +336,17 @@ plot(petitions$rank, petitions$sig_count, log = "xy")
 
 
 **Question:**: Compare your figure to Figure 3.4 in the Chapter by Margetts et al. Does the distribution of success in the Netherlands look more like the one in the UK or the one in the US?
+
+## Extensions
+The way we've used `rvest` now to scrape a website is just scraping the surface (pun intended) of web scraping. Obvioulsy, the internet is vast and diverse, and different circumstances may require different solutions. Here, we briefly discuss a few relevant extensions. 
+
+### More ethically robust web scraping with `polite`
+We've not discussed the ethics of web scraping in detail now, but if you collect free data from a website, you should consider what the people behind this website (and behind every website there are people) may think of it. The R package `polite` takes some of the work involved with that out of your hands. In particular, it:
+-   Automatically check the content of the "robots.txt" file of a website to verify scraping permissions
+-   Let's you systematically announce you identity to the website's server. For many cases, this is a useful "automatic" ethical check: if you're not comfortable announcing your identity while collecting data, that implies that you need to review your research ethics extremely carefully. 
+
+See [here](https://ryo-n7.github.io/2020-05-14-webscrape-soccer-data-with-R/) for an online tutorial on using `polite`. Under the hood, `polite` still uses `rvest` for scraping, so it works for every website for which `revest` works and the basic workflow is the same.
+
+### Scraping dynamic websites with `RSelenium`
+`Rvest` works well, but mostly for [static websites](https://en.wikipedia.org/wiki/Static_web_page), that is, websites that are simply stored on a web server and presented to the user "as-is". It works less well for [dynamic websites](https://en.wikipedia.org/wiki/Dynamic_web_page), which create pages "on the fly" using things like JavaScript. The [UU website](https://www.uu.nl/staff/RCorten) is an example of this: you won't be able to easily identify pieces of information on the site using your ScrapeMate (or similar) tool (try it!). For such cases, packages like `RSelenium` are a solution. In a nutshell, this is a method to scrape websites by mimicking the clicking behavior of a viewer. We do not cover it here as it is much more technically involved and finicky to get working. If your are interested, see [here](https://www.geeksforgeeks.org/web-scraping-using-rselenium/) for one of the many online tutorials.
 

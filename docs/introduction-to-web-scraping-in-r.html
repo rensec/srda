@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Introduction to web scraping in R | Social Research in the Digital Age (Utrecht University)</title>
   <meta name="description" content="2 Introduction to web scraping in R | Social Research in the Digital Age (Utrecht University)" />
-  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Introduction to web scraping in R | Social Research in the Digital Age (Utrecht University)" />
   <meta property="og:type" content="book" />
@@ -65,7 +65,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -196,17 +196,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#some-preliminaries-about-websites-scraping-and-crawling"><i class="fa fa-check"></i><b>2.1</b> Some preliminaries: about websites, scraping, and crawling</a></li>
 <li class="chapter" data-level="2.2" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#getting-our-tools-ready"><i class="fa fa-check"></i><b>2.2</b> Getting our tools ready</a></li>
 <li class="chapter" data-level="2.3" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#getting-to-know-the-target-website"><i class="fa fa-check"></i><b>2.3</b> Getting to know the target website</a></li>
-<li class="chapter" data-level="2.4" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#making-a-plan"><i class="fa fa-check"></i><b>2.4</b> Making a plan</a></li>
-<li class="chapter" data-level="2.5" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#locating-the-correct-information"><i class="fa fa-check"></i><b>2.5</b> Locating the correct information</a></li>
-<li class="chapter" data-level="2.6" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#building-the-scraper"><i class="fa fa-check"></i><b>2.6</b> Building the scraper</a>
+<li class="chapter" data-level="2.4" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#are-we-allowed-to-scrape"><i class="fa fa-check"></i><b>2.4</b> Are we allowed to scrape?</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#making-a-plan"><i class="fa fa-check"></i><b>2.5</b> Making a plan</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#locating-the-correct-information"><i class="fa fa-check"></i><b>2.6</b> Locating the correct information</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#building-the-scraper"><i class="fa fa-check"></i><b>2.7</b> Building the scraper</a>
 <ul>
-<li class="chapter" data-level="2.6.1" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#first-steps"><i class="fa fa-check"></i><b>2.6.1</b> First steps</a></li>
-<li class="chapter" data-level="2.6.2" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#automating-the-process-getting-multiple-pages"><i class="fa fa-check"></i><b>2.6.2</b> Automating the process: getting multiple pages</a></li>
+<li class="chapter" data-level="2.7.1" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#first-steps"><i class="fa fa-check"></i><b>2.7.1</b> First steps</a></li>
+<li class="chapter" data-level="2.7.2" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#automating-the-process-getting-multiple-pages"><i class="fa fa-check"></i><b>2.7.2</b> Automating the process: getting multiple pages</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#answering-the-research-question"><i class="fa fa-check"></i><b>2.7</b> Answering the research question</a>
+<li class="chapter" data-level="2.8" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#answering-the-research-question"><i class="fa fa-check"></i><b>2.8</b> Answering the research question</a>
 <ul>
-<li class="chapter" data-level="2.7.1" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#collecting-the-data"><i class="fa fa-check"></i><b>2.7.1</b> Collecting the data</a></li>
-<li class="chapter" data-level="2.7.2" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#analyzing-the-data"><i class="fa fa-check"></i><b>2.7.2</b> Analyzing the data</a></li>
+<li class="chapter" data-level="2.8.1" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#collecting-the-data"><i class="fa fa-check"></i><b>2.8.1</b> Collecting the data</a></li>
+<li class="chapter" data-level="2.8.2" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#analyzing-the-data"><i class="fa fa-check"></i><b>2.8.2</b> Analyzing the data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#extensions"><i class="fa fa-check"></i><b>2.9</b> Extensions</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#more-ethically-robust-web-scraping-with-polite"><i class="fa fa-check"></i><b>2.9.1</b> More ethically robust web scraping with <code>polite</code></a></li>
+<li class="chapter" data-level="2.9.2" data-path="introduction-to-web-scraping-in-r.html"><a href="introduction-to-web-scraping-in-r.html#scraping-dynamic-websites-with-rselenium"><i class="fa fa-check"></i><b>2.9.2</b> Scraping dynamic websites with <code>RSelenium</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html"><i class="fa fa-check"></i><b>3</b> Collecting data through APIs: the case of Reddit</a>
@@ -294,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="introduction-to-web-scraping-in-r.html#cb55-1" tabindex="-1"></a><span class="fu">library</span>(rvest)  <span class="co">#scraping</span></span>
 <span id="cb55-2"><a href="introduction-to-web-scraping-in-r.html#cb55-2" tabindex="-1"></a><span class="fu">library</span>(stringr) <span class="co"># string functions</span></span>
 <span id="cb55-3"><a href="introduction-to-web-scraping-in-r.html#cb55-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for general data handling</span></span></code></pre></div>
-<p>Second, we need to add some special tool to our browser to get a better understanding of -and grip on- the website that we are scraping. I use Firefox, for which the <a href="https://addons.mozilla.org/en-US/firefox/addon/scrapemate/">add-on “ScrapeMate”</a> is available. Chrome has different extensions for the same purpose, and so may other extendable browsers. Note that results may differ between browsers and extensions from website to website, so if you can’t figure out a website (you’ll see what I mean by that later) using one particular browser-extension combination, it’s always worth trying other combinations. Go go ahead and install the relevant extension for your browser.</p>
+<p>Second, we need to add some special tool to our browser to get a better understanding of -and grip on- the website that we are scraping. I use Firefox, for which the <a href="https://addons.mozilla.org/en-US/firefox/addon/scrapemate/">add-on “ScrapeMate”</a> is available. Chrome has different extensions for the same purpose (such as <a href="https://chromewebstore.google.com/detail/selectorgadget/mhjhnkcfbdhnjickkkdbjoemdmbfginb">SelectorGadget</a>), and so may other extendable browsers. Note that results may differ between browsers and extensions from website to website, so if you can’t figure out a website (you’ll see what I mean by that later) using one particular browser-extension combination, it’s always worth trying other combinations. Go go ahead and install the relevant extension for your browser.</p>
 </div>
 <div id="getting-to-know-the-target-website" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Getting to know the target website<a href="introduction-to-web-scraping-in-r.html#getting-to-know-the-target-website" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -308,8 +314,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Also, once more look at the page source code (see above). Which part of the content of the page can you already identify in the source code (and which not)? You’ll notice that there is a lot of code that does not seem to refer to any content; things like <code>class="search-container whitespace".</code> This is called <em>CSS</em> (for <em>Cascading Style Sheets</em>) and it determines what a website looks like, by applying certain formatting rules to things that should look familiar (not unlike, for example, the style templates of Microsoft Word or Powerpoint). We’ll take advantage of this later to locate information on the page.</p>
 </div>
-<div id="making-a-plan" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Making a plan<a href="introduction-to-web-scraping-in-r.html#making-a-plan" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="are-we-allowed-to-scrape" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Are we allowed to scrape?<a href="introduction-to-web-scraping-in-r.html#are-we-allowed-to-scrape" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There’s a lot to say about the ethics and legal aspects of web scraping, which we will not cover here; we specifically chose a target website for this tutorial for which these concerns are minimal. For any real research project, a careful ethical review is part of responsible research practices. Generally speaking though, if you’re not collecting personal data, you’re mostly fine from a legal perspective (but don’t take this as legal advice). That does not mean that every website <em>likes</em> to be scraped. For example, they may want to protect their data, or prevent excessive server traffic. Mostly, the scrapers or crawlers they would be concerned about are not in fact those used by researchers, but by search engines like Google. In order to communicate their preferences, websites may use a thing called “robots.txt”, which is a machine- and human-readable file that specifies which parts of the website may be scraped, typically located in the root folder of the website. It is an unwritten rule of the internet to honor the rules specified in robots.txt files (although there may be specific cases where it is ethically justified to ignore them).</p>
+<p>You can find the robots.txt of petities.nl at <a href="https://petities.nl/robots.txt">https://petities.nl/robots.txt</a>. Click to have a look.</p>
+<p>The first line, “User-agent:” specifies the types of “agents” to whom the rules that follow apply. “*” here means: everybody. The lines below specify which parts of the websites are allowed or not allowed to scrape.</p>
+<p><strong>Question:</strong>: which parts of the website are disallowed for scraping on petities.nl? Why do you think that is?</p>
+</div>
+<div id="making-a-plan" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Making a plan<a href="introduction-to-web-scraping-in-r.html#making-a-plan" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Also, before starting to build our scraper (or before any data collection project, really) it is helpful to already have an idea of what we want our final data set to look like. For now, let’s start simple, and aim for a data set that is basically a list of petitions, and which contains for every petition:</p>
 <ol style="list-style-type: decimal">
 <li><p>The title of the petition</p></li>
@@ -356,8 +369,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <p>Check and see whether you can visually identify this information on the website.</p>
 </div>
-<div id="locating-the-correct-information" class="section level2 hasAnchor" number="2.5">
-<h2><span class="header-section-number">2.5</span> Locating the correct information<a href="introduction-to-web-scraping-in-r.html#locating-the-correct-information" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="locating-the-correct-information" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Locating the correct information<a href="introduction-to-web-scraping-in-r.html#locating-the-correct-information" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As a starting piont, let’s take the section of the website that lists all petitions: <a href="https://petities.nl/petitions/all?locale=en" class="uri">https://petities.nl/petitions/all?locale=en</a>. When we look at the source code of the page, we can actually already identify all the information that we need in the code. This, however, is rather messy, and not something we can analyze directly. We somehow need to get the information in the shape of our data table above, and for this we first need to automatically extract the titles, URLs, and counts from the messy source code.</p>
 <p>This is where our browser extension comes in handy. When we look at the website (not the code), we can actually easily identify the relevant information <em>because it is formatted in a consistent way</em>. To achieve this, the website uses CSS tags in the code, and we can take advantage of that to find the relevant information. We could already do that by looking hard at the code, but our browser extension make it easier. Let’s start with the titles.</p>
 <p>In Firefox:</p>
@@ -374,14 +387,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>In building our scraper, we can now make use of that: we can basically tell it to “collect all the pieces of text that are formatted like petition titles”, and we now also know that these pieces of text are marked in the source code as “<code>.petition-overview-info-title</code>” (you can actually see this tag in the source code). So let’s get coding!</p>
 </div>
-<div id="building-the-scraper" class="section level2 hasAnchor" number="2.6">
-<h2><span class="header-section-number">2.6</span> Building the scraper<a href="introduction-to-web-scraping-in-r.html#building-the-scraper" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="first-steps" class="section level3 hasAnchor" number="2.6.1">
-<h3><span class="header-section-number">2.6.1</span> First steps<a href="introduction-to-web-scraping-in-r.html#first-steps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="building-the-scraper" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Building the scraper<a href="introduction-to-web-scraping-in-r.html#building-the-scraper" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="first-steps" class="section level3 hasAnchor" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> First steps<a href="introduction-to-web-scraping-in-r.html#first-steps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We now turn to the <code>rvest</code> package. To begin, we simply download the entire page:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="introduction-to-web-scraping-in-r.html#cb56-1" tabindex="-1"></a><span class="co"># Simple version without polite and without pipes</span></span>
-<span id="cb56-2"><a href="introduction-to-web-scraping-in-r.html#cb56-2" tabindex="-1"></a>webpage <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&quot;</span>) </span>
-<span id="cb56-3"><a href="introduction-to-web-scraping-in-r.html#cb56-3" tabindex="-1"></a>webpage</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="introduction-to-web-scraping-in-r.html#cb56-1" tabindex="-1"></a>webpage <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&quot;</span>) </span>
+<span id="cb56-2"><a href="introduction-to-web-scraping-in-r.html#cb56-2" tabindex="-1"></a>webpage</span></code></pre></div>
 <p>This basically just behaves like a browser: it downloads the source code of the page. It still looks like unintelligible code soup.</p>
 <p>However, we now know what to look for in this soup. Using the <code>html_nodes()</code> function from <code>rvest</code>, we can identify all the titles:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introduction-to-web-scraping-in-r.html#cb57-1" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(webpage, <span class="st">&quot;.petition-overview-info-title&quot;</span>)</span>
@@ -397,8 +409,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb59-2"><a href="introduction-to-web-scraping-in-r.html#cb59-2" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(link_url, <span class="st">&quot;href&quot;</span>)</span></code></pre></div>
 <p><strong>Exercise:</strong> now write the code to get the number of signatures per petition.</p>
 </div>
-<div id="automating-the-process-getting-multiple-pages" class="section level3 hasAnchor" number="2.6.2">
-<h3><span class="header-section-number">2.6.2</span> Automating the process: getting multiple pages<a href="introduction-to-web-scraping-in-r.html#automating-the-process-getting-multiple-pages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="automating-the-process-getting-multiple-pages" class="section level3 hasAnchor" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Automating the process: getting multiple pages<a href="introduction-to-web-scraping-in-r.html#automating-the-process-getting-multiple-pages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>At this point, we can scrape the required information from the one page, namely, <a href="https://petities.nl/petitions/all?locale=en">https://petities.nl/petitions/all</a>. However, for our research project, we’re probably interested in more than just these 12 petitions; we want to get a sizable sample of petitions and perhaps even all petitions listed on the website. At the bottom of the page, we see that the list of petitions continues on page 2, 3, etc.</p>
 <p><strong>Question:</strong> how many pages does the list of petitions contain in total?</p>
 <p>Now of course we could just manually go to the next page, check the url for that page, and repeat our earlier scraping steps to get the petitions for that page.</p>
@@ -481,10 +493,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Question:</strong> What is the issue with these specific petitions (hint: look them up on the website)? And to what extent is this really a problem?</p>
 </div>
 </div>
-<div id="answering-the-research-question" class="section level2 hasAnchor" number="2.7">
-<h2><span class="header-section-number">2.7</span> Answering the research question<a href="introduction-to-web-scraping-in-r.html#answering-the-research-question" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="collecting-the-data" class="section level3 hasAnchor" number="2.7.1">
-<h3><span class="header-section-number">2.7.1</span> Collecting the data<a href="introduction-to-web-scraping-in-r.html#collecting-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="answering-the-research-question" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Answering the research question<a href="introduction-to-web-scraping-in-r.html#answering-the-research-question" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="collecting-the-data" class="section level3 hasAnchor" number="2.8.1">
+<h3><span class="header-section-number">2.8.1</span> Collecting the data<a href="introduction-to-web-scraping-in-r.html#collecting-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now that we have our scraper ready, we can start to use it to answer our descriptive research question (see above).First we need to collect a larger amount of data. In a real research project, you would probably want to collect the data of <em>all</em> the petitions on the website. However, since this is an educational project, we don’t want to put too much unnecessary strain on the server, and we have many students accessing the server at the same time, let’s limit our data collection to 25 pages.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="introduction-to-web-scraping-in-r.html#cb65-1" tabindex="-1"></a>petitions <span class="ot">&lt;-</span> <span class="fu">get_petitions_list</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=1&quot;</span>) <span class="co"># We start with the first page</span></span>
 <span id="cb65-2"><a href="introduction-to-web-scraping-in-r.html#cb65-2" tabindex="-1"></a></span>
@@ -497,8 +509,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb65-9"><a href="introduction-to-web-scraping-in-r.html#cb65-9" tabindex="-1"></a>}</span></code></pre></div>
 <p><strong>Question:</strong> Of how many petitions have you now collected data?</p>
 </div>
-<div id="analyzing-the-data" class="section level3 hasAnchor" number="2.7.2">
-<h3><span class="header-section-number">2.7.2</span> Analyzing the data<a href="introduction-to-web-scraping-in-r.html#analyzing-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="analyzing-the-data" class="section level3 hasAnchor" number="2.8.2">
+<h3><span class="header-section-number">2.8.2</span> Analyzing the data<a href="introduction-to-web-scraping-in-r.html#analyzing-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Next, let’s analyze these data a bit. First, let’s get rid of these annoying “NA” values and replace them by 0. The “coalesce()” function helps with that:</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="introduction-to-web-scraping-in-r.html#cb66-1" tabindex="-1"></a>petitions<span class="sc">$</span>sig_count <span class="ot">&lt;-</span> <span class="fu">coalesce</span>(petitions<span class="sc">$</span>sig_count, <span class="dv">0</span>) <span class="co"># replace missings by 0</span></span></code></pre></div>
 <p>For a first look at the data, we can draw a simple histogram:</p>
@@ -516,6 +528,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb68-9"><a href="introduction-to-web-scraping-in-r.html#cb68-9" tabindex="-1"></a><span class="co"># Finally, we plot the data:</span></span>
 <span id="cb68-10"><a href="introduction-to-web-scraping-in-r.html#cb68-10" tabindex="-1"></a><span class="fu">plot</span>(petitions<span class="sc">$</span>rank, petitions<span class="sc">$</span>sig_count, <span class="at">log =</span> <span class="st">&quot;xy&quot;</span>)</span></code></pre></div>
 <p><strong>Question:</strong>: Compare your figure to Figure 3.4 in the Chapter by Margetts et al. Does the distribution of success in the Netherlands look more like the one in the UK or the one in the US?</p>
+</div>
+</div>
+<div id="extensions" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Extensions<a href="introduction-to-web-scraping-in-r.html#extensions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The way we’ve used <code>rvest</code> now to scrape a website is just scraping the surface (pun intended) of web scraping. Obvioulsy, the internet is vast and diverse, and different circumstances may require different solutions. Here, we briefly discuss a few relevant extensions.</p>
+<div id="more-ethically-robust-web-scraping-with-polite" class="section level3 hasAnchor" number="2.9.1">
+<h3><span class="header-section-number">2.9.1</span> More ethically robust web scraping with <code>polite</code><a href="introduction-to-web-scraping-in-r.html#more-ethically-robust-web-scraping-with-polite" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We’ve not discussed the ethics of web scraping in detail now, but if you collect free data from a website, you should consider what the people behind this website (and behind every website there are people) may think of it. The R package <code>polite</code> takes some of the work involved with that out of your hands. In particular, it:
+- Automatically check the content of the “robots.txt” file of a website to verify scraping permissions
+- Let’s you systematically announce you identity to the website’s server. For many cases, this is a useful “automatic” ethical check: if you’re not comfortable announcing your identity while collecting data, that implies that you need to review your research ethics extremely carefully.</p>
+<p>See <a href="https://ryo-n7.github.io/2020-05-14-webscrape-soccer-data-with-R/">here</a> for an online tutorial on using <code>polite</code>. Under the hood, <code>polite</code> still uses <code>rvest</code> for scraping, so it works for every website for which <code>revest</code> works and the basic workflow is the same.</p>
+</div>
+<div id="scraping-dynamic-websites-with-rselenium" class="section level3 hasAnchor" number="2.9.2">
+<h3><span class="header-section-number">2.9.2</span> Scraping dynamic websites with <code>RSelenium</code><a href="introduction-to-web-scraping-in-r.html#scraping-dynamic-websites-with-rselenium" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>Rvest</code> works well, but mostly for <a href="https://en.wikipedia.org/wiki/Static_web_page">static websites</a>, that is, websites that are simply stored on a web server and presented to the user “as-is”. It works less well for <a href="https://en.wikipedia.org/wiki/Dynamic_web_page">dynamic websites</a>, which create pages “on the fly” using things like JavaScript. The <a href="https://www.uu.nl/staff/RCorten">UU website</a> is an example of this: you won’t be able to easily identify pieces of information on the site using your ScrapeMate (or similar) tool (try it!). For such cases, packages like <code>RSelenium</code> are a solution. In a nutshell, this is a method to scrape websites by mimicking the clicking behavior of a viewer. We do not cover it here as it is much more technically involved and finicky to get working. If your are interested, see <a href="https://www.geeksforgeeks.org/web-scraping-using-rselenium/">here</a> for one of the many online tutorials.</p>
 
 </div>
 </div>

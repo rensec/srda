@@ -38,6 +38,7 @@ introduction-to-web-scraping-in-r
 some-preliminaries-about-websites-scraping-and-crawling
 getting-our-tools-ready
 getting-to-know-the-target-website
+are-we-allowed-to-scrape
 making-a-plan
 locating-the-correct-information
 building-the-scraper
@@ -46,6 +47,9 @@ automating-the-process-getting-multiple-pages
 answering-the-research-question
 collecting-the-data
 analyzing-the-data
+extensions
+more-ethically-robust-web-scraping-with-polite
+scraping-dynamic-websites-with-rselenium
 collecting-data-through-apis-the-case-of-reddit
 introduction-1
 loading-the-tools
