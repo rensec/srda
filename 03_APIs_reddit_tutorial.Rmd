@@ -38,6 +38,7 @@ rm(list=ls()) # Start with a clean workspace
 library(RedditExtractoR)
 library(tidyverse)
 library(igraph)
+library(sentimentr)
 ```
 
 ## Case study: Reddit
@@ -157,7 +158,7 @@ comments <- thread_contents$comments
 
 **Question:** The paper by [Treen et al. (2022)](https://www.tandfonline.com/doi/full/10.1080/17524032.2022.2050776) used text analysis techniques such as *topic modeling* in their analysis of polarization on Reddit. Of the data that we have now collected, what do you think they used?
 
-### Creating a network
+## Creating a network
 
 The paper by [Treen et al. (2022)](https://www.tandfonline.com/doi/full/10.1080/17524032.2022.2050776) aims to assess polarization by, among other things, studying the "reply network" in Subreddits.
 
@@ -193,5 +194,36 @@ plot(reply_net,
 Note that Treen et al.'s network analysis is somewhat more elaborate; for instance, they use a technique called [community detection](https://people.duke.edu/~jmoody77/snh/2021/CommunitiesSNH2021.nb.html) to highlight different subgroups in the network, which we don't do here for simplicity. Nevertheless, we can still try to assess the polarization of the network loosely by looking at the structure.
 
 **Question:** what would you conclude about polarization in this Subreddit?
+
+## Analyzing content: simple sentiment analysis
+Besides the structure of the network, we can also analyze the content of the comments. One (relatively) simple way to do this is to perform a sentiment analysis. This is a technique that tries to determine whether a piece of text is positive, negative, or neutral, based on a "dictionary"  which assigns positive, neutral or negative sentiments to each work. We can use the `sentimentr' package for this (already loaded above). 
+
+One question that we could address is how average sentiments in the comments vary over time. The code below does this for the comments in the data that we collected:
+
+```{r}
+# create a data frame of comments from thread_contents$comments 
+
+comments <- thread_contents$comments
+
+# Do the sentiment analysis, storing the results in the object "sentiments" 
+sentiments <- sentiment_by(comments$comment)
+
+# Add the average sentiment of each comment to the comments data frame
+comments$sentiment <- sentiments$ave_sentiment
+
+
+# plot the average sentiment per day
+comments %>%
+  group_by(date) %>%
+  summarise(ave_sentiment = mean(sentiment)) %>%
+  ggplot(aes(x = date, y = ave_sentiment, group = 1)) +
+  geom_point() +
+  geom_line() +
+  labs(title = "Average sentiment of comments per day",
+       x = "Time",
+       y = "Sentiment")  +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
 
 **Question:** Now pick another Subreddit on a topic that you find interesting, and try to make a network graph for this Subreddit as well. (Hint: you can reuse most of the code we've used above.)
