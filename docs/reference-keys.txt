@@ -59,6 +59,7 @@ getting-the-data-with-redditextractor
 getting-threads
 getting-contents-of-threads
 creating-a-network
+analyzing-content-simple-sentiment-analysis
 extra-data-manipulation-and-analysis-with-r
 introduction-2
 preparation

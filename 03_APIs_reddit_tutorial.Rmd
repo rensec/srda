@@ -226,4 +226,4 @@ comments %>%
 ```
 
 
-**Question:** Now pick another Subreddit on a topic that you find interesting, and try to make a network graph for this Subreddit as well. (Hint: you can reuse most of the code we've used above.)
+**Question:** Now pick another Subreddit on a topic that you find interesting, and try to make a network graph and do a simple sentiment analysis for this Subreddit as well. (Hint: you can reuse most of the code we've used above.)

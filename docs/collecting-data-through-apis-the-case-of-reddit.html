@@ -65,7 +65,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -225,8 +225,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.5.1" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#getting-threads"><i class="fa fa-check"></i><b>3.5.1</b> Getting threads</a></li>
 <li class="chapter" data-level="3.5.2" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#getting-contents-of-threads"><i class="fa fa-check"></i><b>3.5.2</b> Getting contents of threads</a></li>
-<li class="chapter" data-level="3.5.3" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#creating-a-network"><i class="fa fa-check"></i><b>3.5.3</b> Creating a network</a></li>
 </ul></li>
+<li class="chapter" data-level="3.6" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#creating-a-network"><i class="fa fa-check"></i><b>3.6</b> Creating a network</a></li>
+<li class="chapter" data-level="3.7" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#analyzing-content-simple-sentiment-analysis"><i class="fa fa-check"></i><b>3.7</b> Analyzing content: simple sentiment analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html"><i class="fa fa-check"></i><b>4</b> Extra: Data manipulation and analysis with R</a>
 <ul>
@@ -296,7 +297,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb70-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>()) <span class="co"># Start with a clean workspace</span></span>
 <span id="cb70-2"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb70-2" tabindex="-1"></a><span class="fu">library</span>(RedditExtractoR)</span>
 <span id="cb70-3"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb70-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb70-4"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb70-4" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code></pre></div>
+<span id="cb70-4"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb70-4" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb70-5"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb70-5" tabindex="-1"></a><span class="fu">library</span>(sentimentr)</span></code></pre></div>
 </div>
 <div id="case-study-reddit" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Case study: Reddit<a href="collecting-data-through-apis-the-case-of-reddit.html#case-study-reddit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -379,8 +381,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Question:</strong> Which comment is the most “upvoted” comment?</p>
 <p><strong>Question:</strong> The paper by <a href="https://www.tandfonline.com/doi/full/10.1080/17524032.2022.2050776">Treen et al. (2022)</a> used text analysis techniques such as <em>topic modeling</em> in their analysis of polarization on Reddit. Of the data that we have now collected, what do you think they used?</p>
 </div>
-<div id="creating-a-network" class="section level3 hasAnchor" number="3.5.3">
-<h3><span class="header-section-number">3.5.3</span> Creating a network<a href="collecting-data-through-apis-the-case-of-reddit.html#creating-a-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="creating-a-network" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Creating a network<a href="collecting-data-through-apis-the-case-of-reddit.html#creating-a-network" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The paper by <a href="https://www.tandfonline.com/doi/full/10.1080/17524032.2022.2050776">Treen et al. (2022)</a> aims to assess polarization by, among other things, studying the “reply network” in Subreddits.</p>
 <p><strong>Question:</strong> how do they construct this network, that is, what are the links? And how do they assess the level of polarization?</p>
 <p>We can partly reproduce their analysis (for “our” Subreddit) using the code below. While this is relatively complicated, see of you can get the gist of what happens. Then, copy-paste and run the code.</p>
@@ -408,9 +411,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb77-22"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb77-22" tabindex="-1"></a>     )</span></code></pre></div>
 <p>Note that Treen et al.’s network analysis is somewhat more elaborate; for instance, they use a technique called <a href="https://people.duke.edu/~jmoody77/snh/2021/CommunitiesSNH2021.nb.html">community detection</a> to highlight different subgroups in the network, which we don’t do here for simplicity. Nevertheless, we can still try to assess the polarization of the network loosely by looking at the structure.</p>
 <p><strong>Question:</strong> what would you conclude about polarization in this Subreddit?</p>
+</div>
+<div id="analyzing-content-simple-sentiment-analysis" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Analyzing content: simple sentiment analysis<a href="collecting-data-through-apis-the-case-of-reddit.html#analyzing-content-simple-sentiment-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Besides the structure of the network, we can also analyze the content of the comments. One (relatively) simple way to do this is to perform a sentiment analysis. This is a technique that tries to determine whether a piece of text is positive, negative, or neutral, based on a “dictionary” which assigns positive, neutral or negative sentiments to each work. We can use the `sentimentr’ package for this (already loaded above).</p>
+<p>One question that we could address is how average sentiments in the comments vary over time. The code below does this for the comments in the data that we collected:</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-1" tabindex="-1"></a><span class="co"># create a data frame of comments from thread_contents$comments </span></span>
+<span id="cb78-2"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-2" tabindex="-1"></a></span>
+<span id="cb78-3"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-3" tabindex="-1"></a>comments <span class="ot">&lt;-</span> thread_contents<span class="sc">$</span>comments</span>
+<span id="cb78-4"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-4" tabindex="-1"></a></span>
+<span id="cb78-5"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-5" tabindex="-1"></a><span class="co"># Do the sentiment analysis, storing the results in the object &quot;sentiments&quot; </span></span>
+<span id="cb78-6"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-6" tabindex="-1"></a>sentiments <span class="ot">&lt;-</span> <span class="fu">sentiment_by</span>(comments<span class="sc">$</span>comment)</span>
+<span id="cb78-7"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-7" tabindex="-1"></a></span>
+<span id="cb78-8"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-8" tabindex="-1"></a><span class="co"># Add the average sentiment of each comment to the comments data frame</span></span>
+<span id="cb78-9"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-9" tabindex="-1"></a>comments<span class="sc">$</span>sentiment <span class="ot">&lt;-</span> sentiments<span class="sc">$</span>ave_sentiment</span>
+<span id="cb78-10"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-10" tabindex="-1"></a></span>
+<span id="cb78-11"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-11" tabindex="-1"></a></span>
+<span id="cb78-12"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-12" tabindex="-1"></a><span class="co"># plot the average sentiment per day</span></span>
+<span id="cb78-13"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-13" tabindex="-1"></a>comments <span class="sc">%&gt;%</span></span>
+<span id="cb78-14"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-14" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb78-15"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-15" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ave_sentiment =</span> <span class="fu">mean</span>(sentiment)) <span class="sc">%&gt;%</span></span>
+<span id="cb78-16"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-16" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> ave_sentiment, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb78-17"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-17" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb78-18"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-18" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb78-19"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Average sentiment of comments per day&quot;</span>,</span>
+<span id="cb78-20"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-20" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Time&quot;</span>,</span>
+<span id="cb78-21"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-21" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Sentiment&quot;</span>)  <span class="sc">+</span></span>
+<span id="cb78-22"><a href="collecting-data-through-apis-the-case-of-reddit.html#cb78-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
 <p><strong>Question:</strong> Now pick another Subreddit on a topic that you find interesting, and try to make a network graph for this Subreddit as well. (Hint: you can reuse most of the code we’ve used above.)</p>
 
-</div>
 </div>
 </div>
             </section>
