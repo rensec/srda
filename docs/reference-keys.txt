@@ -60,8 +60,15 @@ getting-threads
 getting-contents-of-threads
 creating-a-network
 analyzing-content-simple-sentiment-analysis
-extra-data-manipulation-and-analysis-with-r
+a-first-look-at-data-collection-via-the-bluesky-api
 introduction-2
+prerequisites
+loading-the-packages
+getting-started-authenticating
+getting-data
+working-with-the-data
+extra-data-manipulation-and-analysis-with-r
+introduction-3
 preparation
 data-preparation-with-base-r
 subsetting

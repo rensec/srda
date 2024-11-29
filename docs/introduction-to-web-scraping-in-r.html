@@ -65,7 +65,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -229,33 +229,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#creating-a-network"><i class="fa fa-check"></i><b>3.6</b> Creating a network</a></li>
 <li class="chapter" data-level="3.7" data-path="collecting-data-through-apis-the-case-of-reddit.html"><a href="collecting-data-through-apis-the-case-of-reddit.html#analyzing-content-simple-sentiment-analysis"><i class="fa fa-check"></i><b>3.7</b> Analyzing content: simple sentiment analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html"><i class="fa fa-check"></i><b>4</b> Extra: Data manipulation and analysis with R</a>
+<li class="chapter" data-level="4" data-path="a-first-look-at-data-collection-via-the-bluesky-api.html"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html"><i class="fa fa-check"></i><b>4</b> A first look at data collection via the Bluesky API</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#preparation"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
-<li class="chapter" data-level="4.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#data-preparation-with-base-r"><i class="fa fa-check"></i><b>4.3</b> Data preparation with base R</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#subsetting"><i class="fa fa-check"></i><b>4.3.1</b> Subsetting</a></li>
-<li class="chapter" data-level="4.3.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#sorting"><i class="fa fa-check"></i><b>4.3.2</b> Sorting</a></li>
-<li class="chapter" data-level="4.3.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#transformation"><i class="fa fa-check"></i><b>4.3.3</b> Transformation</a></li>
-<li class="chapter" data-level="4.3.4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#creating-new-variables"><i class="fa fa-check"></i><b>4.3.4</b> Creating new variables</a></li>
+<li class="chapter" data-level="4.1" data-path="a-first-look-at-data-collection-via-the-bluesky-api.html"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="a-first-look-at-data-collection-via-the-bluesky-api.html"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#prerequisites"><i class="fa fa-check"></i><b>4.2</b> Prerequisites</a></li>
+<li class="chapter" data-level="4.3" data-path="a-first-look-at-data-collection-via-the-bluesky-api.html"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#loading-the-packages"><i class="fa fa-check"></i><b>4.3</b> Loading the packages</a></li>
+<li class="chapter" data-level="4.4" data-path="a-first-look-at-data-collection-via-the-bluesky-api.html"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#getting-started-authenticating"><i class="fa fa-check"></i><b>4.4</b> Getting started: authenticating</a></li>
+<li class="chapter" data-level="4.5" data-path="a-first-look-at-data-collection-via-the-bluesky-api.html"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#getting-data"><i class="fa fa-check"></i><b>4.5</b> Getting data</a></li>
+<li class="chapter" data-level="4.6" data-path="a-first-look-at-data-collection-via-the-bluesky-api.html"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#working-with-the-data"><i class="fa fa-check"></i><b>4.6</b> Working with the data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#data-manipulation-using-tidyverse"><i class="fa fa-check"></i><b>4.4</b> Data manipulation using Tidyverse</a>
+<li class="chapter" data-level="5" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html"><i class="fa fa-check"></i><b>5</b> Extra: Data manipulation and analysis with R</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#installing-tidyverse"><i class="fa fa-check"></i><b>4.4.1</b> Installing tidyverse</a></li>
-<li class="chapter" data-level="4.4.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#tidyverse-basics"><i class="fa fa-check"></i><b>4.4.2</b> Tidyverse basics</a></li>
-<li class="chapter" data-level="4.4.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-4-1"><i class="fa fa-check"></i><b>4.4.3</b> PRACTICE PROBLEM 4</a></li>
-<li class="chapter" data-level="4.4.4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#reading-data"><i class="fa fa-check"></i><b>4.4.4</b> Reading data</a></li>
-<li class="chapter" data-level="4.4.5" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#subsetting-with-filter"><i class="fa fa-check"></i><b>4.4.5</b> Subsetting with filter()</a></li>
-<li class="chapter" data-level="4.4.6" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#selecting-certain-columns"><i class="fa fa-check"></i><b>4.4.6</b> Selecting certain columns</a></li>
-<li class="chapter" data-level="4.4.7" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#sorting-with-arrange"><i class="fa fa-check"></i><b>4.4.7</b> Sorting with arrange()</a></li>
+<li class="chapter" data-level="5.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#introduction-3"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#preparation"><i class="fa fa-check"></i><b>5.2</b> Preparation</a></li>
+<li class="chapter" data-level="5.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#data-preparation-with-base-r"><i class="fa fa-check"></i><b>5.3</b> Data preparation with base R</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#subsetting"><i class="fa fa-check"></i><b>5.3.1</b> Subsetting</a></li>
+<li class="chapter" data-level="5.3.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#sorting"><i class="fa fa-check"></i><b>5.3.2</b> Sorting</a></li>
+<li class="chapter" data-level="5.3.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#transformation"><i class="fa fa-check"></i><b>5.3.3</b> Transformation</a></li>
+<li class="chapter" data-level="5.3.4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#creating-new-variables"><i class="fa fa-check"></i><b>5.3.4</b> Creating new variables</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#adding-or-transforming-variables-with-mutate"><i class="fa fa-check"></i><b>4.5</b> Adding or transforming variables with mutate()</a></li>
-<li class="chapter" data-level="4.6" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#working-with-pipes"><i class="fa fa-check"></i><b>4.6</b> Working with Pipes</a>
+<li class="chapter" data-level="5.4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#data-manipulation-using-tidyverse"><i class="fa fa-check"></i><b>5.4</b> Data manipulation using Tidyverse</a>
 <ul>
-<li class="chapter" data-level="4.6.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#data-summarization"><i class="fa fa-check"></i><b>4.6.1</b> Data Summarization</a></li>
-<li class="chapter" data-level="4.6.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#ungrouping"><i class="fa fa-check"></i><b>4.6.2</b> Ungrouping</a></li>
-<li class="chapter" data-level="4.6.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-6-1"><i class="fa fa-check"></i><b>4.6.3</b> PRACTICE PROBLEM 6</a></li>
+<li class="chapter" data-level="5.4.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#installing-tidyverse"><i class="fa fa-check"></i><b>5.4.1</b> Installing tidyverse</a></li>
+<li class="chapter" data-level="5.4.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#tidyverse-basics"><i class="fa fa-check"></i><b>5.4.2</b> Tidyverse basics</a></li>
+<li class="chapter" data-level="5.4.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-4-1"><i class="fa fa-check"></i><b>5.4.3</b> PRACTICE PROBLEM 4</a></li>
+<li class="chapter" data-level="5.4.4" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#reading-data"><i class="fa fa-check"></i><b>5.4.4</b> Reading data</a></li>
+<li class="chapter" data-level="5.4.5" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#subsetting-with-filter"><i class="fa fa-check"></i><b>5.4.5</b> Subsetting with filter()</a></li>
+<li class="chapter" data-level="5.4.6" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#selecting-certain-columns"><i class="fa fa-check"></i><b>5.4.6</b> Selecting certain columns</a></li>
+<li class="chapter" data-level="5.4.7" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#sorting-with-arrange"><i class="fa fa-check"></i><b>5.4.7</b> Sorting with arrange()</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#adding-or-transforming-variables-with-mutate"><i class="fa fa-check"></i><b>5.5</b> Adding or transforming variables with mutate()</a></li>
+<li class="chapter" data-level="5.6" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#working-with-pipes"><i class="fa fa-check"></i><b>5.6</b> Working with Pipes</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#data-summarization"><i class="fa fa-check"></i><b>5.6.1</b> Data Summarization</a></li>
+<li class="chapter" data-level="5.6.2" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#ungrouping"><i class="fa fa-check"></i><b>5.6.2</b> Ungrouping</a></li>
+<li class="chapter" data-level="5.6.3" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html#practice-problem-6-1"><i class="fa fa-check"></i><b>5.6.3</b> PRACTICE PROBLEM 6</a></li>
 </ul></li>
 </ul></li>
 </ul>
