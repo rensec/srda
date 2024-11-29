@@ -1,0 +1,76 @@
+# A first look at data collection via the Bluesky API
+
+## Introduction
+Recently, the social media platform Bluesky has become increasingly popular. Bluesky is a "microblogging" platform that is, in many ways, comparable to Twitter (X). Bluesky also has an API that allows to access some of its datat. In this tutorial, we will explore some of the possibilities of doing this in R. At the moment, it is still rudimentary, and it will hopefully be expanded in the future.
+
+## Prerequisites
+To start with, you'll need a Bluesky account. You can sign up at [https://bsky.app/](https://bsky.app/). Once you have an account, you need to create an "app password", which you will use in your code to get access to the API. To create an app password, go to your Bluesky home page and click Settings>Privacy and Security>App Passwords>Add App Password. In the next screen, choose an arbitrary name for your app password (e.g., "SRDA"). The click Next, which will show you your app password. Copy this password and paste it somewehere, as you will not be able to see it again. We will use this password in the code below. WARNING: while the app password does not give full access to your account, it can be used to post messages on your behalf. So, keep it safe and do not share any code that contains your app password publicly. If you fear that your app password has been compromised, or you simply don't need it anymore, you can always delete it in your Bluesky settings. I recommend doing this after you have finished this tutorial.
+
+## Loading the packages
+To access the Bluesky API, we will use the `bskyr` package. We will also use the `tidyverse` package to work with the data. If you don't have these packages installed, install them first. We load the packages with the following code:
+
+```{r}
+library(bskyr)
+library(tidyverse)
+```
+
+## Getting started: authenticating
+First, we need to authenticate with the Bluesky API, using your username and your app password:
+
+```{r}  
+set_bluesky_user("[yourusername].bsky.social")
+set_bluesky_pass("[your app password]")
+
+auth <- bs_auth(user = bs_get_user(), pass = bs_get_pass()) # This will authenticate you with the Bluesky API and store the authentification  in the object "auth"
+
+
+```
+
+## Getting data 
+
+Now that we are authenticated, we can start getting data from Bluesky. The `bskyr` package has several functions that allow you to get data from Bluesky. For example, you can get the followers of a user, the profile of a user, or search for posts. Below are some examples of how to use these functions:
+
+```{r}
+
+followers <- bs_get_followers(actor = 'chriskenny.bsky.social', auth = auth) #Chris Kenny is the author of the package
+
+profile <- bs_get_profile(actor = 'chriskenny.bsky.social', auth = auth) # Get Chris'  profile information
+
+posts <- bs_search_posts(query = "bezuinigingen",  auth = auth) # Search for posts that contain the word "bezuinigingen" 
+
+```
+
+Explore the data objects that you get from these functions, and also have a look at Chris Kenny's actual profile page. You will note that the numbers that you get through the API are sometimes lower than what you see "in the wild": this is because by default, the API only returns a limited number of results. You can typically change this number by setting the "limit" parameter in the respective functions. 
+
+For example:
+
+```{r}
+followers <- bs_get_followers(actor = 'chriskenny.bsky.social', limit = 200, auth = auth) #Chris Kenny is the author of the package
+
+```
+
+## Working with the data
+When we look at the "posts" data object, we find that it is quite complicated: it is a list of lists of lists. Extracting the right data from this requires some work. For example, we can get the text of each post as follows:
+
+
+```{r}
+texts <- sapply(posts$record, function(x) x$text) # extracting the data from the complex object
+texts <- as_tibble(texts) # turn it into a neat data frame
+texts <- rename(texts, text = value) # rename the column
+```
+
+Next, we can get all the authors of these posts:
+
+```{r}
+author_handle <- sapply(posts$author, function(x) x$handle)
+author_handle <-  as_tibble(author_handle)
+author_handle <- rename(author_handle, author_handle = value)
+```
+
+Finally, we can combine these two data frames into one:
+```{r}
+posts_df <- cbind(texts, author_handle)
+```
+
+We could use this data frame for subsequent analysis, such as sentiment analysis or topic modeling.There are many more functions in the `bskyr` package that you can use to get data from Bluesky. You can find more information in the [package documentation](https://cran.r-project.org/web/packages/bskyr/index.html).
+
