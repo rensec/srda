@@ -167,17 +167,17 @@ The paper by [Treen et al. (2022)](https://www.tandfonline.com/doi/full/10.1080/
 We can partly reproduce their analysis (for "our" Subreddit) using the code below. While this is relatively complicated, see of you can get the gist of what happens. Then, copy-paste and run the code.
 
 ```{r}
-authors <- thread_contents$threads %>% # Get the "threads" part of the threat_contents object 
-  select(author, url) # keep only the author and url for each thread
+authors <- select(thread_contents$threads, author, url) # Get the "threads" part of the threat_contents object,  keep only the author and url for each thread
 
-responders <- thread_contents$comments %>% # Get the "comments" part of the threat_contents object 
-  select(author, url) %>% # keep only the author and url for each thread
-  rename("responder" = author) # rename "author" to "responder"
+responders <- select(thread_contents$comments, author, url) # Get the "comments" part of the threat_contents object  and keep only the author and url for each thread
+
+responders <- rename(responders, responder = author) # rename "author" to "responder"
+
 
 # now match these two together, using the url as the matching variable
-reply_net  <- merge(authors, responders, by = "url") %>% 
-  select(author, responder) %>% # keep only the author and responder vars
-  graph_from_data_frame() # turn this into a "network object": something the igraph package for network analysis can work with
+reply_net  <- merge(authors, responders, by = "url")
+reply_net <- select(reply_net, author, responder) # keep only the author and responder vars
+reply_net <- graph_from_data_frame(reply_net) # turn this into a "network object": something the igraph package for network analysis can work with
 
 # plot the network
 plot(reply_net,
