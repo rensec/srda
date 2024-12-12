@@ -1,0 +1,107 @@
+# Analyzing experimental data
+
+## Introduction
+
+Last week, you participated in a mock-up version of Stein et al.’s (2023) experiment about the propagation of misinformation in social (media) networks. This week, we’ll have a quick look at the results to see whether they more or less conform to what Stein et al. found. For reference, have a look at the [figure with their main results](https://www.nature.com/articles/s41598-022-26913-5/figures/3).
+
+They key interest there is in the spread of false messages that align with the participant’s ideology, and the key comparison is comparison is between “integrated” and “segregated” networks. Put very simply, this figure shows that while there is no difference in sharing behavior as such between the two types of networks (left), subjects are much more likely to receive messages that align with their ideology in the segregated network than in the integrated network.
+
+## Replicating the results
+
+1.  Download [exp_clean_UU.dta](https://github.com/rensec/srda/raw/main/exp_clean_UU.dta"). This dataset contains the cleaned microdata of the experiment from last Monday. Note that this is a Stata datafile. In this dataset, rows represent subjects' decisions to share or to reject a message. The variable 'sbj_share' tracks if someone shared (1) or not (0). The data contains subject (sbj) properties, such as an anonymized subject ID and whether the subject is a liberal (lib). Variables with msg in the beginning track message properties. Variables with nw indicate network properties. Load the dataset (R  can load Stata files with the `haven` package) and have a look at the data to see whether you understand the structure of the dataset and the variables.
+
+2.  Generate a dummy (0 or 1) variable ‘align' that indicates whether subject and message have the same ideology.
+
+3.  Next, we replicate the result from Figure 3A in Stein et al. That is: what is the mean probability of being shared of false aligned messages, for each of the two network types? Note that:
+
+-   The probability of a 0-1 variable to be 1 is simply the mean of this variable.
+-   We’re only interested in cases where the message is *false* and *aligns* with the participant’s ideology.
+-   Qw need to calculate the mean probability of being shared *per message,* because we have many decisions per message. For this, we use the `group_by()` and `summarise()` functions . Then, you can compare the mean of this in turn between the two networks.
+
+```{r}
+# Load necessary libraries
+library(haven)  # For loading Stata .dta files
+library(dplyr)  # For group manipulation and summarisation
+
+# Load the dataset
+data <- read_dta("exp_clean_UU.dta")
+
+# Generate the 'align' variable
+data$align <- data$sbj_lib == data$msg_lib
+
+# First collapse
+data_collapsed1 <- group_by(data, nw_segregated, msg_id, align, msg_true)
+data_collapsed1 <- summarise(data_collapsed1, sbj_share = mean(sbj_share, na.rm = TRUE), .groups = "drop")
+
+# Second collapse
+data_collapsed2 <- group_by(data_collapsed1, nw_segregated, align, msg_true)
+data_collapsed2 <- summarise(data_collapsed2, sbj_share = mean(sbj_share, na.rm = TRUE), .groups = "drop")
+data_collapsed2 <- filter(data_collapsed2, align == TRUE & msg_true == 0)
+
+# Result
+data_collapsed2
+
+```
+
+4.  How do the results compare to the original result by Stein et al.? How do you interpret the similarities and differences?
+
+5.  Next, we’ll replicate the result of 3B. That is: how does the mean probability of being exposed to a false message that aligns with your ideology differ between the two network types? Since this is a bit more complicated, we provide you with the R code for this:
+
+
+
+```{r}
+# Load necessary libraries
+library(haven)  # For loading Stata .dta files
+library(dplyr)  # For data manipulation
+
+# Load the dataset
+data <- read_dta("exp_clean_UU.dta")
+
+# Generate the 'align' variable (if you had not done so already)
+data$align <- data$sbj_lib == data$msg_lib
+
+# Collapse to the number of observations (that is the exposure count) by message ID, type of network, whether the message is true, alignment, and network size.
+
+collapsed_data_count <- group_by(data, msg_id, nw_segregated, align, msg_true, nw_size)
+
+# Collapse to the median number of observations, by veracity (msg_true), network type & size, and alignment.
+collapsed_data_count <- summarise(collapsed_data_count, sbj_share = n(), .groups = "drop")
+
+# Collapse (median) sbj_share by specified variables
+collapsed_data_median <- group_by(collapsed_data_count, nw_segregated, align, msg_true, nw_size)
+collapsed_data_median <- summarise(collapsed_data_median, sbj_share = median(sbj_share), .groups = "drop")
+
+# Generate 'exposure_prob'
+collapsed_data_median$exposure_prob <- collapsed_data_median$sbj_share / (collapsed_data_median$nw_size / 2)
+
+result <- filter(collapsed_data_median, align == TRUE & msg_true == 0)
+result
+
+```
+ 6.   Again, how do the results compare to the original result by Stein et al.? How do you interpret the similarities and differences? 
+
+
+7.	Lastly, we reproduce the result in [Figure 4A](https://www.nature.com/articles/s41598-022-26913-5/figures/4). Basically, this is about the average percentage of false messages (misinformation) circulating in the population in each network.  Again we provide you with the R code: 
+ 
+```{r}
+library(reshape2)  # For reshaping data
+
+# Step 1: Collapse (sum) sbj_share by msg_true, msg_id, nw_segregated
+collapsed_data_sum <- aggregate(sbj_share ~ msg_true + msg_id + nw_segregated, data = data, FUN = sum)
+
+# Step 2: Collapse (median) sbj_share by msg_true, nw_segregated
+collapsed_data_median <- aggregate(sbj_share ~ msg_true + nw_segregated, data = collapsed_data_sum, FUN = median)
+
+# Step 3: Reshape the data to wide format with i(nw_segregated) and j(msg_true)
+reshaped_data <- dcast(collapsed_data_median, nw_segregated ~ msg_true, value.var = "sbj_share")
+colnames(reshaped_data) <- c("nw_segregated", "sbj_share0", "sbj_share1")
+
+# Step 4: Generate fraction_f
+reshaped_data$fraction_f <- (reshaped_data$sbj_share0 / (reshaped_data$sbj_share0 + reshaped_data$sbj_share1)) * 100
+result <- reshaped_data
+result
+
+```
+
+8.	How do the results compare to the original result by Stein et al.? How do you interpret the similarities and differences?
+ 

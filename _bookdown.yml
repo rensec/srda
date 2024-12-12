@@ -9,5 +9,6 @@ rmd_files:
   - 02_petitions_scraping_tutorial.rmd
   - 03_APIs_reddit_tutorial.rmd
   - 04_APIs_Bluesky_tutorial.rmd
+  - 05_experimental_data_analysis.Rmd
   - Extra_01_R_data_manipulation.Rmd
 

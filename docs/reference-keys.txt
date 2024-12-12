@@ -67,8 +67,11 @@ loading-the-packages
 getting-started-authenticating
 getting-data
 working-with-the-data
-extra-data-manipulation-and-analysis-with-r
+analyzing-experimental-data
 introduction-3
+replicating-the-results
+extra-data-manipulation-and-analysis-with-r
+introduction-4
 preparation
 data-preparation-with-base-r
 subsetting
