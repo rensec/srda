@@ -8,7 +8,7 @@ They key interest there is in the spread of false messages that align with the p
 
 ## Replicating the results
 
-1.  Download [exp_clean_UU.dta](https://github.com/rensec/srda/raw/main/exp_clean_UU.dta"). This dataset contains the cleaned microdata of the experiment from last Monday. Note that this is a Stata datafile. In this dataset, rows represent subjects' decisions to share or to reject a message. The variable 'sbj_share' tracks if someone shared (1) or not (0). The data contains subject (sbj) properties, such as an anonymized subject ID and whether the subject is a liberal (lib). Variables with msg in the beginning track message properties. Variables with nw indicate network properties. Load the dataset (R  can load Stata files with the `haven` package) and have a look at the data to see whether you understand the structure of the dataset and the variables.
+1.  Download [exp_clean_UU.dta](https://github.com/rensec/srda/raw/main/exp_clean_UU.dta). This dataset contains the cleaned microdata of the experiment from last Monday. Note that this is a Stata datafile. In this dataset, rows represent subjects' decisions to share or to reject a message. The variable 'sbj_share' tracks if someone shared (1) or not (0). The data contains subject (sbj) properties, such as an anonymized subject ID and whether the subject is a liberal (lib). Variables with msg in the beginning track message properties. Variables with nw indicate network properties. Load the dataset (R  can load Stata files with the `haven` package) and have a look at the data to see whether you understand the structure of the dataset and the variables.
 
 2.  Generate a dummy (0 or 1) variable ‘align' that indicates whether subject and message have the same ideology.
 
