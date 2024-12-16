@@ -16,7 +16,7 @@ They key interest there is in the spread of false messages that align with the p
 
 -   The probability of a 0-1 variable to be 1 is simply the mean of this variable.
 -   We’re only interested in cases where the message is *false* and *aligns* with the participant’s ideology.
--   Qw need to calculate the mean probability of being shared *per message,* because we have many decisions per message. For this, we use the `group_by()` and `summarise()` functions . Then, you can compare the mean of this in turn between the two networks.
+-   We need to calculate the mean probability of being shared *per message,* because we have many decisions per message. For this, we use the `group_by()` and `summarise()` functions . Then, you can compare the mean of this in turn between the two networks.
 
 ```{r}
 # Load necessary libraries
@@ -45,7 +45,7 @@ data_collapsed2
 
 4.  How do the results compare to the original result by Stein et al.? How do you interpret the similarities and differences?
 
-5.  Next, we’ll replicate the result of 3B. That is: how does the mean probability of being exposed to a false message that aligns with your ideology differ between the two network types? Since this is a bit more complicated, we provide you with the R code for this:
+5.  Next, we’ll replicate the result of 3B. That is: how does the mean probability of being exposed to a false message that aligns with your ideology differ between the two network types? We provide you with the R code for this:
 
 
 
