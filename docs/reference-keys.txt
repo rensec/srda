@@ -70,6 +70,10 @@ working-with-the-data
 analyzing-experimental-data
 introduction-3
 replicating-the-results
+further-resources
+collecting-data-from-various-platforms
+bluesky
+tiktok
 extra-data-manipulation-and-analysis-with-r
 introduction-4
 preparation
