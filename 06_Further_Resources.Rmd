@@ -1,0 +1,54 @@
+# Further resources
+
+## Collecting data from various platforms
+
+Here, we discuss methods to collect data from various other social media platforms, with a focus on R packages that facilitate. Where possible, we illustrate the use of these packages with brief examples.
+
+### Bluesky
+
+[Bluesky](www.bsky.app) is a relatively new social media platform that originated as a side project of Twitter, and which is indeed very much like Twitter in terms of functionality. Since the turbulent changes at Twitter (now X), Bluesky has become popular as an alternative, [in particular among academics](https://www.science.org/content/article/old-twitter-scientific-community-finds-new-home-bluesky). Bluesky is open-source and has a public API, which makes it a good platform for data collection. We can collect data from it in R using the `bskyr` package.
+
+```{r}
+library(bskyr)
+```
+
+In order to access the API, you first need to:
+
+1.  [Create a Bluesky account](https://bluesky.app/)
+
+2.  Create an *app password* in your account settings. Log into your Bluesky account, go to "Settings", "Privacy and security", and then to "App passwords". Click " Add App Password". Give the new App Password a sensible name; since you will this specifically with `bskyr`, you could for example call it "bskyr" . Click next; the website will create an App Password for you. Copy this password, as you will not be able to see it again in Bluesky! Once you click "Done", the password will be listed under its name in the App Passwords section of your account; you can always delete it from there if you don't need it anymore. Any code that uses this password will then no longer be able to use it.
+
+We can now use this password to access the API. We create an authentication token "auth" that we can use later in our code:
+
+```{r}
+set_bluesky_user("[your Bluesky handle]")
+set_bluesky_pass("[your app password]")
+
+auth <- bs_auth(user = bs_get_user(), pass = bs_get_pass())
+```
+
+Now, we can start collecting some data from the API. For example, we can get my profile as follows:
+
+```{r}
+user <- 'rensec.bsky.social'
+profile <- bs_get_profile(actor = user, auth = auth)
+```
+
+The resulting data object contains a lot of data, including the number of followers:
+
+```{r}
+followers_count <- as.numeric(profile$followers_count) # Note that the count was originally stored as a string
+followers_count
+```
+
+We can also get the followers themselves. In the function call, we set `limit` to the previously retrieved number of followers to make sure that the API returns all the followers.
+
+```{r}
+followers <- bs_get_followers(actor = user, auth = auth, limit = followers_count)
+```
+
+Note that for users with a lot of followers, this may take a few minutes, and it becomes increasingly likely that the process breaks down due to short interruptions in the connection. Nevertheless, in principle it is possible to for example draw a snowball sample, repeating the above steps while looping through the followers of each retrieved user.
+
+The package also includes functions for retrieving posts, relationships between users, and many other things; see the [documentation](https://christophertkenny.com/bskyr/reference/index.html).
+
+### TikTok
