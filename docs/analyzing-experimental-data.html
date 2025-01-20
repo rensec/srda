@@ -306,7 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>The probability of a 0-1 variable to be 1 is simply the mean of this variable.</li>
 <li>We’re only interested in cases where the message is <em>false</em> and <em>aligns</em> with the participant’s ideology.</li>
-<li>Qw need to calculate the mean probability of being shared <em>per message,</em> because we have many decisions per message. For this, we use the <code>group_by()</code> and <code>summarise()</code> functions . Then, you can compare the mean of this in turn between the two networks.</li>
+<li>We need to calculate the mean probability of being shared <em>per message,</em> because we have many decisions per message. For this, we use the <code>group_by()</code> and <code>summarise()</code> functions . Then, you can compare the mean of this in turn between the two networks.</li>
 </ul>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="analyzing-experimental-data.html#cb86-1" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
 <span id="cb86-2"><a href="analyzing-experimental-data.html#cb86-2" tabindex="-1"></a><span class="fu">library</span>(haven)  <span class="co"># For loading Stata .dta files</span></span>
@@ -331,7 +331,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb86-21"><a href="analyzing-experimental-data.html#cb86-21" tabindex="-1"></a>data_collapsed2</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li><p>How do the results compare to the original result by Stein et al.? How do you interpret the similarities and differences?</p></li>
-<li><p>Next, we’ll replicate the result of 3B. That is: how does the mean probability of being exposed to a false message that aligns with your ideology differ between the two network types? Since this is a bit more complicated, we provide you with the R code for this:</p></li>
+<li><p>Next, we’ll replicate the result of 3B. That is: how does the mean probability of being exposed to a false message that aligns with your ideology differ between the two network types? We provide you with the R code for this:</p></li>
 </ol>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="analyzing-experimental-data.html#cb87-1" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
 <span id="cb87-2"><a href="analyzing-experimental-data.html#cb87-2" tabindex="-1"></a><span class="fu">library</span>(haven)  <span class="co"># For loading Stata .dta files</span></span>

@@ -52,3 +52,12 @@ Note that for users with a lot of followers, this may take a few minutes, and it
 The package also includes functions for retrieving posts, relationships between users, and many other things; see the [documentation](https://christophertkenny.com/bskyr/reference/index.html).
 
 ### TikTok
+
+The popular video platform TikTok may be studied using the `traktok` package. It is not (yet?) available at CRAN, so we have to install it from Github, for which you first need to install the package `remotes.`
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(remotes)
+remotes::install_github("JBGruber/traktok")
+```
+
+More information on usage and research examples can be found at <https://jbgruber.github.io/traktok/index.html>.
