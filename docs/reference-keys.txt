@@ -71,9 +71,10 @@ analyzing-experimental-data
 introduction-3
 replicating-the-results
 further-resources
-collecting-data-from-various-platforms
+collecting-data-from-various-online-platforms
 bluesky
 tiktok
+further-reading
 extra-data-manipulation-and-analysis-with-r
 introduction-4
 preparation

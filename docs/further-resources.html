@@ -245,11 +245,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="further-resources.html"><a href="further-resources.html"><i class="fa fa-check"></i><b>6</b> Further resources</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="further-resources.html"><a href="further-resources.html#collecting-data-from-various-platforms"><i class="fa fa-check"></i><b>6.1</b> Collecting data from various platforms</a>
+<li class="chapter" data-level="6.1" data-path="further-resources.html"><a href="further-resources.html#collecting-data-from-various-online-platforms"><i class="fa fa-check"></i><b>6.1</b> Collecting data from various online platforms</a>
 <ul>
 <li class="chapter" data-level="6.1.1" data-path="further-resources.html"><a href="further-resources.html#bluesky"><i class="fa fa-check"></i><b>6.1.1</b> Bluesky</a></li>
 <li class="chapter" data-level="6.1.2" data-path="further-resources.html"><a href="further-resources.html#tiktok"><i class="fa fa-check"></i><b>6.1.2</b> TikTok</a></li>
 </ul></li>
+<li class="chapter" data-level="6.2" data-path="further-resources.html"><a href="further-resources.html#further-reading"><i class="fa fa-check"></i><b>6.2</b> Further reading</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="extra-data-manipulation-and-analysis-with-r.html"><a href="extra-data-manipulation-and-analysis-with-r.html"><i class="fa fa-check"></i><b>7</b> Extra: Data manipulation and analysis with R</a>
 <ul>
@@ -299,9 +300,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="further-resources" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">6</span> Further resources<a href="further-resources.html#further-resources" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="collecting-data-from-various-platforms" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> Collecting data from various platforms<a href="further-resources.html#collecting-data-from-various-platforms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Here, we discuss methods to collect data from various other social media platforms, with a focus on R packages that facilitate. Where possible, we illustrate the use of these packages with brief examples.</p>
+<div id="collecting-data-from-various-online-platforms" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Collecting data from various online platforms<a href="further-resources.html#collecting-data-from-various-online-platforms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Here, we discuss methods to collect data from various other social media platforms, with a focus on R packages that facilitate this. Where possible, we illustrate the use of these packages with brief examples. As APIs change often, all of this comes “without warranty” and may be outdated by the time you read this.</p>
 <div id="bluesky" class="section level3 hasAnchor" number="6.1.1">
 <h3><span class="header-section-number">6.1.1</span> Bluesky<a href="further-resources.html#bluesky" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><a href="www.bsky.app">Bluesky</a> is a relatively new social media platform that originated as a side project of Twitter, and which is indeed very much like Twitter in terms of functionality. Since the turbulent changes at Twitter (now X), Bluesky has become popular as an alternative, <a href="https://www.science.org/content/article/old-twitter-scientific-community-finds-new-home-bluesky">in particular among academics</a>. Bluesky is open-source and has a public API, which makes it a good platform for data collection. We can collect data from it in R using the <code>bskyr</code> package.</p>
@@ -329,12 +330,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="tiktok" class="section level3 hasAnchor" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> TikTok<a href="further-resources.html#tiktok" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The popular video platform TikTok may be studied using the <code>traktok</code> package. It is not (yet?) available at CRAN, so we have to install it from Github, for which you first need to install the package <code>remotes.</code></p>
+<p>The popular video platform TikTok may be studied using the <code>traktok</code> package. It is not (yet?) available at CRAN, so we have to install it from Github, for which you first need to install the package <code>remotes</code>.</p>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="further-resources.html#cb94-1" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
 <span id="cb94-2"><a href="further-resources.html#cb94-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;JBGruber/traktok&quot;</span>)</span></code></pre></div>
-<p>More information on usage and research examples can be found at <a href="https://jbgruber.github.io/traktok/index.html" class="uri">https://jbgruber.github.io/traktok/index.html</a>.</p>
-
+<p>TikTok has two APIs: the “Research API” aimed at researchers in Europe and the US, and the “unofficial” or “hidden” API which is what TikTok uses to function internatlly. Using the Research API requires approval from TikTok, which supposedly may take up to four weeks. In contrast, the unofficial API can be used without approval. More information on usage and research examples can be found at <a href="https://jbgruber.github.io/traktok/index.html" class="uri">https://jbgruber.github.io/traktok/index.html</a>.</p>
 </div>
+</div>
+<div id="further-reading" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Further reading<a href="further-resources.html#further-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p><a href="https://cssbook.net/">Van Atteveldt, W., Trilling, D., &amp; Calderón, C. A. (2022). <em>Computational Analysis of Communication</em>. Wiley Blackwell.</a> –&gt; An open access computational social science textbook giving a practical introduction to the analysis of texts, networks, and images with code
+examples in Python and R. Somewhat communication science-oriented.</p></li>
+<li><p><a href="https://r4ds.hadley.nz/">Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data.</em> O’Reilly.</a> –&gt; The meanwhile classic open textbook on using R for data analysis. Focuses mostly on data handling and exploratory analysis; does not cover statistical methods.</p></li>
+</ul>
+
 </div>
 </div>
             </section>
