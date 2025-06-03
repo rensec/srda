@@ -61,3 +61,10 @@ remotes::install_github("JBGruber/traktok")
 ```
 
 TikTok has two APIs: the "Research API" aimed at researchers in Europe and the US, and the "unofficial" or "hidden" API which is what TikTok uses to function internatlly. Using the Research API requires approval from TikTok, which supposedly may take up to four weeks. In contrast, the unofficial API can be used without approval. More information on usage and research examples can be found at <https://jbgruber.github.io/traktok/index.html>.
+
+## Further reading
+
+-   [Van Atteveldt, W., Trilling, D., & Calderón, C. A. (2022). *Computational Analysis of Communication*. Wiley Blackwell.](https://cssbook.net/) –\> An open access computational social science textbook giving a practical introduction to the analysis of texts, networks, and images with code
+    examples in Python and R. Somewhat communication science-oriented.
+
+-   [Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). *R for Data Science: Import, Tidy, Transform, Visualize, and Model Data.* O'Reilly.](https://r4ds.hadley.nz/) --\> The meanwhile classic open textbook on using R for data analysis. Focuses mostly on data handling and exploratory analysis; does not cover statistical methods.
