@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Introduction to web scraping in R | Social Research in the Digital Age (Utrecht University)</title>
   <meta name="description" content="2 Introduction to web scraping in R | Social Research in the Digital Age (Utrecht University)" />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Introduction to web scraping in R | Social Research in the Digital Age (Utrecht University)" />
   <meta property="og:type" content="book" />
@@ -54,8 +54,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -65,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -427,10 +428,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-2"><a href="introduction-to-web-scraping-in-r.html#cb58-2" tabindex="-1"></a>title</span></code></pre></div>
 <p>This basically constitutes our variable “title” for our intended data frame, filled with the values of the petitions on this page.</p>
 <p><strong>Question:</strong> how many titles do we have now? And is this the number you would expect?</p>
-<p>We can now do the same for our next variable, the url. Using our scrapemate tool again (we can either reset our earlier picker by clicking the circle button next to it, or use one of the other pickers in the sidebar), we can determine that the CSS tag in this case is <code>.petition-overview-image-container</code>.</p>
+<p>We can now do the same for our next variable, the URL. Looking at the result of our first processing step for the titles (the one resulting from <code>html_nodes(...)</code> above), we see that the URLs are already included there (starting after “href” in each line); we just need to extract them.</p>
 <p>The code to get all the URLs then looks like this:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introduction-to-web-scraping-in-r.html#cb59-1" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;.petition-overview-image-container&quot;</span>)</span>
-<span id="cb59-2"><a href="introduction-to-web-scraping-in-r.html#cb59-2" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(link_url, <span class="st">&quot;href&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introduction-to-web-scraping-in-r.html#cb59-1" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(webpage, <span class="st">&quot;.petition-overview-info-title&quot;</span>) <span class="co"># This leads to same result as above </span></span>
+<span id="cb59-2"><a href="introduction-to-web-scraping-in-r.html#cb59-2" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(link_url, <span class="st">&quot;a&quot;</span>) <span class="co"># we first keep all the parts that start with &quot;a&quot;</span></span>
+<span id="cb59-3"><a href="introduction-to-web-scraping-in-r.html#cb59-3" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(link_url, <span class="st">&quot;href&quot;</span>) <span class="co"># then, we extract the links and show the result </span></span>
+<span id="cb59-4"><a href="introduction-to-web-scraping-in-r.html#cb59-4" tabindex="-1"></a>link_url</span></code></pre></div>
 <p><strong>Exercise:</strong> now write the code to get the number of signatures per petition.</p>
 </div>
 <div id="automating-the-process-getting-multiple-pages" class="section level3 hasAnchor" number="2.7.2">
@@ -591,42 +594,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
