@@ -138,13 +138,15 @@ This basically constitutes our variable "title" for our intended data frame, fil
 
 **Question:** how many titles do we have now? And is this the number you would expect?
 
-We can now do the same for our next variable, the url. Using our scrapemate tool again (we can either reset our earlier picker by clicking the circle button next to it, or use one of the other pickers in the sidebar), we can determine that the CSS tag in this case is `.petition-overview-image-container`.
+We can now do the same for our next variable, the URL. Looking at the result of our first processing step for the titles (the one resulting from `html_nodes(...)` above), we see that the URLs are already included there (starting after "href" in each line); we just need to extract them. 
 
 The code to get all the URLs then looks like this:
 
 ```{r}
-link_url <- html_elements(webpage, ".petition-overview-image-container")
-link_url <- html_attr(link_url, "href")
+link_url <- html_nodes(webpage, ".petition-overview-info-title") # This leads to same result as above 
+link_url <- html_nodes(link_url, "a") # we first keep all the parts that start with "a"
+link_url <- html_attr(link_url, "href") # then, we extract the links and show the result 
+link_url
   
 ```
 
