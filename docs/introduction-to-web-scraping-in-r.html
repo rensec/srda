@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Introduction to web scraping in R | Social Research in the Digital Age (Utrecht University)</title>
   <meta name="description" content="2 Introduction to web scraping in R | Social Research in the Digital Age (Utrecht University)" />
-  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Introduction to web scraping in R | Social Research in the Digital Age (Utrecht University)" />
   <meta property="og:type" content="book" />
@@ -54,7 +54,6 @@
 
 
 <style type="text/css">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -314,13 +313,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="getting-our-tools-ready" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Getting our tools ready<a href="introduction-to-web-scraping-in-r.html#getting-our-tools-ready" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, we need to collect some tools, starting with some R packages. Start a new R script, copy and paste the following code, and run it:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="introduction-to-web-scraping-in-r.html#cb54-1" tabindex="-1"></a><span class="fu">install.packages</span>(</span>
-<span id="cb54-2"><a href="introduction-to-web-scraping-in-r.html#cb54-2" tabindex="-1"></a>  <span class="fu">c</span>(</span>
-<span id="cb54-3"><a href="introduction-to-web-scraping-in-r.html#cb54-3" tabindex="-1"></a>    <span class="st">&quot;rvest&quot;</span>, <span class="co"># the main package for scraping</span></span>
-<span id="cb54-4"><a href="introduction-to-web-scraping-in-r.html#cb54-4" tabindex="-1"></a>    <span class="st">&quot;stringr&quot;</span>, <span class="co"># some useful functions for working with strings</span></span>
-<span id="cb54-5"><a href="introduction-to-web-scraping-in-r.html#cb54-5" tabindex="-1"></a>    <span class="st">&quot;tidyverse&quot;</span>), <span class="co"># for general data handling</span></span>
-<span id="cb54-6"><a href="introduction-to-web-scraping-in-r.html#cb54-6" tabindex="-1"></a>  <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span></span>
-<span id="cb54-7"><a href="introduction-to-web-scraping-in-r.html#cb54-7" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="introduction-to-web-scraping-in-r.html#cb54-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>()) <span class="co"># start with a clean working environment</span></span>
+<span id="cb54-2"><a href="introduction-to-web-scraping-in-r.html#cb54-2" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="introduction-to-web-scraping-in-r.html#cb54-3" tabindex="-1"></a><span class="fu">install.packages</span>(</span>
+<span id="cb54-4"><a href="introduction-to-web-scraping-in-r.html#cb54-4" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb54-5"><a href="introduction-to-web-scraping-in-r.html#cb54-5" tabindex="-1"></a>    <span class="st">&quot;rvest&quot;</span>, <span class="co"># the main package for scraping</span></span>
+<span id="cb54-6"><a href="introduction-to-web-scraping-in-r.html#cb54-6" tabindex="-1"></a>    <span class="st">&quot;stringr&quot;</span>, <span class="co"># some useful functions for working with strings</span></span>
+<span id="cb54-7"><a href="introduction-to-web-scraping-in-r.html#cb54-7" tabindex="-1"></a>    <span class="st">&quot;tidyverse&quot;</span>), <span class="co"># for general data handling</span></span>
+<span id="cb54-8"><a href="introduction-to-web-scraping-in-r.html#cb54-8" tabindex="-1"></a>  <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span></span>
+<span id="cb54-9"><a href="introduction-to-web-scraping-in-r.html#cb54-9" tabindex="-1"></a>)</span></code></pre></div>
 <p>We then activate these packages for this session with library commands:</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="introduction-to-web-scraping-in-r.html#cb55-1" tabindex="-1"></a><span class="fu">library</span>(rvest)  <span class="co">#scraping</span></span>
 <span id="cb55-2"><a href="introduction-to-web-scraping-in-r.html#cb55-2" tabindex="-1"></a><span class="fu">library</span>(stringr) <span class="co"># string functions</span></span>
@@ -329,15 +330,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="getting-to-know-the-target-website" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Getting to know the target website<a href="introduction-to-web-scraping-in-r.html#getting-to-know-the-target-website" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Before we start coding, it’s always a good idea to get a little bit acquainted with the website we’re scraping. Go to Petities.nl and try to anwer the following <strong>questions</strong>:</p>
+<p>Before we start coding, it’s always a good idea to get a little bit acquainted with the website we’re scraping. Go to Petities.nl, scroll to and click “View all petitions”, and try to answer the following <strong>questions</strong>:</p>
 <ul>
 <li><p>Which information is shown about each petition?</p></li>
 <li><p>How are petitions sorted?</p></li>
 <li><p>What different options do we have to show and sort petitions? Which one do you think is most useful for our purpose?</p></li>
-<li><p>What do the numbers in the bottom left and -right of each “petition box” mean?</p></li>
+<li><p>What do the number in the bottom left and the green bar in the bottom right of each “petition box” mean?</p></li>
 <li><p>What is your impression about the sort of petitions that are posted here? Does anything stand out?</p></li>
 </ul>
-<p>Also, once more look at the page source code (see above). Which part of the content of the page can you already identify in the source code (and which not)? You’ll notice that there is a lot of code that does not seem to refer to any content; things like <code>class="search-container whitespace".</code> This is called <em>CSS</em> (for <em>Cascading Style Sheets</em>) and it determines what a website looks like, by applying certain formatting rules to things that should look familiar (not unlike, for example, the style templates of Microsoft Word or Powerpoint). We’ll take advantage of this later to locate information on the page.</p>
+<p>Also, once more look at the page source code (see above). Which part of the content of the page can you already identify in the source code (and which not)? You’ll notice that there is a lot of code that does not seem to refer to any content; things like <code>class="...".</code> This is called <em>CSS</em> (for <em>Cascading Style Sheets</em>) and it determines what a website looks like, by applying certain formatting rules to things that should look familiar (not unlike, for example, the style templates of Microsoft Word or Powerpoint). We’ll take advantage of this later to locate information on the page.</p>
 </div>
 <div id="are-we-allowed-to-scrape" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Are we allowed to scrape?<a href="introduction-to-web-scraping-in-r.html#are-we-allowed-to-scrape" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -396,71 +397,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="locating-the-correct-information" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Locating the correct information<a href="introduction-to-web-scraping-in-r.html#locating-the-correct-information" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>As a starting piont, let’s take the section of the website that lists all petitions: <a href="https://petities.nl/petitions/all?locale=en" class="uri">https://petities.nl/petitions/all?locale=en</a>. When we look at the source code of the page, we can actually already identify all the information that we need in the code. This, however, is rather messy, and not something we can analyze directly. We somehow need to get the information in the shape of our data table above, and for this we first need to automatically extract the titles, URLs, and counts from the messy source code.</p>
+<p>As a starting point, let’s take the section of the website that lists all petitions: <a href="https://petities.nl/petities/" class="uri">https://petities.nl/petities/</a>. You can use your browser’s translation feature if you like to read the page in English. When we look at the source code of the page, we can actually already identify all the information that we need in the code. This, however, is rather messy, and not something we can analyze directly. We somehow need to get the information in the shape of our data table above, and for this we first need to automatically extract the titles, URLs, and counts from the messy source code.</p>
 <p>This is where our browser extension comes in handy. When we look at the website (not the code), we can actually easily identify the relevant information <em>because it is formatted in a consistent way</em>. To achieve this, the website uses CSS tags in the code, and we can take advantage of that to find the relevant information. We could already do that by looking hard at the code, but our browser extension make it easier. Let’s start with the titles.</p>
 <p>In Firefox:</p>
 <ol style="list-style-type: decimal">
-<li>Go to <a href="https://petities.nl/petitions/all?locale=en" class="uri">https://petities.nl/petitions/all?locale=en</a></li>
+<li>Go to <a href="https://petities.nl/petities" class="uri">https://petities.nl/petities</a></li>
 <li>Click the icon for the “Scrapemate” extension in the toolbar (the little wand)</li>
 <li>In the resulting sidebar on the right, click the top orange button (“start picker”)</li>
 <li>Click the title of a petition. A few things will happen:
 <ol style="list-style-type: decimal">
 <li>All the titles of the petitions shown on the page will be highlighted. This is an indication that you’ve identified the right “field”; we want all those titles!</li>
-<li>In the bottom right, you will see a list of all the titles. Again, this is what we want!</li>
-<li>In the bar below the orange button, you’ll see “<code>.petition-overview-info-title</code>”. This is the relevant CSS tag: basically it tells the browser “show this piece of text as a petition title” (and the actual style of a petition title is stored somewhere in a CSS style file, but we don’t care about that).</li>
+<li>In the preview at the bottom right, <code>_text</code> shows the text inside of each matched HTML element. These are the titles. Again, this is what we want!</li>
+<li>In the same preview, <code>_tag</code> shows the HTML tag of each matched element. <code>h2</code> is the tag for a level-two heading.</li>
+<li>In the bar below the orange button, you’ll see the CSS selector <code>.group-hover\:text-green</code>.</li>
 </ol></li>
 </ol>
-<p>In building our scraper, we can now make use of that: we can basically tell it to “collect all the pieces of text that are formatted like petition titles”, and we now also know that these pieces of text are marked in the source code as “<code>.petition-overview-info-title</code>” (you can actually see this tag in the source code). So let’s get coding!</p>
+<p>A CSS selector is a pattern for finding elements in an HTML page. The backslash in Scrapemate’s selector tells CSS to treat the colon as part of the class name.</p>
+<p>In building our scraper, we can now make use of that. We can basically tell it to “collect all the pieces of text that are formatted like petition titles”, and we now also know that these pieces of text are marked in the HTML as <code>&lt;h2&gt;</code> headings with the class <code>group-hover:text-green</code>.</p>
+<p>In R, we’ll use the selector <code>h2[class~='group-hover:text-green']</code> to find those headings. The <code>h2</code> limits the search to that type of heading, and <code>~=</code> checks whether <code>group-hover:text-green</code> is one of its classes. So let’s get coding!</p>
 </div>
 <div id="building-the-scraper" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> Building the scraper<a href="introduction-to-web-scraping-in-r.html#building-the-scraper" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="first-steps" class="section level3 hasAnchor" number="2.7.1">
 <h3><span class="header-section-number">2.7.1</span> First steps<a href="introduction-to-web-scraping-in-r.html#first-steps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We now turn to the <code>rvest</code> package. To begin, we simply download the entire page:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="introduction-to-web-scraping-in-r.html#cb56-1" tabindex="-1"></a>webpage <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&quot;</span>) </span>
+<p>We now turn to the <code>rvest</code> package. To begin, we simply download and parse the entire page’s HTML:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="introduction-to-web-scraping-in-r.html#cb56-1" tabindex="-1"></a>webpage <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://petities.nl/petities&quot;</span>) </span>
 <span id="cb56-2"><a href="introduction-to-web-scraping-in-r.html#cb56-2" tabindex="-1"></a>webpage</span></code></pre></div>
 <p>This basically just behaves like a browser: it downloads the source code of the page. It still looks like unintelligible code soup.</p>
-<p>However, we now know what to look for in this soup. Using the <code>html_nodes()</code> function from <code>rvest</code>, we can identify all the titles:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introduction-to-web-scraping-in-r.html#cb57-1" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(webpage, <span class="st">&quot;.petition-overview-info-title&quot;</span>)</span>
+<p>However, we now know what to look for in this soup.</p>
+<p>We pass our CSS selector to <code>rvest</code>’s <code>html_elements()</code> function to find all the petition headings on the page:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introduction-to-web-scraping-in-r.html#cb57-1" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;h2[class~=&#39;group-hover:text-green&#39;]&quot;</span>)</span>
 <span id="cb57-2"><a href="introduction-to-web-scraping-in-r.html#cb57-2" tabindex="-1"></a>title</span></code></pre></div>
-<p>This already looks more structured: it is a list of all the parts in the code that where tagged as <code>.petition-overview-info-title</code>. In the next step, we parse (clean up) this list further to keep only the clean text:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="introduction-to-web-scraping-in-r.html#cb58-1" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">html_text</span>(title)</span>
-<span id="cb58-2"><a href="introduction-to-web-scraping-in-r.html#cb58-2" tabindex="-1"></a>title</span></code></pre></div>
+<p>This already looks more structured: it contains just the matching <code>&lt;h2&gt;</code> elements, including their HTML tags. We use <code>html_text2()</code> to pull the text out of each heading. <code>html_text2()</code> handles whitespace more like a browser does, for example by collapsing repeated spaces and turning <code>&lt;br&gt;</code> tags into line breaks.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="introduction-to-web-scraping-in-r.html#cb58-1" tabindex="-1"></a>title2 <span class="ot">&lt;-</span> <span class="fu">html_text2</span>(title)</span>
+<span id="cb58-2"><a href="introduction-to-web-scraping-in-r.html#cb58-2" tabindex="-1"></a>title2</span></code></pre></div>
 <p>This basically constitutes our variable “title” for our intended data frame, filled with the values of the petitions on this page.</p>
 <p><strong>Question:</strong> how many titles do we have now? And is this the number you would expect?</p>
-<p>We can now do the same for our next variable, the URL. Looking at the result of our first processing step for the titles (the one resulting from <code>html_nodes(...)</code> above), we see that the URLs are already included there (starting after “href” in each line); we just need to extract them.</p>
-<p>The code to get all the URLs then looks like this:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introduction-to-web-scraping-in-r.html#cb59-1" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(webpage, <span class="st">&quot;.petition-overview-info-title&quot;</span>) <span class="co"># This leads to same result as above </span></span>
-<span id="cb59-2"><a href="introduction-to-web-scraping-in-r.html#cb59-2" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(link_url, <span class="st">&quot;a&quot;</span>) <span class="co"># we first keep all the parts that start with &quot;a&quot;</span></span>
-<span id="cb59-3"><a href="introduction-to-web-scraping-in-r.html#cb59-3" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(link_url, <span class="st">&quot;href&quot;</span>) <span class="co"># then, we extract the links and show the result </span></span>
-<span id="cb59-4"><a href="introduction-to-web-scraping-in-r.html#cb59-4" tabindex="-1"></a>link_url</span></code></pre></div>
+<p>We can now do the same for our next variable, the URL. Looking at the result of our first processing step for the titles (the one using <code>html_elements()</code> above), we see that each title is an <code>&lt;h2&gt;</code> heading. If we look for that heading in the page’s HTML, we find the URL in the <code>href</code> attribute of the <code>&lt;a&gt;</code> element that wraps it. We just need to select those links and extract their <code>href</code> values.</p>
+<p>We use <code>html_elements()</code> again to find all <code>&lt;a&gt;</code> elements with an <code>href</code> attribute. Then we use <code>html_element()</code> to look for a petition heading inside each link. If there’s no matching heading, <code>html_text2()</code> returns <code>NA</code>. We use that to keep only the links that contain a petition heading. We then use <code>html_attr()</code> to extract the <code>href</code> values. These are relative paths, so we use <code>paste0()</code> to add <a href="https://petities.nl" class="uri">https://petities.nl</a> at the beginning of each path and create full URLs:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introduction-to-web-scraping-in-r.html#cb59-1" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;a[href]&quot;</span>) <span class="co"># find all links (i.e., &lt;a&gt; elements) that have a destination (i.e., href)</span></span>
+<span id="cb59-2"><a href="introduction-to-web-scraping-in-r.html#cb59-2" tabindex="-1"></a>headings <span class="ot">&lt;-</span> <span class="fu">html_element</span>(links, <span class="st">&quot;h2[class~=&#39;group-hover:text-green&#39;]&quot;</span>) <span class="co"># look for a petition heading inside each link</span></span>
+<span id="cb59-3"><a href="introduction-to-web-scraping-in-r.html#cb59-3" tabindex="-1"></a>link_nodes <span class="ot">&lt;-</span> links[<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">html_text2</span>(headings))] <span class="co"># keep the links that contain a petition heading (i.e., a non-NA value)</span></span>
+<span id="cb59-4"><a href="introduction-to-web-scraping-in-r.html#cb59-4" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(link_nodes, <span class="st">&quot;href&quot;</span>) <span class="co"># extract the destination of the links</span></span>
+<span id="cb59-5"><a href="introduction-to-web-scraping-in-r.html#cb59-5" tabindex="-1"></a>link_url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://petities.nl&quot;</span>, link_url) <span class="co"># Create full URL</span></span>
+<span id="cb59-6"><a href="introduction-to-web-scraping-in-r.html#cb59-6" tabindex="-1"></a>link_url</span></code></pre></div>
 <p><strong>Exercise:</strong> now write the code to get the number of signatures per petition.</p>
 </div>
 <div id="automating-the-process-getting-multiple-pages" class="section level3 hasAnchor" number="2.7.2">
 <h3><span class="header-section-number">2.7.2</span> Automating the process: getting multiple pages<a href="introduction-to-web-scraping-in-r.html#automating-the-process-getting-multiple-pages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>At this point, we can scrape the required information from the one page, namely, <a href="https://petities.nl/petitions/all?locale=en">https://petities.nl/petitions/all</a>. However, for our research project, we’re probably interested in more than just these 12 petitions; we want to get a sizable sample of petitions and perhaps even all petitions listed on the website. At the bottom of the page, we see that the list of petitions continues on page 2, 3, etc.</p>
+<p>At this point, we can scrape the required information from the one page, namely, <a href="https://petities.nl/petities/">https://petities.nl/petities/</a>. However, for our research project, we’re probably interested in more than just these 20 petitions; we want to get a sizable sample of petitions and perhaps even all petitions listed on the website. At the bottom of the page, we see that the list of petitions continues on page 2, 3, etc.</p>
 <p><strong>Question:</strong> how many pages does the list of petitions contain in total?</p>
 <p>Now of course we could just manually go to the next page, check the url for that page, and repeat our earlier scraping steps to get the petitions for that page.</p>
 <p><strong>Question:</strong> what is the URL of page 2? And page 3?</p>
-<p>However, this would be very tedious and take a long time. Rather, we’d like to <em>automate</em> this process so that our scraper automatically visits all the pages, and downloads the data. With that, we’re getting to the “crawling” part of web scraping, and it will require a little <em>programming</em>. While this may sound intimidating, it simply means that we are going to “recycle” our earlier instructions to the computer in a smart way. We’ve so far written our code for a <em>specific</em> URL; let’s now write in a way that can be applied to <em>any</em> URL. To do so, we include our earlier code in a <em>function</em> called get_petitions_list():</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="introduction-to-web-scraping-in-r.html#cb60-1" tabindex="-1"></a>get_petitions_list <span class="ot">&lt;-</span> <span class="cf">function</span>(page_url){</span>
-<span id="cb60-2"><a href="introduction-to-web-scraping-in-r.html#cb60-2" tabindex="-1"></a>  webpage <span class="ot">&lt;-</span> <span class="fu">read_html</span>(page_url) </span>
-<span id="cb60-3"><a href="introduction-to-web-scraping-in-r.html#cb60-3" tabindex="-1"></a>  </span>
-<span id="cb60-4"><a href="introduction-to-web-scraping-in-r.html#cb60-4" tabindex="-1"></a>  title <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(webpage, <span class="st">&quot;.petition-overview-info-title&quot;</span>)</span>
-<span id="cb60-5"><a href="introduction-to-web-scraping-in-r.html#cb60-5" tabindex="-1"></a>  title <span class="ot">&lt;-</span> <span class="fu">html_text</span>(title)</span>
-<span id="cb60-6"><a href="introduction-to-web-scraping-in-r.html#cb60-6" tabindex="-1"></a></span>
-<span id="cb60-7"><a href="introduction-to-web-scraping-in-r.html#cb60-7" tabindex="-1"></a>  </span>
-<span id="cb60-8"><a href="introduction-to-web-scraping-in-r.html#cb60-8" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;.petition-overview-image-container&quot;</span>)</span>
-<span id="cb60-9"><a href="introduction-to-web-scraping-in-r.html#cb60-9" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(link_url, <span class="st">&quot;href&quot;</span>)</span>
-<span id="cb60-10"><a href="introduction-to-web-scraping-in-r.html#cb60-10" tabindex="-1"></a>  </span>
-<span id="cb60-11"><a href="introduction-to-web-scraping-in-r.html#cb60-11" tabindex="-1"></a>  </span>
-<span id="cb60-12"><a href="introduction-to-web-scraping-in-r.html#cb60-12" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;.petitions-counter&quot;</span>)</span>
-<span id="cb60-13"><a href="introduction-to-web-scraping-in-r.html#cb60-13" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">html_text</span>(sig_count) </span>
-<span id="cb60-14"><a href="introduction-to-web-scraping-in-r.html#cb60-14" tabindex="-1"></a>  </span>
-<span id="cb60-15"><a href="introduction-to-web-scraping-in-r.html#cb60-15" tabindex="-1"></a>  </span>
-<span id="cb60-16"><a href="introduction-to-web-scraping-in-r.html#cb60-16" tabindex="-1"></a>  petitions_list <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(title, link_url, sig_count)</span>
-<span id="cb60-17"><a href="introduction-to-web-scraping-in-r.html#cb60-17" tabindex="-1"></a>  <span class="fu">return</span>(petitions_list)</span>
-<span id="cb60-18"><a href="introduction-to-web-scraping-in-r.html#cb60-18" tabindex="-1"></a>}</span></code></pre></div>
+<p>However, this would be very tedious and take a long time. One way to collect more petitions in a single request is to change the limit parameter in the URL. This controls how many petitions the site returns per page. <strong>Try it.</strong> Set <code>page=1</code> and <code>limit=50</code>.</p>
+<p>Increasing limit may be enough for a small sample. For a larger sample, we can <em>automate</em> the process so our scraper automatically visits all the pages, and downloads the data. That gives us control over both the number of petitions per page and the number of pages we collect. With that, we’re getting to the “crawling” part of web scraping, and it will require a little <em>programming</em>. While this may sound intimidating, it simply means that we are going to “recycle” our earlier instructions to the computer in a smart way. We’ve so far written our code for a <em>specific</em> URL; let’s now write in a way that can be applied to <em>any</em> URL. To do so, we include our earlier code in a <em>function</em> called <code>get_petitions_list()</code>:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="introduction-to-web-scraping-in-r.html#cb60-1" tabindex="-1"></a>get_petitions_list <span class="ot">&lt;-</span> <span class="cf">function</span>(page_url) {</span>
+<span id="cb60-2"><a href="introduction-to-web-scraping-in-r.html#cb60-2" tabindex="-1"></a>  </span>
+<span id="cb60-3"><a href="introduction-to-web-scraping-in-r.html#cb60-3" tabindex="-1"></a>  webpage <span class="ot">&lt;-</span> <span class="fu">read_html</span>(page_url) <span class="co"># download and parse page HTML</span></span>
+<span id="cb60-4"><a href="introduction-to-web-scraping-in-r.html#cb60-4" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="introduction-to-web-scraping-in-r.html#cb60-5" tabindex="-1"></a></span>
+<span id="cb60-6"><a href="introduction-to-web-scraping-in-r.html#cb60-6" tabindex="-1"></a>  links <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;a[href]&quot;</span>) <span class="co"># find &lt;a&gt; elements (links) with an href attribute (destination).</span></span>
+<span id="cb60-7"><a href="introduction-to-web-scraping-in-r.html#cb60-7" tabindex="-1"></a>  headings <span class="ot">&lt;-</span> <span class="fu">html_element</span>(links, <span class="st">&quot;h2[class~=&#39;group-hover:text-green&#39;]&quot;</span>) <span class="co"># look for the petition heading inside each link</span></span>
+<span id="cb60-8"><a href="introduction-to-web-scraping-in-r.html#cb60-8" tabindex="-1"></a>  heading_text <span class="ot">&lt;-</span> <span class="fu">html_text2</span>(headings) <span class="co"># extract the heading text (returning NA for links without a heading)</span></span>
+<span id="cb60-9"><a href="introduction-to-web-scraping-in-r.html#cb60-9" tabindex="-1"></a>  is_petition <span class="ot">&lt;-</span> <span class="sc">!</span><span class="fu">is.na</span>(heading_text) <span class="co"># mark links with a heading as TRUE</span></span>
+<span id="cb60-10"><a href="introduction-to-web-scraping-in-r.html#cb60-10" tabindex="-1"></a>  link_nodes <span class="ot">&lt;-</span> links[is_petition] <span class="co"># keep only the petition links</span></span>
+<span id="cb60-11"><a href="introduction-to-web-scraping-in-r.html#cb60-11" tabindex="-1"></a></span>
+<span id="cb60-12"><a href="introduction-to-web-scraping-in-r.html#cb60-12" tabindex="-1"></a>  </span>
+<span id="cb60-13"><a href="introduction-to-web-scraping-in-r.html#cb60-13" tabindex="-1"></a>  title <span class="ot">&lt;-</span> heading_text[is_petition] <span class="co"># keep the heading text of those links</span></span>
+<span id="cb60-14"><a href="introduction-to-web-scraping-in-r.html#cb60-14" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(link_nodes, <span class="st">&quot;href&quot;</span>) <span class="co"># extract the relative path from links&#39; href attributes</span></span>
+<span id="cb60-15"><a href="introduction-to-web-scraping-in-r.html#cb60-15" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://petities.nl&quot;</span>, link_url) <span class="co"># add the website domain to make a complete URL</span></span>
+<span id="cb60-16"><a href="introduction-to-web-scraping-in-r.html#cb60-16" tabindex="-1"></a></span>
+<span id="cb60-17"><a href="introduction-to-web-scraping-in-r.html#cb60-17" tabindex="-1"></a>  </span>
+<span id="cb60-18"><a href="introduction-to-web-scraping-in-r.html#cb60-18" tabindex="-1"></a>  signature_nodes <span class="ot">&lt;-</span> <span class="fu">html_element</span>(link_nodes, <span class="st">&quot;p span&quot;</span>) <span class="co"># find the first &lt;span&gt; inside a paragraph in each petition card</span></span>
+<span id="cb60-19"><a href="introduction-to-web-scraping-in-r.html#cb60-19" tabindex="-1"></a>  signature_text <span class="ot">&lt;-</span> <span class="fu">html_text2</span>(signature_nodes) <span class="co"># extract the signature counts as text</span></span>
+<span id="cb60-20"><a href="introduction-to-web-scraping-in-r.html#cb60-20" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">gsub</span>(<span class="st">&quot;.&quot;</span>, <span class="st">&quot;&quot;</span>, signature_text, <span class="at">fixed =</span> <span class="cn">TRUE</span>)) <span class="co"># remove the thousands separator and convert to integers</span></span>
+<span id="cb60-21"><a href="introduction-to-web-scraping-in-r.html#cb60-21" tabindex="-1"></a></span>
+<span id="cb60-22"><a href="introduction-to-web-scraping-in-r.html#cb60-22" tabindex="-1"></a>  </span>
+<span id="cb60-23"><a href="introduction-to-web-scraping-in-r.html#cb60-23" tabindex="-1"></a>  <span class="fu">data.frame</span>(title, link_url, sig_count) <span class="co"># return a dataframe with one row per petition</span></span>
+<span id="cb60-24"><a href="introduction-to-web-scraping-in-r.html#cb60-24" tabindex="-1"></a>}</span></code></pre></div>
 <p>If we run this code, nothing really happens yet: all it does is <em>define</em> the function. That is, we can now refer to this set of scraping instructions using the function <code>get_petitions_list()</code>, filling in the URL of the page that we want to scrape as “page_url”. All the code inside the function will then be applied to this page. Specifically, it does the following:</p>
 <ol style="list-style-type: decimal">
 <li><p>Download the source code of the page</p></li>
@@ -471,95 +485,75 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>The last line in the function starting with <code>return</code> defines the result of the function, in this case, the data frame.</p>
 <p>Let’s test this function on page 2:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="introduction-to-web-scraping-in-r.html#cb61-1" tabindex="-1"></a>p2_petitions <span class="ot">&lt;-</span> <span class="fu">get_petitions_list</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="introduction-to-web-scraping-in-r.html#cb61-1" tabindex="-1"></a>page2 <span class="ot">&lt;-</span> <span class="st">&quot;https://petities.nl/petities?page=2&quot;</span></span>
+<span id="cb61-2"><a href="introduction-to-web-scraping-in-r.html#cb61-2" tabindex="-1"></a>p2_petitions <span class="ot">&lt;-</span> <span class="fu">get_petitions_list</span>(page2)</span></code></pre></div>
 <p><strong>Question</strong>: did it work correctly?</p>
 <p>Now that we have a function to get all the data that we want from a given page in one go, all we need to to is apply this to all the pages we want to scrape and combine the results into a single data frame. To do so, we’ll use a <em>loop:</em></p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="introduction-to-web-scraping-in-r.html#cb62-1" tabindex="-1"></a>petitions <span class="ot">&lt;-</span> <span class="fu">get_petitions_list</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=1&quot;</span>) <span class="co"># We start with the first page</span></span>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="introduction-to-web-scraping-in-r.html#cb62-1" tabindex="-1"></a>petitions <span class="ot">&lt;-</span> <span class="fu">get_petitions_list</span>(<span class="st">&quot;https://petities.nl/petities?page=1&quot;</span>) <span class="co"># We start with the first page</span></span>
 <span id="cb62-2"><a href="introduction-to-web-scraping-in-r.html#cb62-2" tabindex="-1"></a></span>
 <span id="cb62-3"><a href="introduction-to-web-scraping-in-r.html#cb62-3" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>){ <span class="co"># Loop throup all values from 2 to 5. The current value is &quot;i&quot; </span></span>
-<span id="cb62-4"><a href="introduction-to-web-scraping-in-r.html#cb62-4" tabindex="-1"></a>  target_page <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=&quot;</span>,i,<span class="at">sep =</span> <span class="st">&quot;&quot;</span>) <span class="co"># Create a string in with we add the current value i to the &quot;stub&quot; of the page url</span></span>
+<span id="cb62-4"><a href="introduction-to-web-scraping-in-r.html#cb62-4" tabindex="-1"></a>  target_page <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://petities.nl/petities?page=&quot;</span>,i) <span class="co"># Create a string in with we add the current value i to the &quot;stub&quot; of the page url</span></span>
 <span id="cb62-5"><a href="introduction-to-web-scraping-in-r.html#cb62-5" tabindex="-1"></a>  p <span class="ot">&lt;-</span><span class="fu">get_petitions_list</span>(target_page) <span class="co"># scrape page i</span></span>
 <span id="cb62-6"><a href="introduction-to-web-scraping-in-r.html#cb62-6" tabindex="-1"></a>  petitions <span class="ot">&lt;-</span> <span class="fu">rbind</span>(petitions, p) <span class="co"># add the petitions of page i to what we already had </span></span>
 <span id="cb62-7"><a href="introduction-to-web-scraping-in-r.html#cb62-7" tabindex="-1"></a>}</span></code></pre></div>
-<p>See if you understand the above code with the help of the comments in the code. If you don’t know the additional functions that we use in the loop (for example, paste() or rbind() ), look them up to see what they do. Then, run the code.</p>
+<p>See if you understand the above code with the help of the comments in the code. If you don’t know the additional functions that we use in the loop (for example, <code>paste0()</code> or <code>rbind()</code> ), look them up to see what they do. Then, run the code.</p>
 <p><strong>Question:</strong> What do you expect as the result, and is it correct?</p>
 <p><strong>Question:</strong> what would we need to change in the above code to collect data on <em>all</em> petitions on the website?</p>
 <p><u><strong>NOTE:</strong></u> at this point, do not actually run the code to collect data for all petitions. While this is tempting, it would 1) take a long time and 2) put an unnecessarily large burden on the Petities.nl servers.</p>
-<p>In principle, we now have a completely functional scraper! It is capable of automatically visiting a number of pages that we define, and collect the information from those pages that we wanted. Let’s just implement a few small improvements.</p>
-<p>First, you might have notices that the number of signatures is included in the data frame as a string variable, while it is actually a number. To avoid that we have to fix this afterwords, we can already fix it in our function (see “# NEW”):</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="introduction-to-web-scraping-in-r.html#cb63-1" tabindex="-1"></a>get_petitions_list <span class="ot">&lt;-</span> <span class="cf">function</span>(page_url){</span>
-<span id="cb63-2"><a href="introduction-to-web-scraping-in-r.html#cb63-2" tabindex="-1"></a>  webpage <span class="ot">&lt;-</span> <span class="fu">read_html</span>(page_url) </span>
-<span id="cb63-3"><a href="introduction-to-web-scraping-in-r.html#cb63-3" tabindex="-1"></a>  </span>
-<span id="cb63-4"><a href="introduction-to-web-scraping-in-r.html#cb63-4" tabindex="-1"></a>  title <span class="ot">&lt;-</span> <span class="fu">html_nodes</span>(webpage, <span class="st">&quot;.petition-overview-info-title&quot;</span>)</span>
-<span id="cb63-5"><a href="introduction-to-web-scraping-in-r.html#cb63-5" tabindex="-1"></a>  title <span class="ot">&lt;-</span> <span class="fu">html_text</span>(title)</span>
-<span id="cb63-6"><a href="introduction-to-web-scraping-in-r.html#cb63-6" tabindex="-1"></a></span>
-<span id="cb63-7"><a href="introduction-to-web-scraping-in-r.html#cb63-7" tabindex="-1"></a>  </span>
-<span id="cb63-8"><a href="introduction-to-web-scraping-in-r.html#cb63-8" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;.petition-overview-image-container&quot;</span>)</span>
-<span id="cb63-9"><a href="introduction-to-web-scraping-in-r.html#cb63-9" tabindex="-1"></a>  link_url <span class="ot">&lt;-</span> <span class="fu">html_attr</span>(link_url, <span class="st">&quot;href&quot;</span>)</span>
-<span id="cb63-10"><a href="introduction-to-web-scraping-in-r.html#cb63-10" tabindex="-1"></a>  </span>
-<span id="cb63-11"><a href="introduction-to-web-scraping-in-r.html#cb63-11" tabindex="-1"></a>  </span>
-<span id="cb63-12"><a href="introduction-to-web-scraping-in-r.html#cb63-12" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">html_elements</span>(webpage, <span class="st">&quot;.petitions-counter&quot;</span>)</span>
-<span id="cb63-13"><a href="introduction-to-web-scraping-in-r.html#cb63-13" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">html_text</span>(sig_count)</span>
-<span id="cb63-14"><a href="introduction-to-web-scraping-in-r.html#cb63-14" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(sig_count, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>,<span class="st">&quot;&quot;</span>) <span class="co"># NEW: remove Dutch 1000 separator</span></span>
-<span id="cb63-15"><a href="introduction-to-web-scraping-in-r.html#cb63-15" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(sig_count) <span class="co"># NEW: change the type from string to numeric</span></span>
-<span id="cb63-16"><a href="introduction-to-web-scraping-in-r.html#cb63-16" tabindex="-1"></a>  </span>
-<span id="cb63-17"><a href="introduction-to-web-scraping-in-r.html#cb63-17" tabindex="-1"></a>  petitions_list <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(title, link_url, sig_count)</span>
-<span id="cb63-18"><a href="introduction-to-web-scraping-in-r.html#cb63-18" tabindex="-1"></a>  <span class="fu">return</span>(petitions_list)</span>
-<span id="cb63-19"><a href="introduction-to-web-scraping-in-r.html#cb63-19" tabindex="-1"></a>}</span></code></pre></div>
-<p>Second, you may have noticed that scraping five pages (probably) already took a noticeable amount of time. If we’d want to scrape many more pages, we may want to be able to keep track of the progress. For that purpose, we let R print some text to the console to report what going on, in our loop:</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="introduction-to-web-scraping-in-r.html#cb64-1" tabindex="-1"></a>petitions <span class="ot">&lt;-</span> <span class="fu">get_petitions_list</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=1&quot;</span>) <span class="co"># We start with the first page</span></span>
-<span id="cb64-2"><a href="introduction-to-web-scraping-in-r.html#cb64-2" tabindex="-1"></a></span>
-<span id="cb64-3"><a href="introduction-to-web-scraping-in-r.html#cb64-3" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>){ <span class="co"># Loop throup all values from 2 to 5. The current value is &quot;i&quot; </span></span>
-<span id="cb64-4"><a href="introduction-to-web-scraping-in-r.html#cb64-4" tabindex="-1"></a>    <span class="fu">message</span>(<span class="fu">paste</span>(<span class="st">&quot;scraping page&quot;</span>,i,<span class="at">sep=</span>)) <span class="co">#NEW: print what&#39;s happening to the console</span></span>
-<span id="cb64-5"><a href="introduction-to-web-scraping-in-r.html#cb64-5" tabindex="-1"></a></span>
-<span id="cb64-6"><a href="introduction-to-web-scraping-in-r.html#cb64-6" tabindex="-1"></a>  target_page <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=&quot;</span>,i,<span class="at">sep =</span> <span class="st">&quot;&quot;</span>) <span class="co"># Create a string in with we add the current value i to the &quot;stub&quot; of the page url</span></span>
-<span id="cb64-7"><a href="introduction-to-web-scraping-in-r.html#cb64-7" tabindex="-1"></a>  p <span class="ot">&lt;-</span><span class="fu">get_petitions_list</span>(target_page) <span class="co"># scrape page i</span></span>
-<span id="cb64-8"><a href="introduction-to-web-scraping-in-r.html#cb64-8" tabindex="-1"></a>  petitions <span class="ot">&lt;-</span> <span class="fu">rbind</span>(petitions, p) <span class="co"># add the petitions of page i to what we already had </span></span>
-<span id="cb64-9"><a href="introduction-to-web-scraping-in-r.html#cb64-9" tabindex="-1"></a>}</span></code></pre></div>
-<p>You may find that you every now and then get a warning “NAs introduced by coercion” (and if not now, you will certainly later). “NA” is R’s term for missing values. If we look at the data (click “petitions” in the environment tab in the top right), we indeed see that some petitions get the value “NA” (that is, missing) for sig_count.</p>
-<p><strong>Question:</strong> What is the issue with these specific petitions (hint: look them up on the website)? And to what extent is this really a problem?</p>
+<p>In principle, we now have a completely functional scraper! It is capable of automatically visiting a number of pages that we define, and collect the information from those pages that we wanted.</p>
+<p>You may have noticed that scraping five pages (probably) already took a noticeable amount of time. If we’d want to scrape many more pages, we may want to be able to keep track of the progress. For that purpose, we let R print some text to the console to report what going on, in our loop:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="introduction-to-web-scraping-in-r.html#cb63-1" tabindex="-1"></a>petitions <span class="ot">&lt;-</span> <span class="fu">get_petitions_list</span>(<span class="st">&quot;https://petities.nl/petities?page=1&quot;</span>) <span class="co"># We start with the first page</span></span>
+<span id="cb63-2"><a href="introduction-to-web-scraping-in-r.html#cb63-2" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="introduction-to-web-scraping-in-r.html#cb63-3" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>){ <span class="co"># Loop throup all values from 2 to 5. The current value is &quot;i&quot; </span></span>
+<span id="cb63-4"><a href="introduction-to-web-scraping-in-r.html#cb63-4" tabindex="-1"></a>  <span class="fu">message</span>(<span class="fu">paste0</span>(<span class="st">&quot;scraping page&quot;</span>,i)) <span class="co">#NEW: print what&#39;s happening to the console</span></span>
+<span id="cb63-5"><a href="introduction-to-web-scraping-in-r.html#cb63-5" tabindex="-1"></a>  target_page <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://petities.nl/petities?page=&quot;</span>,i) <span class="co"># Create a string in with we add the current value i to the &quot;stub&quot; of the page url</span></span>
+<span id="cb63-6"><a href="introduction-to-web-scraping-in-r.html#cb63-6" tabindex="-1"></a>  p <span class="ot">&lt;-</span><span class="fu">get_petitions_list</span>(target_page) <span class="co"># scrape page i</span></span>
+<span id="cb63-7"><a href="introduction-to-web-scraping-in-r.html#cb63-7" tabindex="-1"></a>  petitions <span class="ot">&lt;-</span> <span class="fu">rbind</span>(petitions, p) <span class="co"># add the petitions of page i to what we already had </span></span>
+<span id="cb63-8"><a href="introduction-to-web-scraping-in-r.html#cb63-8" tabindex="-1"></a>}</span></code></pre></div>
+<p>You may find that you every now and then get a warning “NAs introduced by coercion” (and if not now, you will certainly later). “NA” is R’s term for missing values.</p>
+<p><strong>Question:</strong> Are any values for sig_count missing? To check this, click “petitions” in the Environment tab in the top right of RStudio. What might explain why some signature counts are missing from the dataframe (hint: look them up on the website)? And to what extent is this really a problem?</p>
 </div>
 </div>
 <div id="answering-the-research-question" class="section level2 hasAnchor" number="2.8">
 <h2><span class="header-section-number">2.8</span> Answering the research question<a href="introduction-to-web-scraping-in-r.html#answering-the-research-question" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="collecting-the-data" class="section level3 hasAnchor" number="2.8.1">
 <h3><span class="header-section-number">2.8.1</span> Collecting the data<a href="introduction-to-web-scraping-in-r.html#collecting-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Now that we have our scraper ready, we can start to use it to answer our descriptive research question (see above).First we need to collect a larger amount of data. In a real research project, you would probably want to collect the data of <em>all</em> the petitions on the website. However, since this is an educational project, we don’t want to put too much unnecessary strain on the server, and we have many students accessing the server at the same time, let’s limit our data collection to 25 pages.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="introduction-to-web-scraping-in-r.html#cb65-1" tabindex="-1"></a>petitions <span class="ot">&lt;-</span> <span class="fu">get_petitions_list</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=1&quot;</span>) <span class="co"># We start with the first page</span></span>
-<span id="cb65-2"><a href="introduction-to-web-scraping-in-r.html#cb65-2" tabindex="-1"></a></span>
-<span id="cb65-3"><a href="introduction-to-web-scraping-in-r.html#cb65-3" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">25</span>){ <span class="co"># Loop throup all values from 2 to 5. The current value is &quot;i&quot; </span></span>
-<span id="cb65-4"><a href="introduction-to-web-scraping-in-r.html#cb65-4" tabindex="-1"></a>    <span class="fu">message</span>(<span class="fu">paste</span>(<span class="st">&quot;scraping page&quot;</span>,i,<span class="at">sep=</span>)) <span class="co">#NEW: print what&#39;s happening to the console</span></span>
-<span id="cb65-5"><a href="introduction-to-web-scraping-in-r.html#cb65-5" tabindex="-1"></a></span>
-<span id="cb65-6"><a href="introduction-to-web-scraping-in-r.html#cb65-6" tabindex="-1"></a>  target_page <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;https://petities.nl/petitions/all?locale=en&amp;page=&quot;</span>,i,<span class="at">sep =</span> <span class="st">&quot;&quot;</span>) <span class="co"># Create a string in with we add the current value i to the &quot;stub&quot; of the page url</span></span>
-<span id="cb65-7"><a href="introduction-to-web-scraping-in-r.html#cb65-7" tabindex="-1"></a>  p <span class="ot">&lt;-</span><span class="fu">get_petitions_list</span>(target_page) <span class="co"># scrape page i</span></span>
-<span id="cb65-8"><a href="introduction-to-web-scraping-in-r.html#cb65-8" tabindex="-1"></a>  petitions <span class="ot">&lt;-</span> <span class="fu">rbind</span>(petitions, p) <span class="co"># add the petitions of page i to what we already had </span></span>
-<span id="cb65-9"><a href="introduction-to-web-scraping-in-r.html#cb65-9" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now that we have our scraper ready, we can start to use it to answer our descriptive research question (see above). First we need to collect a larger amount of data. In a real research project, you would probably want to collect the data of <em>all</em> the petitions on the website. However, since this is an educational project, we don’t want to put too much unnecessary strain on the server, and we have many students accessing the server at the same time, let’s limit our data collection to 25 pages.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="introduction-to-web-scraping-in-r.html#cb64-1" tabindex="-1"></a>petitions <span class="ot">&lt;-</span> <span class="fu">get_petitions_list</span>(<span class="st">&quot;https://petities.nl/petities?page=1&quot;</span>) <span class="co"># We start with the first page</span></span>
+<span id="cb64-2"><a href="introduction-to-web-scraping-in-r.html#cb64-2" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="introduction-to-web-scraping-in-r.html#cb64-3" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">25</span>){ <span class="co"># Loop throup all values from 2 to 25. The current value is &quot;i&quot; </span></span>
+<span id="cb64-4"><a href="introduction-to-web-scraping-in-r.html#cb64-4" tabindex="-1"></a>  <span class="fu">message</span>(<span class="fu">paste0</span>(<span class="st">&quot;scraping page&quot;</span>,i)) <span class="co">#print what&#39;s happening to the console</span></span>
+<span id="cb64-5"><a href="introduction-to-web-scraping-in-r.html#cb64-5" tabindex="-1"></a>  target_page <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://petities.nl/petities?page=&quot;</span>,i) <span class="co"># Create a string in with we add the current value i to the &quot;stub&quot; of the page url</span></span>
+<span id="cb64-6"><a href="introduction-to-web-scraping-in-r.html#cb64-6" tabindex="-1"></a>  p <span class="ot">&lt;-</span><span class="fu">get_petitions_list</span>(target_page) <span class="co"># scrape page i</span></span>
+<span id="cb64-7"><a href="introduction-to-web-scraping-in-r.html#cb64-7" tabindex="-1"></a>  petitions <span class="ot">&lt;-</span> <span class="fu">rbind</span>(petitions, p) <span class="co"># add the petitions of page i to what we already had </span></span>
+<span id="cb64-8"><a href="introduction-to-web-scraping-in-r.html#cb64-8" tabindex="-1"></a>}</span></code></pre></div>
 <p><strong>Question:</strong> Of how many petitions have you now collected data?</p>
 </div>
 <div id="analyzing-the-data" class="section level3 hasAnchor" number="2.8.2">
 <h3><span class="header-section-number">2.8.2</span> Analyzing the data<a href="introduction-to-web-scraping-in-r.html#analyzing-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Next, let’s analyze these data a bit. First, let’s get rid of these annoying “NA” values and replace them by 0. The “coalesce()” function helps with that:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="introduction-to-web-scraping-in-r.html#cb66-1" tabindex="-1"></a>petitions<span class="sc">$</span>sig_count <span class="ot">&lt;-</span> <span class="fu">coalesce</span>(petitions<span class="sc">$</span>sig_count, <span class="dv">0</span>) <span class="co"># replace missings by 0</span></span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="introduction-to-web-scraping-in-r.html#cb65-1" tabindex="-1"></a><span class="co">#table(is.na(petitions$sig_count))</span></span>
+<span id="cb65-2"><a href="introduction-to-web-scraping-in-r.html#cb65-2" tabindex="-1"></a>petitions<span class="sc">$</span>sig_count <span class="ot">&lt;-</span> <span class="fu">coalesce</span>(petitions<span class="sc">$</span>sig_count, <span class="dv">0</span>) <span class="co"># replace missings by 0</span></span></code></pre></div>
 <p>For a first look at the data, we can draw a simple histogram:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="introduction-to-web-scraping-in-r.html#cb67-1" tabindex="-1"></a><span class="fu">hist</span>(petitions<span class="sc">$</span>sig_count)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="introduction-to-web-scraping-in-r.html#cb66-1" tabindex="-1"></a><span class="fu">hist</span>(petitions<span class="sc">$</span>sig_count)</span></code></pre></div>
 <p><strong>Question:</strong> What is your first conclusion about the distribution of success?</p>
 <p>In their analysis of the data, Margetts et al. visualize the data somewhat differently, in a way that helps to assess the skewness of the distribution a bit better. In particular, they plot the number of signatures against the <em>rank</em> of each petition in terms of signatures, and furthermore, they use logarithmic axes. To recreate their plot, we can do the following:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="introduction-to-web-scraping-in-r.html#cb68-1" tabindex="-1"></a><span class="co"># First we create a rank variable (more signatures = higher rank)</span></span>
-<span id="cb68-2"><a href="introduction-to-web-scraping-in-r.html#cb68-2" tabindex="-1"></a>petitions <span class="ot">&lt;-</span>  <span class="fu">mutate</span>(petitions, <span class="at">rank =</span> <span class="fu">dense_rank</span>(<span class="fu">desc</span>(sig_count)))</span>
-<span id="cb68-3"><a href="introduction-to-web-scraping-in-r.html#cb68-3" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="introduction-to-web-scraping-in-r.html#cb68-4" tabindex="-1"></a><span class="co"># To avoid that petitions with zero signatures are left out of the plot (because the logarithm of zero is not defined) we add 1 to all values:</span></span>
-<span id="cb68-5"><a href="introduction-to-web-scraping-in-r.html#cb68-5" tabindex="-1"></a></span>
-<span id="cb68-6"><a href="introduction-to-web-scraping-in-r.html#cb68-6" tabindex="-1"></a>petitions<span class="sc">$</span>sig_count <span class="ot">&lt;-</span> petitions<span class="sc">$</span>sig_count <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb68-7"><a href="introduction-to-web-scraping-in-r.html#cb68-7" tabindex="-1"></a></span>
-<span id="cb68-8"><a href="introduction-to-web-scraping-in-r.html#cb68-8" tabindex="-1"></a></span>
-<span id="cb68-9"><a href="introduction-to-web-scraping-in-r.html#cb68-9" tabindex="-1"></a><span class="co"># Finally, we plot the data:</span></span>
-<span id="cb68-10"><a href="introduction-to-web-scraping-in-r.html#cb68-10" tabindex="-1"></a><span class="fu">plot</span>(petitions<span class="sc">$</span>rank, petitions<span class="sc">$</span>sig_count, <span class="at">log =</span> <span class="st">&quot;xy&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="introduction-to-web-scraping-in-r.html#cb67-1" tabindex="-1"></a><span class="co"># First we create a rank variable (more signatures = higher rank)</span></span>
+<span id="cb67-2"><a href="introduction-to-web-scraping-in-r.html#cb67-2" tabindex="-1"></a>petitions <span class="ot">&lt;-</span>  <span class="fu">mutate</span>(petitions, <span class="at">rank =</span> <span class="fu">dense_rank</span>(<span class="fu">desc</span>(sig_count)))</span>
+<span id="cb67-3"><a href="introduction-to-web-scraping-in-r.html#cb67-3" tabindex="-1"></a></span>
+<span id="cb67-4"><a href="introduction-to-web-scraping-in-r.html#cb67-4" tabindex="-1"></a><span class="co"># To avoid that petitions with zero signatures are left out of the plot (because the logarithm of zero is not defined) we add 1 to all values:</span></span>
+<span id="cb67-5"><a href="introduction-to-web-scraping-in-r.html#cb67-5" tabindex="-1"></a></span>
+<span id="cb67-6"><a href="introduction-to-web-scraping-in-r.html#cb67-6" tabindex="-1"></a>petitions<span class="sc">$</span>sig_count <span class="ot">&lt;-</span> petitions<span class="sc">$</span>sig_count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb67-7"><a href="introduction-to-web-scraping-in-r.html#cb67-7" tabindex="-1"></a></span>
+<span id="cb67-8"><a href="introduction-to-web-scraping-in-r.html#cb67-8" tabindex="-1"></a></span>
+<span id="cb67-9"><a href="introduction-to-web-scraping-in-r.html#cb67-9" tabindex="-1"></a><span class="co"># Finally, we plot the data:</span></span>
+<span id="cb67-10"><a href="introduction-to-web-scraping-in-r.html#cb67-10" tabindex="-1"></a><span class="fu">plot</span>(petitions<span class="sc">$</span>rank, petitions<span class="sc">$</span>sig_count, <span class="at">log =</span> <span class="st">&quot;xy&quot;</span>)</span></code></pre></div>
 <p><strong>Question:</strong>: Compare your figure to Figure 3.4 in the Chapter by Margetts et al. Does the distribution of success in the Netherlands look more like the one in the UK or the one in the US?</p>
 </div>
 </div>
 <div id="extensions" class="section level2 hasAnchor" number="2.9">
 <h2><span class="header-section-number">2.9</span> Extensions<a href="introduction-to-web-scraping-in-r.html#extensions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The way we’ve used <code>rvest</code> now to scrape a website is just scraping the surface (pun intended) of web scraping. Obvioulsy, the internet is vast and diverse, and different circumstances may require different solutions. Here, we briefly discuss a few relevant extensions.</p>
+<p>The way we’ve used <code>rvest</code> now to scrape a website is just scraping the surface (pun intended) of web scraping. Obviously, the internet is vast and diverse, and different circumstances may require different solutions. Here, we briefly discuss a few relevant extensions.</p>
 <div id="more-ethically-robust-web-scraping-with-polite" class="section level3 hasAnchor" number="2.9.1">
 <h3><span class="header-section-number">2.9.1</span> More ethically robust web scraping with <code>polite</code><a href="introduction-to-web-scraping-in-r.html#more-ethically-robust-web-scraping-with-polite" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We’ve not discussed the ethics of web scraping in detail now, but if you collect free data from a website, you should consider what the people behind this website (and behind every website there are people) may think of it. The R package <code>polite</code> takes some of the work involved with that out of your hands. In particular, it:
@@ -594,42 +588,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-  "sharing": {
-    "github": false,
-    "facebook": true,
-    "twitter": true,
-    "linkedin": false,
-    "weibo": false,
-    "instapaper": false,
-    "vk": false,
-    "whatsapp": false,
-    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-  },
-  "fontsettings": {
-    "theme": "white",
-    "family": "sans",
-    "size": 2
-  },
-  "edit": {
-    "link": null,
-    "text": null
-  },
-  "history": {
-    "link": null,
-    "text": null
-  },
-  "view": {
-    "link": null,
-    "text": null
-  },
-  "download": null,
-  "search": {
-    "engine": "fuse",
-    "options": null
-  },
-  "toc": {
-    "collapse": "subsection"
-  }
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
 });
 });
 </script>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 Analyzing experimental data | Social Research in the Digital Age (Utrecht University)</title>
   <meta name="description" content="5 Analyzing experimental data | Social Research in the Digital Age (Utrecht University)" />
-  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 Analyzing experimental data | Social Research in the Digital Age (Utrecht University)" />
   <meta property="og:type" content="book" />
@@ -54,7 +54,6 @@
 
 
 <style type="text/css">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -318,77 +317,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>We’re only interested in cases where the message is <em>false</em> and <em>aligns</em> with the participant’s ideology.</li>
 <li>We need to calculate the mean probability of being shared <em>per message,</em> because we have many decisions per message. For this, we use the <code>group_by()</code> and <code>summarise()</code> functions . Then, you can compare the mean of this in turn between the two networks.</li>
 </ul>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="analyzing-experimental-data.html#cb86-1" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
-<span id="cb86-2"><a href="analyzing-experimental-data.html#cb86-2" tabindex="-1"></a><span class="fu">library</span>(haven)  <span class="co"># For loading Stata .dta files</span></span>
-<span id="cb86-3"><a href="analyzing-experimental-data.html#cb86-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)  <span class="co"># For group manipulation and summarisation</span></span>
-<span id="cb86-4"><a href="analyzing-experimental-data.html#cb86-4" tabindex="-1"></a></span>
-<span id="cb86-5"><a href="analyzing-experimental-data.html#cb86-5" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
-<span id="cb86-6"><a href="analyzing-experimental-data.html#cb86-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;exp_clean_UU.dta&quot;</span>)</span>
-<span id="cb86-7"><a href="analyzing-experimental-data.html#cb86-7" tabindex="-1"></a></span>
-<span id="cb86-8"><a href="analyzing-experimental-data.html#cb86-8" tabindex="-1"></a><span class="co"># Generate the &#39;align&#39; variable</span></span>
-<span id="cb86-9"><a href="analyzing-experimental-data.html#cb86-9" tabindex="-1"></a>data<span class="sc">$</span>align <span class="ot">&lt;-</span> data<span class="sc">$</span>sbj_lib <span class="sc">==</span> data<span class="sc">$</span>msg_lib</span>
-<span id="cb86-10"><a href="analyzing-experimental-data.html#cb86-10" tabindex="-1"></a></span>
-<span id="cb86-11"><a href="analyzing-experimental-data.html#cb86-11" tabindex="-1"></a><span class="co"># First collapse</span></span>
-<span id="cb86-12"><a href="analyzing-experimental-data.html#cb86-12" tabindex="-1"></a>data_collapsed1 <span class="ot">&lt;-</span> <span class="fu">group_by</span>(data, nw_segregated, msg_id, align, msg_true)</span>
-<span id="cb86-13"><a href="analyzing-experimental-data.html#cb86-13" tabindex="-1"></a>data_collapsed1 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(data_collapsed1, <span class="at">sbj_share =</span> <span class="fu">mean</span>(sbj_share, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
-<span id="cb86-14"><a href="analyzing-experimental-data.html#cb86-14" tabindex="-1"></a></span>
-<span id="cb86-15"><a href="analyzing-experimental-data.html#cb86-15" tabindex="-1"></a><span class="co"># Second collapse</span></span>
-<span id="cb86-16"><a href="analyzing-experimental-data.html#cb86-16" tabindex="-1"></a>data_collapsed2 <span class="ot">&lt;-</span> <span class="fu">group_by</span>(data_collapsed1, nw_segregated, align, msg_true)</span>
-<span id="cb86-17"><a href="analyzing-experimental-data.html#cb86-17" tabindex="-1"></a>data_collapsed2 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(data_collapsed2, <span class="at">sbj_share =</span> <span class="fu">mean</span>(sbj_share, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
-<span id="cb86-18"><a href="analyzing-experimental-data.html#cb86-18" tabindex="-1"></a>data_collapsed2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(data_collapsed2, align <span class="sc">==</span> <span class="cn">TRUE</span> <span class="sc">&amp;</span> msg_true <span class="sc">==</span> <span class="dv">0</span>)</span>
-<span id="cb86-19"><a href="analyzing-experimental-data.html#cb86-19" tabindex="-1"></a></span>
-<span id="cb86-20"><a href="analyzing-experimental-data.html#cb86-20" tabindex="-1"></a><span class="co"># Result</span></span>
-<span id="cb86-21"><a href="analyzing-experimental-data.html#cb86-21" tabindex="-1"></a>data_collapsed2</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="analyzing-experimental-data.html#cb85-1" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb85-2"><a href="analyzing-experimental-data.html#cb85-2" tabindex="-1"></a><span class="fu">library</span>(haven)  <span class="co"># For loading Stata .dta files</span></span>
+<span id="cb85-3"><a href="analyzing-experimental-data.html#cb85-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)  <span class="co"># For group manipulation and summarisation</span></span>
+<span id="cb85-4"><a href="analyzing-experimental-data.html#cb85-4" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="analyzing-experimental-data.html#cb85-5" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb85-6"><a href="analyzing-experimental-data.html#cb85-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;exp_clean_UU.dta&quot;</span>)</span>
+<span id="cb85-7"><a href="analyzing-experimental-data.html#cb85-7" tabindex="-1"></a></span>
+<span id="cb85-8"><a href="analyzing-experimental-data.html#cb85-8" tabindex="-1"></a><span class="co"># Generate the &#39;align&#39; variable</span></span>
+<span id="cb85-9"><a href="analyzing-experimental-data.html#cb85-9" tabindex="-1"></a>data<span class="sc">$</span>align <span class="ot">&lt;-</span> data<span class="sc">$</span>sbj_lib <span class="sc">==</span> data<span class="sc">$</span>msg_lib</span>
+<span id="cb85-10"><a href="analyzing-experimental-data.html#cb85-10" tabindex="-1"></a></span>
+<span id="cb85-11"><a href="analyzing-experimental-data.html#cb85-11" tabindex="-1"></a><span class="co"># First collapse</span></span>
+<span id="cb85-12"><a href="analyzing-experimental-data.html#cb85-12" tabindex="-1"></a>data_collapsed1 <span class="ot">&lt;-</span> <span class="fu">group_by</span>(data, nw_segregated, msg_id, align, msg_true)</span>
+<span id="cb85-13"><a href="analyzing-experimental-data.html#cb85-13" tabindex="-1"></a>data_collapsed1 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(data_collapsed1, <span class="at">sbj_share =</span> <span class="fu">mean</span>(sbj_share, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
+<span id="cb85-14"><a href="analyzing-experimental-data.html#cb85-14" tabindex="-1"></a></span>
+<span id="cb85-15"><a href="analyzing-experimental-data.html#cb85-15" tabindex="-1"></a><span class="co"># Second collapse</span></span>
+<span id="cb85-16"><a href="analyzing-experimental-data.html#cb85-16" tabindex="-1"></a>data_collapsed2 <span class="ot">&lt;-</span> <span class="fu">group_by</span>(data_collapsed1, nw_segregated, align, msg_true)</span>
+<span id="cb85-17"><a href="analyzing-experimental-data.html#cb85-17" tabindex="-1"></a>data_collapsed2 <span class="ot">&lt;-</span> <span class="fu">summarise</span>(data_collapsed2, <span class="at">sbj_share =</span> <span class="fu">mean</span>(sbj_share, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
+<span id="cb85-18"><a href="analyzing-experimental-data.html#cb85-18" tabindex="-1"></a>data_collapsed2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(data_collapsed2, align <span class="sc">==</span> <span class="cn">TRUE</span> <span class="sc">&amp;</span> msg_true <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb85-19"><a href="analyzing-experimental-data.html#cb85-19" tabindex="-1"></a></span>
+<span id="cb85-20"><a href="analyzing-experimental-data.html#cb85-20" tabindex="-1"></a><span class="co"># Result</span></span>
+<span id="cb85-21"><a href="analyzing-experimental-data.html#cb85-21" tabindex="-1"></a>data_collapsed2</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li><p>How do the results compare to the original result by Stein et al.? How do you interpret the similarities and differences?</p></li>
 <li><p>Next, we’ll replicate the result of 3B. That is: how does the mean probability of being exposed to a false message that aligns with your ideology differ between the two network types? We provide you with the R code for this:</p></li>
 </ol>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="analyzing-experimental-data.html#cb87-1" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
-<span id="cb87-2"><a href="analyzing-experimental-data.html#cb87-2" tabindex="-1"></a><span class="fu">library</span>(haven)  <span class="co"># For loading Stata .dta files</span></span>
-<span id="cb87-3"><a href="analyzing-experimental-data.html#cb87-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)  <span class="co"># For data manipulation</span></span>
-<span id="cb87-4"><a href="analyzing-experimental-data.html#cb87-4" tabindex="-1"></a></span>
-<span id="cb87-5"><a href="analyzing-experimental-data.html#cb87-5" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
-<span id="cb87-6"><a href="analyzing-experimental-data.html#cb87-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;exp_clean_UU.dta&quot;</span>)</span>
-<span id="cb87-7"><a href="analyzing-experimental-data.html#cb87-7" tabindex="-1"></a></span>
-<span id="cb87-8"><a href="analyzing-experimental-data.html#cb87-8" tabindex="-1"></a><span class="co"># Generate the &#39;align&#39; variable (if you had not done so already)</span></span>
-<span id="cb87-9"><a href="analyzing-experimental-data.html#cb87-9" tabindex="-1"></a>data<span class="sc">$</span>align <span class="ot">&lt;-</span> data<span class="sc">$</span>sbj_lib <span class="sc">==</span> data<span class="sc">$</span>msg_lib</span>
-<span id="cb87-10"><a href="analyzing-experimental-data.html#cb87-10" tabindex="-1"></a></span>
-<span id="cb87-11"><a href="analyzing-experimental-data.html#cb87-11" tabindex="-1"></a><span class="co"># Collapse to the number of observations (that is the exposure count) by message ID, type of network, whether the message is true, alignment, and network size.</span></span>
-<span id="cb87-12"><a href="analyzing-experimental-data.html#cb87-12" tabindex="-1"></a></span>
-<span id="cb87-13"><a href="analyzing-experimental-data.html#cb87-13" tabindex="-1"></a>collapsed_data_count <span class="ot">&lt;-</span> <span class="fu">group_by</span>(data, msg_id, nw_segregated, align, msg_true, nw_size)</span>
-<span id="cb87-14"><a href="analyzing-experimental-data.html#cb87-14" tabindex="-1"></a></span>
-<span id="cb87-15"><a href="analyzing-experimental-data.html#cb87-15" tabindex="-1"></a><span class="co"># Collapse to the median number of observations, by veracity (msg_true), network type &amp; size, and alignment.</span></span>
-<span id="cb87-16"><a href="analyzing-experimental-data.html#cb87-16" tabindex="-1"></a>collapsed_data_count <span class="ot">&lt;-</span> <span class="fu">summarise</span>(collapsed_data_count, <span class="at">sbj_share =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
-<span id="cb87-17"><a href="analyzing-experimental-data.html#cb87-17" tabindex="-1"></a></span>
-<span id="cb87-18"><a href="analyzing-experimental-data.html#cb87-18" tabindex="-1"></a><span class="co"># Collapse (median) sbj_share by specified variables</span></span>
-<span id="cb87-19"><a href="analyzing-experimental-data.html#cb87-19" tabindex="-1"></a>collapsed_data_median <span class="ot">&lt;-</span> <span class="fu">group_by</span>(collapsed_data_count, nw_segregated, align, msg_true, nw_size)</span>
-<span id="cb87-20"><a href="analyzing-experimental-data.html#cb87-20" tabindex="-1"></a>collapsed_data_median <span class="ot">&lt;-</span> <span class="fu">summarise</span>(collapsed_data_median, <span class="at">sbj_share =</span> <span class="fu">median</span>(sbj_share), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
-<span id="cb87-21"><a href="analyzing-experimental-data.html#cb87-21" tabindex="-1"></a></span>
-<span id="cb87-22"><a href="analyzing-experimental-data.html#cb87-22" tabindex="-1"></a><span class="co"># Generate &#39;exposure_prob&#39;</span></span>
-<span id="cb87-23"><a href="analyzing-experimental-data.html#cb87-23" tabindex="-1"></a>collapsed_data_median<span class="sc">$</span>exposure_prob <span class="ot">&lt;-</span> collapsed_data_median<span class="sc">$</span>sbj_share <span class="sc">/</span> (collapsed_data_median<span class="sc">$</span>nw_size <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb87-24"><a href="analyzing-experimental-data.html#cb87-24" tabindex="-1"></a></span>
-<span id="cb87-25"><a href="analyzing-experimental-data.html#cb87-25" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">filter</span>(collapsed_data_median, align <span class="sc">==</span> <span class="cn">TRUE</span> <span class="sc">&amp;</span> msg_true <span class="sc">==</span> <span class="dv">0</span>)</span>
-<span id="cb87-26"><a href="analyzing-experimental-data.html#cb87-26" tabindex="-1"></a>result</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="analyzing-experimental-data.html#cb86-1" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb86-2"><a href="analyzing-experimental-data.html#cb86-2" tabindex="-1"></a><span class="fu">library</span>(haven)  <span class="co"># For loading Stata .dta files</span></span>
+<span id="cb86-3"><a href="analyzing-experimental-data.html#cb86-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)  <span class="co"># For data manipulation</span></span>
+<span id="cb86-4"><a href="analyzing-experimental-data.html#cb86-4" tabindex="-1"></a></span>
+<span id="cb86-5"><a href="analyzing-experimental-data.html#cb86-5" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb86-6"><a href="analyzing-experimental-data.html#cb86-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;exp_clean_UU.dta&quot;</span>)</span>
+<span id="cb86-7"><a href="analyzing-experimental-data.html#cb86-7" tabindex="-1"></a></span>
+<span id="cb86-8"><a href="analyzing-experimental-data.html#cb86-8" tabindex="-1"></a><span class="co"># Generate the &#39;align&#39; variable (if you had not done so already)</span></span>
+<span id="cb86-9"><a href="analyzing-experimental-data.html#cb86-9" tabindex="-1"></a>data<span class="sc">$</span>align <span class="ot">&lt;-</span> data<span class="sc">$</span>sbj_lib <span class="sc">==</span> data<span class="sc">$</span>msg_lib</span>
+<span id="cb86-10"><a href="analyzing-experimental-data.html#cb86-10" tabindex="-1"></a></span>
+<span id="cb86-11"><a href="analyzing-experimental-data.html#cb86-11" tabindex="-1"></a><span class="co"># Collapse to the number of observations (that is the exposure count) by message ID, type of network, whether the message is true, alignment, and network size.</span></span>
+<span id="cb86-12"><a href="analyzing-experimental-data.html#cb86-12" tabindex="-1"></a></span>
+<span id="cb86-13"><a href="analyzing-experimental-data.html#cb86-13" tabindex="-1"></a>collapsed_data_count <span class="ot">&lt;-</span> <span class="fu">group_by</span>(data, msg_id, nw_segregated, align, msg_true, nw_size)</span>
+<span id="cb86-14"><a href="analyzing-experimental-data.html#cb86-14" tabindex="-1"></a></span>
+<span id="cb86-15"><a href="analyzing-experimental-data.html#cb86-15" tabindex="-1"></a><span class="co"># Collapse to the median number of observations, by veracity (msg_true), network type &amp; size, and alignment.</span></span>
+<span id="cb86-16"><a href="analyzing-experimental-data.html#cb86-16" tabindex="-1"></a>collapsed_data_count <span class="ot">&lt;-</span> <span class="fu">summarise</span>(collapsed_data_count, <span class="at">sbj_share =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
+<span id="cb86-17"><a href="analyzing-experimental-data.html#cb86-17" tabindex="-1"></a></span>
+<span id="cb86-18"><a href="analyzing-experimental-data.html#cb86-18" tabindex="-1"></a><span class="co"># Collapse (median) sbj_share by specified variables</span></span>
+<span id="cb86-19"><a href="analyzing-experimental-data.html#cb86-19" tabindex="-1"></a>collapsed_data_median <span class="ot">&lt;-</span> <span class="fu">group_by</span>(collapsed_data_count, nw_segregated, align, msg_true, nw_size)</span>
+<span id="cb86-20"><a href="analyzing-experimental-data.html#cb86-20" tabindex="-1"></a>collapsed_data_median <span class="ot">&lt;-</span> <span class="fu">summarise</span>(collapsed_data_median, <span class="at">sbj_share =</span> <span class="fu">median</span>(sbj_share), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
+<span id="cb86-21"><a href="analyzing-experimental-data.html#cb86-21" tabindex="-1"></a></span>
+<span id="cb86-22"><a href="analyzing-experimental-data.html#cb86-22" tabindex="-1"></a><span class="co"># Generate &#39;exposure_prob&#39;</span></span>
+<span id="cb86-23"><a href="analyzing-experimental-data.html#cb86-23" tabindex="-1"></a>collapsed_data_median<span class="sc">$</span>exposure_prob <span class="ot">&lt;-</span> collapsed_data_median<span class="sc">$</span>sbj_share <span class="sc">/</span> (collapsed_data_median<span class="sc">$</span>nw_size <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb86-24"><a href="analyzing-experimental-data.html#cb86-24" tabindex="-1"></a></span>
+<span id="cb86-25"><a href="analyzing-experimental-data.html#cb86-25" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">filter</span>(collapsed_data_median, align <span class="sc">==</span> <span class="cn">TRUE</span> <span class="sc">&amp;</span> msg_true <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb86-26"><a href="analyzing-experimental-data.html#cb86-26" tabindex="-1"></a>result</span></code></pre></div>
 <ol start="6" style="list-style-type: decimal">
 <li><p>Again, how do the results compare to the original result by Stein et al.? How do you interpret the similarities and differences?</p></li>
 <li><p>Lastly, we reproduce the result in <a href="https://www.nature.com/articles/s41598-022-26913-5/figures/4">Figure 4A</a>. Basically, this is about the average percentage of false messages (misinformation) circulating in the population in each network. Again we provide you with the R code:</p></li>
 </ol>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="analyzing-experimental-data.html#cb88-1" tabindex="-1"></a><span class="fu">library</span>(reshape2)  <span class="co"># For reshaping data</span></span>
-<span id="cb88-2"><a href="analyzing-experimental-data.html#cb88-2" tabindex="-1"></a></span>
-<span id="cb88-3"><a href="analyzing-experimental-data.html#cb88-3" tabindex="-1"></a><span class="co"># Step 1: Collapse (sum) sbj_share by msg_true, msg_id, nw_segregated</span></span>
-<span id="cb88-4"><a href="analyzing-experimental-data.html#cb88-4" tabindex="-1"></a>collapsed_data_sum <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(sbj_share <span class="sc">~</span> msg_true <span class="sc">+</span> msg_id <span class="sc">+</span> nw_segregated, <span class="at">data =</span> data, <span class="at">FUN =</span> sum)</span>
-<span id="cb88-5"><a href="analyzing-experimental-data.html#cb88-5" tabindex="-1"></a></span>
-<span id="cb88-6"><a href="analyzing-experimental-data.html#cb88-6" tabindex="-1"></a><span class="co"># Step 2: Collapse (median) sbj_share by msg_true, nw_segregated</span></span>
-<span id="cb88-7"><a href="analyzing-experimental-data.html#cb88-7" tabindex="-1"></a>collapsed_data_median <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(sbj_share <span class="sc">~</span> msg_true <span class="sc">+</span> nw_segregated, <span class="at">data =</span> collapsed_data_sum, <span class="at">FUN =</span> median)</span>
-<span id="cb88-8"><a href="analyzing-experimental-data.html#cb88-8" tabindex="-1"></a></span>
-<span id="cb88-9"><a href="analyzing-experimental-data.html#cb88-9" tabindex="-1"></a><span class="co"># Step 3: Reshape the data to wide format with i(nw_segregated) and j(msg_true)</span></span>
-<span id="cb88-10"><a href="analyzing-experimental-data.html#cb88-10" tabindex="-1"></a>reshaped_data <span class="ot">&lt;-</span> <span class="fu">dcast</span>(collapsed_data_median, nw_segregated <span class="sc">~</span> msg_true, <span class="at">value.var =</span> <span class="st">&quot;sbj_share&quot;</span>)</span>
-<span id="cb88-11"><a href="analyzing-experimental-data.html#cb88-11" tabindex="-1"></a><span class="fu">colnames</span>(reshaped_data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;nw_segregated&quot;</span>, <span class="st">&quot;sbj_share0&quot;</span>, <span class="st">&quot;sbj_share1&quot;</span>)</span>
-<span id="cb88-12"><a href="analyzing-experimental-data.html#cb88-12" tabindex="-1"></a></span>
-<span id="cb88-13"><a href="analyzing-experimental-data.html#cb88-13" tabindex="-1"></a><span class="co"># Step 4: Generate fraction_f</span></span>
-<span id="cb88-14"><a href="analyzing-experimental-data.html#cb88-14" tabindex="-1"></a>reshaped_data<span class="sc">$</span>fraction_f <span class="ot">&lt;-</span> (reshaped_data<span class="sc">$</span>sbj_share0 <span class="sc">/</span> (reshaped_data<span class="sc">$</span>sbj_share0 <span class="sc">+</span> reshaped_data<span class="sc">$</span>sbj_share1)) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb88-15"><a href="analyzing-experimental-data.html#cb88-15" tabindex="-1"></a>result <span class="ot">&lt;-</span> reshaped_data</span>
-<span id="cb88-16"><a href="analyzing-experimental-data.html#cb88-16" tabindex="-1"></a>result</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="analyzing-experimental-data.html#cb87-1" tabindex="-1"></a><span class="fu">library</span>(reshape2)  <span class="co"># For reshaping data</span></span>
+<span id="cb87-2"><a href="analyzing-experimental-data.html#cb87-2" tabindex="-1"></a></span>
+<span id="cb87-3"><a href="analyzing-experimental-data.html#cb87-3" tabindex="-1"></a><span class="co"># Step 1: Collapse (sum) sbj_share by msg_true, msg_id, nw_segregated</span></span>
+<span id="cb87-4"><a href="analyzing-experimental-data.html#cb87-4" tabindex="-1"></a>collapsed_data_sum <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(sbj_share <span class="sc">~</span> msg_true <span class="sc">+</span> msg_id <span class="sc">+</span> nw_segregated, <span class="at">data =</span> data, <span class="at">FUN =</span> sum)</span>
+<span id="cb87-5"><a href="analyzing-experimental-data.html#cb87-5" tabindex="-1"></a></span>
+<span id="cb87-6"><a href="analyzing-experimental-data.html#cb87-6" tabindex="-1"></a><span class="co"># Step 2: Collapse (median) sbj_share by msg_true, nw_segregated</span></span>
+<span id="cb87-7"><a href="analyzing-experimental-data.html#cb87-7" tabindex="-1"></a>collapsed_data_median <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(sbj_share <span class="sc">~</span> msg_true <span class="sc">+</span> nw_segregated, <span class="at">data =</span> collapsed_data_sum, <span class="at">FUN =</span> median)</span>
+<span id="cb87-8"><a href="analyzing-experimental-data.html#cb87-8" tabindex="-1"></a></span>
+<span id="cb87-9"><a href="analyzing-experimental-data.html#cb87-9" tabindex="-1"></a><span class="co"># Step 3: Reshape the data to wide format with i(nw_segregated) and j(msg_true)</span></span>
+<span id="cb87-10"><a href="analyzing-experimental-data.html#cb87-10" tabindex="-1"></a>reshaped_data <span class="ot">&lt;-</span> <span class="fu">dcast</span>(collapsed_data_median, nw_segregated <span class="sc">~</span> msg_true, <span class="at">value.var =</span> <span class="st">&quot;sbj_share&quot;</span>)</span>
+<span id="cb87-11"><a href="analyzing-experimental-data.html#cb87-11" tabindex="-1"></a><span class="fu">colnames</span>(reshaped_data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;nw_segregated&quot;</span>, <span class="st">&quot;sbj_share0&quot;</span>, <span class="st">&quot;sbj_share1&quot;</span>)</span>
+<span id="cb87-12"><a href="analyzing-experimental-data.html#cb87-12" tabindex="-1"></a></span>
+<span id="cb87-13"><a href="analyzing-experimental-data.html#cb87-13" tabindex="-1"></a><span class="co"># Step 4: Generate fraction_f</span></span>
+<span id="cb87-14"><a href="analyzing-experimental-data.html#cb87-14" tabindex="-1"></a>reshaped_data<span class="sc">$</span>fraction_f <span class="ot">&lt;-</span> (reshaped_data<span class="sc">$</span>sbj_share0 <span class="sc">/</span> (reshaped_data<span class="sc">$</span>sbj_share0 <span class="sc">+</span> reshaped_data<span class="sc">$</span>sbj_share1)) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb87-15"><a href="analyzing-experimental-data.html#cb87-15" tabindex="-1"></a>result <span class="ot">&lt;-</span> reshaped_data</span>
+<span id="cb87-16"><a href="analyzing-experimental-data.html#cb87-16" tabindex="-1"></a>result</span></code></pre></div>
 <ol start="8" style="list-style-type: decimal">
 <li>How do the results compare to the original result by Stein et al.? How do you interpret the similarities and differences?</li>
 </ol>
@@ -415,42 +414,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-  "sharing": {
-    "github": false,
-    "facebook": true,
-    "twitter": true,
-    "linkedin": false,
-    "weibo": false,
-    "instapaper": false,
-    "vk": false,
-    "whatsapp": false,
-    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-  },
-  "fontsettings": {
-    "theme": "white",
-    "family": "sans",
-    "size": 2
-  },
-  "edit": {
-    "link": null,
-    "text": null
-  },
-  "history": {
-    "link": null,
-    "text": null
-  },
-  "view": {
-    "link": null,
-    "text": null
-  },
-  "download": null,
-  "search": {
-    "engine": "fuse",
-    "options": null
-  },
-  "toc": {
-    "collapse": "subsection"
-  }
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
 });
 });
 </script>

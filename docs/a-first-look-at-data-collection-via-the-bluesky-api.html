@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 A first look at data collection via the Bluesky API | Social Research in the Digital Age (Utrecht University)</title>
   <meta name="description" content="4 A first look at data collection via the Bluesky API | Social Research in the Digital Age (Utrecht University)" />
-  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 A first look at data collection via the Bluesky API | Social Research in the Digital Age (Utrecht University)" />
   <meta property="og:type" content="book" />
@@ -54,7 +54,6 @@
 
 
 <style type="text/css">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -312,41 +311,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="loading-the-packages" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Loading the packages<a href="a-first-look-at-data-collection-via-the-bluesky-api.html#loading-the-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To access the Bluesky API, we will use the <code>bskyr</code> package. We will also use the <code>tidyverse</code> package to work with the data. If you don’t have these packages installed, install them first. We load the packages with the following code:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb79-1" tabindex="-1"></a><span class="fu">library</span>(bskyr)</span>
-<span id="cb79-2"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb79-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb78-1" tabindex="-1"></a><span class="fu">library</span>(bskyr)</span>
+<span id="cb78-2"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb78-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 </div>
 <div id="getting-started-authenticating" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> Getting started: authenticating<a href="a-first-look-at-data-collection-via-the-bluesky-api.html#getting-started-authenticating" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, we need to authenticate with the Bluesky API, using your username and your app password:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb80-1" tabindex="-1"></a><span class="fu">set_bluesky_user</span>(<span class="st">&quot;[yourusername].bsky.social&quot;</span>)</span>
-<span id="cb80-2"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb80-2" tabindex="-1"></a><span class="fu">set_bluesky_pass</span>(<span class="st">&quot;[your app password]&quot;</span>)</span>
-<span id="cb80-3"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb80-3" tabindex="-1"></a></span>
-<span id="cb80-4"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb80-4" tabindex="-1"></a>auth <span class="ot">&lt;-</span> <span class="fu">bs_auth</span>(<span class="at">user =</span> <span class="fu">bs_get_user</span>(), <span class="at">pass =</span> <span class="fu">bs_get_pass</span>()) <span class="co"># This will authenticate you with the Bluesky API and store the authentification  in the object &quot;auth&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb79-1" tabindex="-1"></a><span class="fu">set_bluesky_user</span>(<span class="st">&quot;[yourusername].bsky.social&quot;</span>)</span>
+<span id="cb79-2"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb79-2" tabindex="-1"></a><span class="fu">set_bluesky_pass</span>(<span class="st">&quot;[your app password]&quot;</span>)</span>
+<span id="cb79-3"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb79-3" tabindex="-1"></a></span>
+<span id="cb79-4"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb79-4" tabindex="-1"></a>auth <span class="ot">&lt;-</span> <span class="fu">bs_auth</span>(<span class="at">user =</span> <span class="fu">bs_get_user</span>(), <span class="at">pass =</span> <span class="fu">bs_get_pass</span>()) <span class="co"># This will authenticate you with the Bluesky API and store the authentification  in the object &quot;auth&quot;</span></span></code></pre></div>
 </div>
 <div id="getting-data" class="section level2 hasAnchor" number="4.5">
 <h2><span class="header-section-number">4.5</span> Getting data<a href="a-first-look-at-data-collection-via-the-bluesky-api.html#getting-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now that we are authenticated, we can start getting data from Bluesky. The <code>bskyr</code> package has several functions that allow you to get data from Bluesky. For example, you can get the followers of a user, the profile of a user, or search for posts. Below are some examples of how to use these functions:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb81-1" tabindex="-1"></a>followers <span class="ot">&lt;-</span> <span class="fu">bs_get_followers</span>(<span class="at">actor =</span> <span class="st">&#39;chriskenny.bsky.social&#39;</span>, <span class="at">auth =</span> auth) <span class="co">#Chris Kenny is the author of the package</span></span>
-<span id="cb81-2"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb81-2" tabindex="-1"></a></span>
-<span id="cb81-3"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb81-3" tabindex="-1"></a>profile <span class="ot">&lt;-</span> <span class="fu">bs_get_profile</span>(<span class="at">actor =</span> <span class="st">&#39;chriskenny.bsky.social&#39;</span>, <span class="at">auth =</span> auth) <span class="co"># Get Chris&#39;  profile information</span></span>
-<span id="cb81-4"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb81-4" tabindex="-1"></a></span>
-<span id="cb81-5"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb81-5" tabindex="-1"></a>posts <span class="ot">&lt;-</span> <span class="fu">bs_search_posts</span>(<span class="at">query =</span> <span class="st">&quot;bezuinigingen&quot;</span>,  <span class="at">auth =</span> auth) <span class="co"># Search for posts that contain the word &quot;bezuinigingen&quot; </span></span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb80-1" tabindex="-1"></a>followers <span class="ot">&lt;-</span> <span class="fu">bs_get_followers</span>(<span class="at">actor =</span> <span class="st">&#39;chriskenny.bsky.social&#39;</span>, <span class="at">auth =</span> auth) <span class="co">#Chris Kenny is the author of the package</span></span>
+<span id="cb80-2"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb80-2" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb80-3" tabindex="-1"></a>profile <span class="ot">&lt;-</span> <span class="fu">bs_get_profile</span>(<span class="at">actor =</span> <span class="st">&#39;chriskenny.bsky.social&#39;</span>, <span class="at">auth =</span> auth) <span class="co"># Get Chris&#39;  profile information</span></span>
+<span id="cb80-4"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb80-4" tabindex="-1"></a></span>
+<span id="cb80-5"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb80-5" tabindex="-1"></a>posts <span class="ot">&lt;-</span> <span class="fu">bs_search_posts</span>(<span class="at">query =</span> <span class="st">&quot;bezuinigingen&quot;</span>,  <span class="at">auth =</span> auth) <span class="co"># Search for posts that contain the word &quot;bezuinigingen&quot; </span></span></code></pre></div>
 <p>Explore the data objects that you get from these functions, and also have a look at Chris Kenny’s actual profile page. You will note that the numbers that you get through the API are sometimes lower than what you see “in the wild”: this is because by default, the API only returns a limited number of results. You can typically change this number by setting the “limit” parameter in the respective functions.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb82-1" tabindex="-1"></a>followers <span class="ot">&lt;-</span> <span class="fu">bs_get_followers</span>(<span class="at">actor =</span> <span class="st">&#39;chriskenny.bsky.social&#39;</span>, <span class="at">limit =</span> <span class="dv">200</span>, <span class="at">auth =</span> auth) <span class="co">#Chris Kenny is the author of the package</span></span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb81-1" tabindex="-1"></a>followers <span class="ot">&lt;-</span> <span class="fu">bs_get_followers</span>(<span class="at">actor =</span> <span class="st">&#39;chriskenny.bsky.social&#39;</span>, <span class="at">limit =</span> <span class="dv">200</span>, <span class="at">auth =</span> auth) <span class="co">#Chris Kenny is the author of the package</span></span></code></pre></div>
 </div>
 <div id="working-with-the-data" class="section level2 hasAnchor" number="4.6">
 <h2><span class="header-section-number">4.6</span> Working with the data<a href="a-first-look-at-data-collection-via-the-bluesky-api.html#working-with-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When we look at the “posts” data object, we find that it is quite complicated: it is a list of lists of lists. Extracting the right data from this requires some work. For example, we can get the text of each post as follows:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb83-1" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">sapply</span>(posts<span class="sc">$</span>record, <span class="cf">function</span>(x) x<span class="sc">$</span>text) <span class="co"># extracting the data from the complex object</span></span>
-<span id="cb83-2"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb83-2" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(texts) <span class="co"># turn it into a neat data frame</span></span>
-<span id="cb83-3"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb83-3" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">rename</span>(texts, <span class="at">text =</span> value) <span class="co"># rename the column</span></span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb82-1" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">sapply</span>(posts<span class="sc">$</span>record, <span class="cf">function</span>(x) x<span class="sc">$</span>text) <span class="co"># extracting the data from the complex object</span></span>
+<span id="cb82-2"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb82-2" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(texts) <span class="co"># turn it into a neat data frame</span></span>
+<span id="cb82-3"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb82-3" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">rename</span>(texts, <span class="at">text =</span> value) <span class="co"># rename the column</span></span></code></pre></div>
 <p>Next, we can get all the authors of these posts:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb84-1" tabindex="-1"></a>author_handle <span class="ot">&lt;-</span> <span class="fu">sapply</span>(posts<span class="sc">$</span>author, <span class="cf">function</span>(x) x<span class="sc">$</span>handle)</span>
-<span id="cb84-2"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb84-2" tabindex="-1"></a>author_handle <span class="ot">&lt;-</span>  <span class="fu">as_tibble</span>(author_handle)</span>
-<span id="cb84-3"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb84-3" tabindex="-1"></a>author_handle <span class="ot">&lt;-</span> <span class="fu">rename</span>(author_handle, <span class="at">author_handle =</span> value)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb83-1" tabindex="-1"></a>author_handle <span class="ot">&lt;-</span> <span class="fu">sapply</span>(posts<span class="sc">$</span>author, <span class="cf">function</span>(x) x<span class="sc">$</span>handle)</span>
+<span id="cb83-2"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb83-2" tabindex="-1"></a>author_handle <span class="ot">&lt;-</span>  <span class="fu">as_tibble</span>(author_handle)</span>
+<span id="cb83-3"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb83-3" tabindex="-1"></a>author_handle <span class="ot">&lt;-</span> <span class="fu">rename</span>(author_handle, <span class="at">author_handle =</span> value)</span></code></pre></div>
 <p>Finally, we can combine these two data frames into one:</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb85-1" tabindex="-1"></a>posts_df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(texts, author_handle)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="a-first-look-at-data-collection-via-the-bluesky-api.html#cb84-1" tabindex="-1"></a>posts_df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(texts, author_handle)</span></code></pre></div>
 <p>We could use this data frame for subsequent analysis, such as sentiment analysis or topic modeling.There are many more functions in the <code>bskyr</code> package that you can use to get data from Bluesky. You can find more information in the <a href="https://cran.r-project.org/web/packages/bskyr/index.html">package documentation</a>.</p>
 
 </div>
@@ -371,42 +370,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-  "sharing": {
-    "github": false,
-    "facebook": true,
-    "twitter": true,
-    "linkedin": false,
-    "weibo": false,
-    "instapaper": false,
-    "vk": false,
-    "whatsapp": false,
-    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-  },
-  "fontsettings": {
-    "theme": "white",
-    "family": "sans",
-    "size": 2
-  },
-  "edit": {
-    "link": null,
-    "text": null
-  },
-  "history": {
-    "link": null,
-    "text": null
-  },
-  "view": {
-    "link": null,
-    "text": null
-  },
-  "download": null,
-  "search": {
-    "engine": "fuse",
-    "options": null
-  },
-  "toc": {
-    "collapse": "subsection"
-  }
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
 });
 });
 </script>

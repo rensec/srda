@@ -18,6 +18,8 @@ Step 1 above typically involves that we want to automatically visit a number of 
 First, we need to collect some tools, starting with some R packages. Start a new R script, copy and paste the following code, and run it: 
 
 ```{r eval=FALSE, message=FALSE, warning=FALSE}
+rm(list=ls()) # start with a clean working environment
+
 install.packages(
   c(
     "rvest", # the main package for scraping
@@ -25,7 +27,6 @@ install.packages(
     "tidyverse"), # for general data handling
   repos = "http://cran.us.r-project.org"
 )
-
 
 ```
 
@@ -42,7 +43,7 @@ Second, we need to add some special tool to our browser to get a better understa
 
 ## Getting to know the target website
 
-Before we start coding, it's always a good idea to get a little bit acquainted with the website we're scraping. Go to Petities.nl and try to anwer the following **questions**:
+Before we start coding, it's always a good idea to get a little bit acquainted with the website we're scraping. Go to Petities.nl, scroll to and click "View all petitions", and try to answer the following **questions**:
 
 -   Which information is shown about each petition?
 
@@ -50,11 +51,12 @@ Before we start coding, it's always a good idea to get a little bit acquainted w
 
 -   What different options do we have to show and sort petitions? Which one do you think is most useful for our purpose?
 
--   What do the numbers in the bottom left and -right of each "petition box" mean?
+-   What do the number in the bottom left and the green bar in the bottom right of each “petition box” mean?
 
 -   What is your impression about the sort of petitions that are posted here? Does anything stand out?
 
-Also, once more look at the page source code (see above). Which part of the content of the page can you already identify in the source code (and which not)? You'll notice that there is a lot of code that does not seem to refer to any content; things like `class="search-container whitespace".` This is called *CSS* (for *Cascading Style Sheets*) and it determines what a website looks like, by applying certain formatting rules to things that should look familiar (not unlike, for example, the style templates of Microsoft Word or Powerpoint). We'll take advantage of this later to locate information on the page.
+Also, once more look at the page source code (see above). Which part of the content of the page can you already identify in the source code (and which not)? You'll notice that there is a lot of code that does not seem to refer to any content; things like `class="...".` This is called *CSS* (for *Cascading Style Sheets*) and it determines what a website looks like, by applying certain formatting rules to things that should look familiar (not unlike, for example, the style templates of Microsoft Word or Powerpoint). We'll take advantage of this later to locate information on the page.
+
 
 ## Are we allowed to scrape?
 There's a lot to say about the ethics and legal aspects of web scraping, which we will not cover here; we specifically chose a target website for this tutorial for which these concerns are minimal. For any real research project, a careful ethical review is part of responsible research practices. Generally speaking though, if you're not collecting personal data, you're mostly fine from a legal perspective (but don't take this as legal advice). That does not mean that every website *likes* to be scraped. For example, they may want to protect their data, or prevent excessive server traffic. Mostly, the scrapers or crawlers they would be concerned about are not in fact those used by researchers, but by search engines like Google. In order to communicate their preferences, websites may use a thing called "robots.txt", which is a machine- and human-readable file that specifies which parts of the website may be scraped, typically located in the root folder of the website. It is an unwritten rule of the internet to honor the rules specified in robots.txt files (although there may be specific cases where it is ethically justified to ignore them).  
@@ -90,72 +92,98 @@ Check and see whether you can visually identify this information on the website.
 
 ## Locating the correct information
 
-As a starting piont, let's take the section of the website that lists all petitions: <https://petities.nl/petitions/all?locale=en>. When we look at the source code of the page, we can actually already identify all the information that we need in the code. This, however, is rather messy, and not something we can analyze directly. We somehow need to get the information in the shape of our data table above, and for this we first need to automatically extract the titles, URLs, and counts from the messy source code.
+As a starting point, let's take the section of the website that lists all petitions: <https://petities.nl/petities/>. You can use your browser's translation feature if you like to read the page in English. When we look at the source code of the page, we can actually already identify all the information that we need in the code. This, however, is rather messy, and not something we can analyze directly. We somehow need to get the information in the shape of our data table above, and for this we first need to automatically extract the titles, URLs, and counts from the messy source code.
 
 This is where our browser extension comes in handy. When we look at the website (not the code), we can actually easily identify the relevant information *because it is formatted in a consistent way*. To achieve this, the website uses CSS tags in the code, and we can take advantage of that to find the relevant information. We could already do that by looking hard at the code, but our browser extension make it easier. Let's start with the titles.
 
 In Firefox:
 
-1.  Go to <https://petities.nl/petitions/all?locale=en>
+1.  Go to <https://petities.nl/petities>
 2.  Click the icon for the "Scrapemate" extension in the toolbar (the little wand)
 3.  In the resulting sidebar on the right, click the top orange button ("start picker")
 4.  Click the title of a petition. A few things will happen:
     1.  All the titles of the petitions shown on the page will be highlighted. This is an indication that you've identified the right "field"; we want all those titles!
-    2.  In the bottom right, you will see a list of all the titles. Again, this is what we want!
-    3.  In the bar below the orange button, you'll see "`.petition-overview-info-title`". This is the relevant CSS tag: basically it tells the browser "show this piece of text as a petition title" (and the actual style of a petition title is stored somewhere in a CSS style file, but we don't care about that).
+    2. In the preview at the bottom right, `_text` shows the text inside of each matched HTML element. These are the titles. Again, this is what we want!
+    3.  In the same preview, `_tag` shows the HTML tag of each matched element. `h2` is the tag for a level-two heading.
+    4.  In the bar below the orange button, you'll see the CSS selector `.group-hover\:text-green`. 
+    
+A CSS selector is a pattern for finding elements in an HTML page. The backslash in Scrapemate’s selector tells CSS to treat the colon as part of the class name.
 
-In building our scraper, we can now make use of that: we can basically tell it to "collect all the pieces of text that are formatted like petition titles", and we now also know that these pieces of text are marked in the source code as "`.petition-overview-info-title`" (you can actually see this tag in the source code). So let's get coding!
+In building our scraper, we can now make use of that. We can basically tell it to "collect all the pieces of text that are formatted like petition titles", and we now also know that these pieces of text are marked in the HTML as `<h2>` headings with the class `group-hover:text-green`.
+
+In R, we’ll use the selector `h2[class~='group-hover:text-green']` to find those headings. The `h2` limits the search to that type of heading, and `~=` checks whether `group-hover:text-green` is one of its classes. So let's get coding!
+
 
 ## Building the scraper
 
 ### First steps
 
-We now turn to the `rvest` package. To begin, we simply download the entire page:
+We now turn to the `rvest` package. To begin, we simply download and parse the entire page's HTML:
 
 ```{r}
-webpage <- read_html("https://petities.nl/petitions/all?locale=en") 
+webpage <- read_html("https://petities.nl/petities") 
 webpage
 
 ```
 
 This basically just behaves like a browser: it downloads the source code of the page. It still looks like unintelligible code soup.
 
-However, we now know what to look for in this soup. Using the `html_nodes()` function from `rvest`, we can identify all the titles:
+However, we now know what to look for in this soup. 
+
+We pass our CSS selector to `rvest`’s `html_elements()` function to find all the petition headings on the page:
 
 ```{r}
-title <- html_nodes(webpage, ".petition-overview-info-title")
+title <- html_elements(webpage, "h2[class~='group-hover:text-green']")
 title
+
 ```
 
-This already looks more structured: it is a list of all the parts in the code that where tagged as `.petition-overview-info-title`. In the next step, we parse (clean up) this list further to keep only the clean text:
+
+This already looks more structured: it contains just the matching `<h2>` elements, including their HTML tags. We use `html_text2()` to pull the text out of each heading. `html_text2()` handles whitespace more like a browser does, for example by collapsing repeated spaces and turning `<br>` tags into line breaks.
+
 
 ```{r}
-title <- html_text(title)
-title
+title2 <- html_text2(title)
+title2
+
 ```
 
 This basically constitutes our variable "title" for our intended data frame, filled with the values of the petitions on this page.
 
 **Question:** how many titles do we have now? And is this the number you would expect?
 
-We can now do the same for our next variable, the URL. Looking at the result of our first processing step for the titles (the one resulting from `html_nodes(...)` above), we see that the URLs are already included there (starting after "href" in each line); we just need to extract them. 
+We can now do the same for our next variable, the URL. Looking at the result of our first processing step for the titles (the one using `html_elements()` above), we see that each title is an `<h2>` heading. If we look for that heading in the page's HTML, we find the URL in the `href` attribute of the `<a>` element that wraps it. We just need to select those links and extract their `href` values.
 
-The code to get all the URLs then looks like this:
+We use `html_elements()` again to find all `<a>` elements with an `href` attribute. Then we use `html_element()` to look for a petition heading inside each link. If there’s no matching heading, `html_text2()` returns `NA`. We use that to keep only the links that contain a petition heading. We then use `html_attr()` to extract the `href` values. These are relative paths, so we use `paste0()` to add https://petities.nl at the beginning of each path and create full URLs:
 
 ```{r}
-link_url <- html_nodes(webpage, ".petition-overview-info-title") # This leads to same result as above 
-link_url <- html_nodes(link_url, "a") # we first keep all the parts that start with "a"
-link_url <- html_attr(link_url, "href") # then, we extract the links and show the result 
+links <- html_elements(webpage, "a[href]") # find all links (i.e., <a> elements) that have a destination (i.e., href)
+headings <- html_element(links, "h2[class~='group-hover:text-green']") # look for a petition heading inside each link
+link_nodes <- links[!is.na(html_text2(headings))] # keep the links that contain a petition heading (i.e., a non-NA value)
+link_url <- html_attr(link_nodes, "href") # extract the destination of the links
+link_url <- paste0("https://petities.nl", link_url) # Create full URL
 link_url
-  
+
 ```
 
 
 **Exercise:** now write the code to get the number of signatures per petition.
 
+```{r, echo=FALSE, eval=FALSE}
+# scrapemate shows `p span` when hovering over the signature counter
+# thus the count is a <span> inside a paragraph p
+
+signature_nodes <- html_element(link_nodes, "p span") #find the first <span> inside a paragraph in each card.
+signature_text <- html_text2(signature_nodes) #extract each signature count as text
+signatures <- gsub(".", "", signature_text, fixed = TRUE) #remove the thousands separator 
+signatures <- as.integer(signatures) #convert the text to integers
+signatures
+```
+
+
 ### Automating the process: getting multiple pages
 
-At this point, we can scrape the required information from the one page, namely, [https://petities.nl/petitions/all](https://petities.nl/petitions/all?locale=en). However, for our research project, we're probably interested in more than just these 12 petitions; we want to get a sizable sample of petitions and perhaps even all petitions listed on the website. At the bottom of the page, we see that the list of petitions continues on page 2, 3, etc.
+At this point, we can scrape the required information from the one page, namely, [https://petities.nl/petities/](https://petities.nl/petities/). However, for our research project, we're probably interested in more than just these 20 petitions; we want to get a sizable sample of petitions and perhaps even all petitions listed on the website. At the bottom of the page, we see that the list of petitions continues on page 2, 3, etc.
 
 **Question:** how many pages does the list of petitions contain in total?
 
@@ -163,29 +191,35 @@ Now of course we could just manually go to the next page, check the url for that
 
 **Question:** what is the URL of page 2? And page 3?
 
-However, this would be very tedious and take a long time. Rather, we'd like to *automate* this process so that our scraper automatically visits all the pages, and downloads the data. With that, we're getting to the "crawling" part of web scraping, and it will require a little *programming*. While this may sound intimidating, it simply means that we are going to "recycle" our earlier instructions to the computer in a smart way. We've so far written our code for a *specific* URL; let's now write in a way that can be applied to *any* URL. To do so, we include our earlier code in a *function* called get_petitions_list():
+However, this would be very tedious and take a long time. One way to collect more petitions in a single request is to change the limit parameter in the URL. This controls how many petitions the site returns per page. **Try it.** Set `page=1` and `limit=50`. 
+
+Increasing limit may be enough for a small sample. For a larger sample, we can *automate* the process so our scraper automatically visits all the pages, and downloads the data. That gives us control over both the number of petitions per page and the number of pages we collect. With that, we're getting to the "crawling" part of web scraping, and it will require a little *programming*. While this may sound intimidating, it simply means that we are going to "recycle" our earlier instructions to the computer in a smart way. We've so far written our code for a *specific* URL; let's now write in a way that can be applied to *any* URL. To do so, we include our earlier code in a *function* called `get_petitions_list()`:
 
 ```{r}
+get_petitions_list <- function(page_url) {
+  
+  webpage <- read_html(page_url) # download and parse page HTML
 
-get_petitions_list <- function(page_url){
-  webpage <- read_html(page_url) 
-  
-  title <- html_nodes(webpage, ".petition-overview-info-title")
-  title <- html_text(title)
+
+  links <- html_elements(webpage, "a[href]") # find <a> elements (links) with an href attribute (destination).
+  headings <- html_element(links, "h2[class~='group-hover:text-green']") # look for the petition heading inside each link
+  heading_text <- html_text2(headings) # extract the heading text (returning NA for links without a heading)
+  is_petition <- !is.na(heading_text) # mark links with a heading as TRUE
+  link_nodes <- links[is_petition] # keep only the petition links
 
   
-  link_url <- html_elements(webpage, ".petition-overview-image-container")
-  link_url <- html_attr(link_url, "href")
+  title <- heading_text[is_petition] # keep the heading text of those links
+  link_url <- html_attr(link_nodes, "href") # extract the relative path from links' href attributes
+  link_url <- paste0("https://petities.nl", link_url) # add the website domain to make a complete URL
+
   
+  signature_nodes <- html_element(link_nodes, "p span") # find the first <span> inside a paragraph in each petition card
+  signature_text <- html_text2(signature_nodes) # extract the signature counts as text
+  sig_count <- as.integer(gsub(".", "", signature_text, fixed = TRUE)) # remove the thousands separator and convert to integers
+
   
-  sig_count <- html_elements(webpage, ".petitions-counter")
-  sig_count <- html_text(sig_count) 
-  
-  
-  petitions_list <- data.frame(title, link_url, sig_count)
-  return(petitions_list)
+  data.frame(title, link_url, sig_count) # return a dataframe with one row per petition
 }
-
 
 ```
 
@@ -206,7 +240,8 @@ The last line in the function starting with `return` defines the result of the f
 Let's test this function on page 2:
 
 ```{r}
-p2_petitions <- get_petitions_list("https://petities.nl/petitions/all?locale=en&page=2")
+page2 <- "https://petities.nl/petities?page=2"
+p2_petitions <- get_petitions_list(page2)
 
 ```
 
@@ -215,16 +250,17 @@ p2_petitions <- get_petitions_list("https://petities.nl/petitions/all?locale=en&
 Now that we have a function to get all the data that we want from a given page in one go, all we need to to is apply this to all the pages we want to scrape and combine the results into a single data frame. To do so, we'll use a *loop:*
 
 ```{r}
-petitions <- get_petitions_list("https://petities.nl/petitions/all?locale=en&page=1") # We start with the first page
+petitions <- get_petitions_list("https://petities.nl/petities?page=1") # We start with the first page
 
 for(i in 2:5){ # Loop throup all values from 2 to 5. The current value is "i" 
-  target_page <- paste("https://petities.nl/petitions/all?locale=en&page=",i,sep = "") # Create a string in with we add the current value i to the "stub" of the page url
+  target_page <- paste0("https://petities.nl/petities?page=",i) # Create a string in with we add the current value i to the "stub" of the page url
   p <-get_petitions_list(target_page) # scrape page i
   petitions <- rbind(petitions, p) # add the petitions of page i to what we already had 
 }
+
 ```
 
-See if you understand the above code with the help of the comments in the code. If you don't know the additional functions that we use in the loop (for example, paste() or rbind() ), look them up to see what they do. Then, run the code.
+See if you understand the above code with the help of the comments in the code. If you don't know the additional functions that we use in the loop (for example, `paste0()` or `rbind()` ), look them up to see what they do. Then, run the code.
 
 **Question:** What do you expect as the result, and is it correct?
 
@@ -232,72 +268,47 @@ See if you understand the above code with the help of the comments in the code. 
 
 [**NOTE:**]{.underline} at this point, do not actually run the code to collect data for all petitions. While this is tempting, it would 1) take a long time and 2) put an unnecessarily large burden on the Petities.nl servers.
 
-In principle, we now have a completely functional scraper! It is capable of automatically visiting a number of pages that we define, and collect the information from those pages that we wanted. Let's just implement a few small improvements.
+In principle, we now have a completely functional scraper! It is capable of automatically visiting a number of pages that we define, and collect the information from those pages that we wanted.
 
-First, you might have notices that the number of signatures is included in the data frame as a string variable, while it is actually a number. To avoid that we have to fix this afterwords, we can already fix it in our function (see "\# NEW"):
-
-```{r}
-
-get_petitions_list <- function(page_url){
-  webpage <- read_html(page_url) 
-  
-  title <- html_nodes(webpage, ".petition-overview-info-title")
-  title <- html_text(title)
-
-  
-  link_url <- html_elements(webpage, ".petition-overview-image-container")
-  link_url <- html_attr(link_url, "href")
-  
-  
-  sig_count <- html_elements(webpage, ".petitions-counter")
-  sig_count <- html_text(sig_count)
-  sig_count <- str_replace_all(sig_count, "\\.","") # NEW: remove Dutch 1000 separator
-  sig_count <- as.numeric(sig_count) # NEW: change the type from string to numeric
-  
-  petitions_list <- data.frame(title, link_url, sig_count)
-  return(petitions_list)
-}
-```
-
-Second, you may have noticed that scraping five pages (probably) already took a noticeable amount of time. If we'd want to scrape many more pages, we may want to be able to keep track of the progress. For that purpose, we let R print some text to the console to report what going on, in our loop:
+You may have noticed that scraping five pages (probably) already took a noticeable amount of time. If we'd want to scrape many more pages, we may want to be able to keep track of the progress. For that purpose, we let R print some text to the console to report what going on, in our loop:
 
 ```{r}
 
-petitions <- get_petitions_list("https://petities.nl/petitions/all?locale=en&page=1") # We start with the first page
+petitions <- get_petitions_list("https://petities.nl/petities?page=1") # We start with the first page
 
 for(i in 2:5){ # Loop throup all values from 2 to 5. The current value is "i" 
-    message(paste("scraping page",i,sep=)) #NEW: print what's happening to the console
-
-  target_page <- paste("https://petities.nl/petitions/all?locale=en&page=",i,sep = "") # Create a string in with we add the current value i to the "stub" of the page url
+  message(paste0("scraping page",i)) #NEW: print what's happening to the console
+  target_page <- paste0("https://petities.nl/petities?page=",i) # Create a string in with we add the current value i to the "stub" of the page url
   p <-get_petitions_list(target_page) # scrape page i
   petitions <- rbind(petitions, p) # add the petitions of page i to what we already had 
 }
+
+
 ```
 
-You may find that you every now and then get a warning "NAs introduced by coercion" (and if not now, you will certainly later). "NA" is R's term for missing values. If we look at the data (click "petitions" in the environment tab in the top right), we indeed see that some petitions get the value "NA" (that is, missing) for sig_count. 
+You may find that you every now and then get a warning "NAs introduced by coercion" (and if not now, you will certainly later). "NA" is R's term for missing values. 
 
-**Question:** What is the issue with these specific petitions (hint: look them up on the website)? And to what extent is this really a problem?
+**Question:** Are any values for sig_count missing? To check this, click "petitions" in the Environment tab in the top right of RStudio. What might explain why some signature counts are missing from the dataframe (hint: look them up on the website)? And to what extent is this really a problem?
 
 ## Answering the research question
 
 ### Collecting the data
 
-Now that we have our scraper ready, we can start to use it to answer our descriptive research question (see above).First we need to collect a larger amount of data. In a real research project, you would probably want to collect the data of *all* the petitions on the website. However, since this is an educational project, we don't want to put too much unnecessary strain on the server, and we have many students accessing the server at the same time, let's limit our data collection to 25 pages. 
+Now that we have our scraper ready, we can start to use it to answer our descriptive research question (see above). First we need to collect a larger amount of data. In a real research project, you would probably want to collect the data of *all* the petitions on the website. However, since this is an educational project, we don't want to put too much unnecessary strain on the server, and we have many students accessing the server at the same time, let's limit our data collection to 25 pages. 
 
 
 ```{r, message=FALSE, warning=FALSE}
-petitions <- get_petitions_list("https://petities.nl/petitions/all?locale=en&page=1") # We start with the first page
+petitions <- get_petitions_list("https://petities.nl/petities?page=1") # We start with the first page
 
-for(i in 2:25){ # Loop throup all values from 2 to 5. The current value is "i" 
-    message(paste("scraping page",i,sep=)) #NEW: print what's happening to the console
-
-  target_page <- paste("https://petities.nl/petitions/all?locale=en&page=",i,sep = "") # Create a string in with we add the current value i to the "stub" of the page url
+for(i in 2:25){ # Loop throup all values from 2 to 25. The current value is "i" 
+  message(paste0("scraping page",i)) #print what's happening to the console
+  target_page <- paste0("https://petities.nl/petities?page=",i) # Create a string in with we add the current value i to the "stub" of the page url
   p <-get_petitions_list(target_page) # scrape page i
   petitions <- rbind(petitions, p) # add the petitions of page i to what we already had 
 }
 
-
 ```
+
 **Question:** Of how many petitions have you now collected data?
 
 ### Analyzing the data
@@ -305,6 +316,7 @@ for(i in 2:25){ # Loop throup all values from 2 to 5. The current value is "i"
 Next, let's analyze these data a bit. First, let's get rid of these annoying "NA" values and replace them by 0. The "coalesce()" function helps with that:
 
 ```{r}
+#table(is.na(petitions$sig_count))
 petitions$sig_count <- coalesce(petitions$sig_count, 0) # replace missings by 0
 
 ```
@@ -340,7 +352,7 @@ plot(petitions$rank, petitions$sig_count, log = "xy")
 **Question:**: Compare your figure to Figure 3.4 in the Chapter by Margetts et al. Does the distribution of success in the Netherlands look more like the one in the UK or the one in the US?
 
 ## Extensions
-The way we've used `rvest` now to scrape a website is just scraping the surface (pun intended) of web scraping. Obvioulsy, the internet is vast and diverse, and different circumstances may require different solutions. Here, we briefly discuss a few relevant extensions. 
+The way we've used `rvest` now to scrape a website is just scraping the surface (pun intended) of web scraping. Obviously, the internet is vast and diverse, and different circumstances may require different solutions. Here, we briefly discuss a few relevant extensions. 
 
 ### More ethically robust web scraping with `polite`
 We've not discussed the ethics of web scraping in detail now, but if you collect free data from a website, you should consider what the people behind this website (and behind every website there are people) may think of it. The R package `polite` takes some of the work involved with that out of your hands. In particular, it:

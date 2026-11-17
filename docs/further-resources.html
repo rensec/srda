@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 Further resources | Social Research in the Digital Age (Utrecht University)</title>
   <meta name="description" content="6 Further resources | Social Research in the Digital Age (Utrecht University)" />
-  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 Further resources | Social Research in the Digital Age (Utrecht University)" />
   <meta property="og:type" content="book" />
@@ -54,7 +54,6 @@
 
 
 <style type="text/css">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -307,33 +306,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="bluesky" class="section level3 hasAnchor" number="6.1.1">
 <h3><span class="header-section-number">6.1.1</span> Bluesky<a href="further-resources.html#bluesky" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><a href="www.bsky.app">Bluesky</a> is a relatively new social media platform that originated as a side project of Twitter, and which is indeed very much like Twitter in terms of functionality. Since the turbulent changes at Twitter (now X), Bluesky has become popular as an alternative, <a href="https://www.science.org/content/article/old-twitter-scientific-community-finds-new-home-bluesky">in particular among academics</a>. Bluesky is open-source and has a public API, which makes it a good platform for data collection. We can collect data from it in R using the <code>bskyr</code> package.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="further-resources.html#cb89-1" tabindex="-1"></a><span class="fu">library</span>(bskyr)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="further-resources.html#cb88-1" tabindex="-1"></a><span class="fu">library</span>(bskyr)</span></code></pre></div>
 <p>In order to access the API, you first need to:</p>
 <ol style="list-style-type: decimal">
 <li><p><a href="https://bluesky.app/">Create a Bluesky account</a></p></li>
 <li><p>Create an <em>app password</em> in your account settings. Log into your Bluesky account, go to “Settings”, “Privacy and security”, and then to “App passwords”. Click ” Add App Password”. Give the new App Password a sensible name; since you will this specifically with <code>bskyr</code>, you could for example call it “bskyr” . Click next; the website will create an App Password for you. Copy this password, as you will not be able to see it again in Bluesky! Once you click “Done”, the password will be listed under its name in the App Passwords section of your account; you can always delete it from there if you don’t need it anymore. Any code that uses this password will then no longer be able to use it.</p></li>
 </ol>
 <p>We can now use this password to access the API. We create an authentication token “auth” that we can use later in our code:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="further-resources.html#cb90-1" tabindex="-1"></a><span class="fu">set_bluesky_user</span>(<span class="st">&quot;[your Bluesky handle]&quot;</span>)</span>
-<span id="cb90-2"><a href="further-resources.html#cb90-2" tabindex="-1"></a><span class="fu">set_bluesky_pass</span>(<span class="st">&quot;[your app password]&quot;</span>)</span>
-<span id="cb90-3"><a href="further-resources.html#cb90-3" tabindex="-1"></a></span>
-<span id="cb90-4"><a href="further-resources.html#cb90-4" tabindex="-1"></a>auth <span class="ot">&lt;-</span> <span class="fu">bs_auth</span>(<span class="at">user =</span> <span class="fu">bs_get_user</span>(), <span class="at">pass =</span> <span class="fu">bs_get_pass</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="further-resources.html#cb89-1" tabindex="-1"></a><span class="fu">set_bluesky_user</span>(<span class="st">&quot;[your Bluesky handle]&quot;</span>)</span>
+<span id="cb89-2"><a href="further-resources.html#cb89-2" tabindex="-1"></a><span class="fu">set_bluesky_pass</span>(<span class="st">&quot;[your app password]&quot;</span>)</span>
+<span id="cb89-3"><a href="further-resources.html#cb89-3" tabindex="-1"></a></span>
+<span id="cb89-4"><a href="further-resources.html#cb89-4" tabindex="-1"></a>auth <span class="ot">&lt;-</span> <span class="fu">bs_auth</span>(<span class="at">user =</span> <span class="fu">bs_get_user</span>(), <span class="at">pass =</span> <span class="fu">bs_get_pass</span>())</span></code></pre></div>
 <p>Now, we can start collecting some data from the API. For example, we can get my profile as follows:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="further-resources.html#cb91-1" tabindex="-1"></a>user <span class="ot">&lt;-</span> <span class="st">&#39;rensec.bsky.social&#39;</span></span>
-<span id="cb91-2"><a href="further-resources.html#cb91-2" tabindex="-1"></a>profile <span class="ot">&lt;-</span> <span class="fu">bs_get_profile</span>(<span class="at">actor =</span> user, <span class="at">auth =</span> auth)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="further-resources.html#cb90-1" tabindex="-1"></a>user <span class="ot">&lt;-</span> <span class="st">&#39;rensec.bsky.social&#39;</span></span>
+<span id="cb90-2"><a href="further-resources.html#cb90-2" tabindex="-1"></a>profile <span class="ot">&lt;-</span> <span class="fu">bs_get_profile</span>(<span class="at">actor =</span> user, <span class="at">auth =</span> auth)</span></code></pre></div>
 <p>The resulting data object contains a lot of data, including the number of followers:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="further-resources.html#cb92-1" tabindex="-1"></a>followers_count <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(profile<span class="sc">$</span>followers_count) <span class="co"># Note that the count was originally stored as a string</span></span>
-<span id="cb92-2"><a href="further-resources.html#cb92-2" tabindex="-1"></a>followers_count</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="further-resources.html#cb91-1" tabindex="-1"></a>followers_count <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(profile<span class="sc">$</span>followers_count) <span class="co"># Note that the count was originally stored as a string</span></span>
+<span id="cb91-2"><a href="further-resources.html#cb91-2" tabindex="-1"></a>followers_count</span></code></pre></div>
 <p>We can also get the followers themselves. In the function call, we set <code>limit</code> to the previously retrieved number of followers to make sure that the API returns all the followers.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="further-resources.html#cb93-1" tabindex="-1"></a>followers <span class="ot">&lt;-</span> <span class="fu">bs_get_followers</span>(<span class="at">actor =</span> user, <span class="at">auth =</span> auth, <span class="at">limit =</span> followers_count)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="further-resources.html#cb92-1" tabindex="-1"></a>followers <span class="ot">&lt;-</span> <span class="fu">bs_get_followers</span>(<span class="at">actor =</span> user, <span class="at">auth =</span> auth, <span class="at">limit =</span> followers_count)</span></code></pre></div>
 <p>Note that for users with a lot of followers, this may take a few minutes, and it becomes increasingly likely that the process breaks down due to short interruptions in the connection. Nevertheless, in principle it is possible to for example draw a snowball sample, repeating the above steps while looping through the followers of each retrieved user.</p>
 <p>The package also includes functions for retrieving posts, relationships between users, and many other things; see the <a href="https://christophertkenny.com/bskyr/reference/index.html">documentation</a>.</p>
 </div>
 <div id="tiktok" class="section level3 hasAnchor" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> TikTok<a href="further-resources.html#tiktok" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The popular video platform TikTok may be studied using the <code>traktok</code> package. It is not (yet?) available at CRAN, so we have to install it from Github, for which you first need to install the package <code>remotes</code>.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="further-resources.html#cb94-1" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
-<span id="cb94-2"><a href="further-resources.html#cb94-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;JBGruber/traktok&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="further-resources.html#cb93-1" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
+<span id="cb93-2"><a href="further-resources.html#cb93-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;JBGruber/traktok&quot;</span>)</span></code></pre></div>
 <p>TikTok has two APIs: the “Research API” aimed at researchers in Europe and the US, and the “unofficial” or “hidden” API which is what TikTok uses to function internatlly. Using the Research API requires approval from TikTok, which supposedly may take up to four weeks. In contrast, the unofficial API can be used without approval. More information on usage and research examples can be found at <a href="https://jbgruber.github.io/traktok/index.html" class="uri">https://jbgruber.github.io/traktok/index.html</a>.</p>
 </div>
 </div>
@@ -367,42 +366,42 @@ examples in Python and R. Somewhat communication science-oriented.</p></li>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-  "sharing": {
-    "github": false,
-    "facebook": true,
-    "twitter": true,
-    "linkedin": false,
-    "weibo": false,
-    "instapaper": false,
-    "vk": false,
-    "whatsapp": false,
-    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-  },
-  "fontsettings": {
-    "theme": "white",
-    "family": "sans",
-    "size": 2
-  },
-  "edit": {
-    "link": null,
-    "text": null
-  },
-  "history": {
-    "link": null,
-    "text": null
-  },
-  "view": {
-    "link": null,
-    "text": null
-  },
-  "download": null,
-  "search": {
-    "engine": "fuse",
-    "options": null
-  },
-  "toc": {
-    "collapse": "subsection"
-  }
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
 });
 });
 </script>
