@@ -217,8 +217,9 @@ get_petitions_list <- function(page_url) {
   signature_text <- html_text2(signature_nodes) # extract the signature counts as text
   sig_count <- as.integer(gsub(".", "", signature_text, fixed = TRUE)) # remove the thousands separator and convert to integers
 
-  
-  data.frame(title, link_url, sig_count) # return a dataframe with one row per petition
+  return(
+    data.frame(title, link_url, sig_count) # return a dataframe with one row per petition
+  )
 }
 
 ```

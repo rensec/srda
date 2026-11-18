@@ -472,9 +472,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb60-19"><a href="introduction-to-web-scraping-in-r.html#cb60-19" tabindex="-1"></a>  signature_text <span class="ot">&lt;-</span> <span class="fu">html_text2</span>(signature_nodes) <span class="co"># extract the signature counts as text</span></span>
 <span id="cb60-20"><a href="introduction-to-web-scraping-in-r.html#cb60-20" tabindex="-1"></a>  sig_count <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">gsub</span>(<span class="st">&quot;.&quot;</span>, <span class="st">&quot;&quot;</span>, signature_text, <span class="at">fixed =</span> <span class="cn">TRUE</span>)) <span class="co"># remove the thousands separator and convert to integers</span></span>
 <span id="cb60-21"><a href="introduction-to-web-scraping-in-r.html#cb60-21" tabindex="-1"></a></span>
-<span id="cb60-22"><a href="introduction-to-web-scraping-in-r.html#cb60-22" tabindex="-1"></a>  </span>
-<span id="cb60-23"><a href="introduction-to-web-scraping-in-r.html#cb60-23" tabindex="-1"></a>  <span class="fu">data.frame</span>(title, link_url, sig_count) <span class="co"># return a dataframe with one row per petition</span></span>
-<span id="cb60-24"><a href="introduction-to-web-scraping-in-r.html#cb60-24" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb60-22"><a href="introduction-to-web-scraping-in-r.html#cb60-22" tabindex="-1"></a>  <span class="fu">return</span>(</span>
+<span id="cb60-23"><a href="introduction-to-web-scraping-in-r.html#cb60-23" tabindex="-1"></a>    <span class="fu">data.frame</span>(title, link_url, sig_count) <span class="co"># return a dataframe with one row per petition</span></span>
+<span id="cb60-24"><a href="introduction-to-web-scraping-in-r.html#cb60-24" tabindex="-1"></a>  )</span>
+<span id="cb60-25"><a href="introduction-to-web-scraping-in-r.html#cb60-25" tabindex="-1"></a>}</span></code></pre></div>
 <p>If we run this code, nothing really happens yet: all it does is <em>define</em> the function. That is, we can now refer to this set of scraping instructions using the function <code>get_petitions_list()</code>, filling in the URL of the page that we want to scrape as “page_url”. All the code inside the function will then be applied to this page. Specifically, it does the following:</p>
 <ol style="list-style-type: decimal">
 <li><p>Download the source code of the page</p></li>
